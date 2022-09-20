@@ -1,6 +1,9 @@
+import './styles.css';
+
 import { AppProps } from 'next/app';
 import Head from 'next/head';
-import './styles.css';
+
+import { Header } from '@shopify/components';
 
 function CustomApp({ Component, pageProps }: AppProps) {
   return (
@@ -9,6 +12,7 @@ function CustomApp({ Component, pageProps }: AppProps) {
         <title>Welcome to home!</title>
       </Head>
       <main className="app">
+        <Header />
         <Component {...pageProps} />
       </main>
     </>
