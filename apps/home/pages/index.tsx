@@ -1,4 +1,5 @@
 import {
+  CategoriesList,
   Container,
   HeaderHero,
   Perks,
@@ -13,7 +14,7 @@ const products = [
     price: '$75',
     href: '#',
     imageSrc:
-      'https://tailwindui.com/img/ecommerce-images/home-page-04-trending-product-02.jpg',
+      'https://tailwindui.com/img/ecommerce-images/home-page-04-trending-product-01.jpg',
     imageAlt: 'Hand stitched, orange leather long wallet.',
   },
   {
@@ -33,7 +34,7 @@ const products = [
     price: '$75',
     href: '#',
     imageSrc:
-      'https://tailwindui.com/img/ecommerce-images/home-page-04-trending-product-02.jpg',
+      'https://tailwindui.com/img/ecommerce-images/home-page-04-trending-product-03.jpg',
     imageAlt: 'Hand stitched, orange leather long wallet.',
   },
   {
@@ -43,7 +44,7 @@ const products = [
     price: '$75',
     href: '#',
     imageSrc:
-      'https://tailwindui.com/img/ecommerce-images/home-page-04-trending-product-02.jpg',
+      'https://tailwindui.com/img/ecommerce-images/home-page-04-trending-product-04.jpg',
     imageAlt: 'Hand stitched, orange leather long wallet.',
   },
 ];
@@ -63,9 +64,19 @@ export function Index() {
         </Container>
       </section>
       <Perks />
-      <div>
-        Next
-      </div>
+      <section className="bg-neutral-100">
+        <Container>
+          <ProductList
+            title="Best Sellers"
+            moreText="Shop the collection"
+            products={products}
+          />
+        </Container>
+      </section>
+
+      <Container>
+        <CategoriesList />
+      </Container>
     </>
   );
 }

@@ -3,7 +3,10 @@ import './styles.css';
 import { AppProps } from 'next/app';
 import Head from 'next/head';
 
-import { Header } from '@shopify/components';
+import {
+  Footer,
+  Header,
+} from '@shopify/components';
 
 function CustomApp({ Component, pageProps }: AppProps) {
   return (
@@ -14,6 +17,7 @@ function CustomApp({ Component, pageProps }: AppProps) {
       <main className="app">
         <Header />
         <Component {...pageProps} />
+        <Footer />
       </main>
     </>
   );
