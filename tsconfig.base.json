@@ -15,7 +15,11 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@shopify/components": ["libs/components/src/index.ts"]
+      "@shopify/components": ["libs/components/src/index.ts"],
+      "@shopify/graphql-queries": ["libs/graphql-queries/src/index.ts"],
+      "@shopify/hooks": ["libs/hooks/src/index.ts"],
+      "@shopify/models": ["libs/models/src/index.ts"],
+      "@shopify/utilities": ["libs/utilities/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

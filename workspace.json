@@ -3,6 +3,10 @@
   "version": 2,
   "projects": {
     "components": "libs/components",
-    "home": "apps/home"
+    "graphql-queries": "libs/graphql-queries",
+    "home": "apps/home",
+    "hooks": "libs/hooks",
+    "models": "libs/models",
+    "utilities": "libs/utilities"
   }
 }
