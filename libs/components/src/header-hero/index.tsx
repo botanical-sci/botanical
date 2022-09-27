@@ -26,7 +26,7 @@ const HeaderHero = () => {
         </div>
       </div>
 
-      <div className="flex items-center space-x-6 lg:space-x-8 absolute opacity-10 md:relative lg:relative md:opacity-100 lg:opacity-100 -z-10 md:z-10 lg:z-10">
+      <div className="flex items-center space-x-6 lg:space-x-8 absolute opacity-10 md:relative lg:relative md:opacity-100 lg:opacity-100 -z-10 md:z-10 lg:z-10 overflow-hidden">
         <div className="flex-shrink-0 grid grid-cols-1 gap-y-6 lg:gap-y-8">
           <div className="w-44 h-64 rounded-lg overflow-hidden sm:opacity-0 lg:opacity-100">
             <Image

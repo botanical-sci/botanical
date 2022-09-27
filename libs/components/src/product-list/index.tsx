@@ -15,7 +15,7 @@ interface Props {
 
 const ProductList: FC<Props> = ({ title, moreText, moreUrl, products }) => {
   return (
-    <div className="max-w-2xl mx-auto py-8 px-4 sm:py-10 sm:px-6 lg:max-w-7xl lg:px-86">
+    <div className="max-w-2xl mx-auto py-8 sm:py-10 sm:px-6 lg:max-w-7xl lg:px-86">
       <div className="md:flex md:items-center md:justify-between">
         <h2 className="text-2xl font-extrabold tracking-tight text-gray-900">
           {title}
@@ -30,7 +30,7 @@ const ProductList: FC<Props> = ({ title, moreText, moreUrl, products }) => {
         </Link>
       </div>
 
-      <div className="mt-6 grid grid-cols-2 gap-x-4 gap-y-10 sm:gap-x-6 md:grid-cols-4 md:gap-y-0 lg:gap-x-8">
+      <div className="mt-6 grid grid-cols-2 gap-x-2 gap-y-2 xs:gap-y-1 sm:gap-x-6 md:grid-cols-4 md:gap-y-0 lg:gap-x-8">
         {products.nodes.map((product: any) => (
           <ProductCard key={product.id} product={product} />
         ))}
