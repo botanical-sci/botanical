@@ -25,12 +25,9 @@ const ProductCard: FC<Props> = ({ product }) => {
               className="w-full h-full object-center object-cover"
             />
           </div>
-          <div className='px-2 py-1'>
-            <h3
-              className="text-sm text-gray-700"
-              style={{ minHeight: 45 }}
-            >
-              {truncateString( product.title, 40)}
+          <div className="px-2 py-1">
+            <h3 className="text-sm text-gray-700" style={{ minHeight: 45 }}>
+              {truncateString(product.title, 40)}
             </h3>
             <div className="flex justify-between mt-2 items-center">
               <p className="mt-1 text-md font-medium text-gray-900">
@@ -41,7 +38,7 @@ const ProductCard: FC<Props> = ({ product }) => {
                 className="px-2 py-2 flex gap-2 items-center font-light text-xs border border-transparent rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none"
               >
                 <IconShoppingCartPlus size={16} />
-                <span className='hidden md:block lg:block'>Add to cart</span>
+                <span className="hidden md:block lg:block">Add to cart</span>
               </button>
             </div>
           </div>

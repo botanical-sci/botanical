@@ -19,6 +19,8 @@ import {
   XIcon,
 } from '@heroicons/react/outline';
 
+import PopupCart from '../popup-cart';
+
 const navigation = {
   categories: [
     {
@@ -155,18 +157,25 @@ function classNames(...classes: any) {
 
 export default function Header() {
   const [open, setOpen] = useState(false);
+  const [cartOpen, setCartOpen] = useState(false);
+
+  const handleDisplayCart = (e: any) => {
+    e.preventDefault();
+    setCartOpen(!cartOpen);
+  }
 
   return (
     <div className="bg-white">
+      <PopupCart isOpen={cartOpen} onCartClose={() => {setCartOpen(false)}} />
       {/* Mobile menu */}
       <Transition.Root show={open} as={Fragment}>
         <Dialog as="div" className="fixed inset-0 flex z-40" onClose={setOpen}>
           <Transition.Child
             as={Fragment}
-            enter="transition-opacity ease-linear duration-300"
+            enter="transition-opacity ease-linear duration-200"
             enterFrom="opacity-0"
             enterTo="opacity-100"
-            leave="transition-opacity ease-linear duration-300"
+            leave="transition-opacity ease-linear duration-200"
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
@@ -515,7 +524,7 @@ export default function Header() {
 
                 {/* Cart */}
                 <div className="ml-4 flow-root lg:ml-6">
-                  <a href="#" className="group -m-2 p-2 flex items-center">
+                  <a href="#" className="group -m-2 p-2 flex items-center" onClick={handleDisplayCart}>
                     <ShoppingBagIcon
                       className="flex-shrink-0 h-6 w-6 text-gray-400 group-hover:text-gray-500"
                       aria-hidden="true"

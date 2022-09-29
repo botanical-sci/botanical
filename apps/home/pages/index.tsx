@@ -1,62 +1,18 @@
 import { FC } from 'react';
 
 import {
-  CategoriesList,
   Container,
   HeaderHero,
   Perks,
   ProductList,
+  SelectedCategories,
+  Testimonials,
 } from '@shopify/components';
 import { homeStructureQuery } from '@shopify/graphql-queries';
 import { HomeBasicModel } from '@shopify/models';
 import { storefront } from '@shopify/utilities';
 
-const products = [
-  {
-    id: 1,
-    name: 'Leather Long Wallet',
-    color: 'Natural',
-    price: '$75',
-    href: '/product/leather-long-wallet',
-    imageSrc:
-      'https://tailwindui.com/img/ecommerce-images/home-page-04-trending-product-01.jpg',
-    imageAlt: 'Hand stitched, orange leather long wallet.',
-  },
-  {
-    id: 1,
-    name: 'Leather Long Wallet',
-    color: 'Natural',
-    price: '$75',
-    href: '/product/leather-long-wallet1',
-    imageSrc:
-      'https://tailwindui.com/img/ecommerce-images/home-page-04-trending-product-02.jpg',
-    imageAlt: 'Hand stitched, orange leather long wallet.',
-  },
-  {
-    id: 1,
-    name: 'Leather Long Wallet',
-    color: 'Natural',
-    price: '$75',
-    href: '/product/leather-long-wallet2',
-    imageSrc:
-      'https://tailwindui.com/img/ecommerce-images/home-page-04-trending-product-03.jpg',
-    imageAlt: 'Hand stitched, orange leather long wallet.',
-  },
-  {
-    id: 1,
-    name: 'Leather Long Wallet',
-    color: 'Natural',
-    price: '$75',
-    href: '/product/leather-long-wallet3',
-    imageSrc:
-      'https://tailwindui.com/img/ecommerce-images/home-page-04-trending-product-04.jpg',
-    imageAlt: 'Hand stitched, orange leather long wallet.',
-  },
-];
-
-
-const Index: FC<HomeBasicModel> = ({data}) => {
-  console.log(data);
+const Index: FC<HomeBasicModel> = ({ data }) => {
   return (
     <>
       <Container>
@@ -85,18 +41,24 @@ const Index: FC<HomeBasicModel> = ({data}) => {
       </section>
 
       <Container>
-        <CategoriesList />
+        <SelectedCategories />
       </Container>
+
+      <section className="bg-neutral-100">
+        <Container>
+          <Testimonials />
+        </Container>
+      </section>
     </>
   );
-}
+};
 
 export async function getStaticProps() {
   const { data } = await storefront<HomeBasicModel>(homeStructureQuery);
 
   return {
     props: {
-      data
+      data,
     },
   };
 }
