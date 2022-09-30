@@ -4,6 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 import { ProductModel } from '@shopify/models';
+import { useCartStore } from '@shopify/state';
 import { truncateString } from '@shopify/utilities';
 import { IconShoppingCartPlus } from '@tabler/icons';
 
@@ -12,6 +13,21 @@ interface Props {
 }
 
 const ProductCard: FC<Props> = ({ product }) => {
+  const useCart = useCartStore();
+
+  const handleAddToCart = (e: any) => {
+    e.preventDefault();
+    e.stopPropagation();
+    useCart.addItem({
+      id: product.id,
+      handle: product.handle,
+      image: product.featuredImage.url,
+      price: product.priceRange.maxVariantPrice.amount,
+      qty: 1,
+      title: product.title
+    })
+  }
+
   return (
     <div className="group relative rounded-md block">
       <Link href={`/product/${product.handle}`}>
@@ -35,6 +51,7 @@ const ProductCard: FC<Props> = ({ product }) => {
               </p>
               <button
                 type="button"
+                onClick={handleAddToCart}
                 className="px-2 py-2 flex gap-2 items-center font-light text-xs border border-transparent rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none"
               >
                 <IconShoppingCartPlus size={16} />

@@ -19,6 +19,7 @@
       "@shopify/graphql-queries": ["libs/graphql-queries/src/index.ts"],
       "@shopify/hooks": ["libs/hooks/src/index.ts"],
       "@shopify/models": ["libs/models/src/index.ts"],
+      "@shopify/state": ["libs/state/src/index.ts"],
       "@shopify/utilities": ["libs/utilities/src/index.ts"]
     }
   },

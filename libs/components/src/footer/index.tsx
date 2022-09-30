@@ -61,7 +61,7 @@ const navigation = {
         <svg fill="currentColor" viewBox="0 0 18 24" {...props}>
           <path
             fill="currentColor"
-            fill-rule="evenodd"
+            fillRule="evenodd"
             d="M18 .5H2c-1.103 0-2 .897-2 2v9c0 1.103.897 2 2 2h16c1.103 0 2-.897 2-2v-9c0-1.103-.897-2-2-2zm-1.887 2L10 6.32 3.887 2.5h12.226zM2 11.5V3.679l7.47 4.669a1.002 1.002 0 0 0 1.06 0L18 3.678l.001 7.822H2z"
           ></path>
         </svg>
@@ -224,9 +224,8 @@ const Footer = () => {
                   </h3>
                   <ul role="list" className="mt-4 space-y-4">
                     {navigation.social.map((item) => (
-                      <li className="mt-2">
+                      <li className="mt-2" key={item.name}>
                         <a
-                          key={item.name}
                           href={item.href}
                           className="text-gray-400 hover:text-gray-500"
                         >
@@ -425,12 +424,12 @@ const Footer = () => {
                       y2="9.104"
                       gradientUnits="userSpaceOnUse"
                     >
-                      <stop stop-color="#F89F20"></stop>
-                      <stop offset=".25" stop-color="#F79A20"></stop>
-                      <stop offset=".533" stop-color="#F68D20"></stop>
-                      <stop offset=".62" stop-color="#F58720"></stop>
-                      <stop offset=".723" stop-color="#F48120"></stop>
-                      <stop offset="1" stop-color="#F37521"></stop>
+                      <stop stopColor="#F89F20"></stop>
+                      <stop offset=".25" stopColor="#F79A20"></stop>
+                      <stop offset=".533" stopColor="#F68D20"></stop>
+                      <stop offset=".62" stopColor="#F58720"></stop>
+                      <stop offset=".723" stopColor="#F48120"></stop>
+                      <stop offset="1" stopColor="#F37521"></stop>
                     </linearGradient>
                     <linearGradient
                       id="pi-paint1_linear"
@@ -440,10 +439,10 @@ const Footer = () => {
                       y2="6.446"
                       gradientUnits="userSpaceOnUse"
                     >
-                      <stop stop-color="#F58720"></stop>
-                      <stop offset=".359" stop-color="#E16F27"></stop>
-                      <stop offset=".703" stop-color="#D4602C"></stop>
-                      <stop offset=".982" stop-color="#D05B2E"></stop>
+                      <stop stopColor="#F58720"></stop>
+                      <stop offset=".359" stopColor="#E16F27"></stop>
+                      <stop offset=".703" stopColor="#D4602C"></stop>
+                      <stop offset=".982" stopColor="#D05B2E"></stop>
                     </linearGradient>
                   </defs>
                 </svg>
@@ -492,10 +491,10 @@ const Footer = () => {
                       y2="13.019"
                       gradientUnits="userSpaceOnUse"
                     >
-                      <stop stop-color="#0064E1"></stop>
-                      <stop offset=".4" stop-color="#0064E1"></stop>
-                      <stop offset=".83" stop-color="#0073EE"></stop>
-                      <stop offset="1" stop-color="#0082FB"></stop>
+                      <stop stopColor="#0064E1"></stop>
+                      <stop offset=".4" stopColor="#0064E1"></stop>
+                      <stop offset=".83" stopColor="#0073EE"></stop>
+                      <stop offset="1" stopColor="#0082FB"></stop>
                     </linearGradient>
                     <linearGradient
                       id="pi-paint1_linear_1164_3"
@@ -505,8 +504,8 @@ const Footer = () => {
                       y2="11.089"
                       gradientUnits="userSpaceOnUse"
                     >
-                      <stop stop-color="#0082FB"></stop>
-                      <stop offset="1" stop-color="#0064E0"></stop>
+                      <stop stopColor="#0082FB"></stop>
+                      <stop offset="1" stopColor="#0064E0"></stop>
                     </linearGradient>
                   </defs>
                 </svg>
@@ -640,7 +639,7 @@ const Footer = () => {
                   aria-labelledby="pi-venmo"
                 >
                   <title id="pi-venmo">Venmo</title>
-                  <g fill="none" fill-rule="evenodd">
+                  <g fill="none" fillRule="evenodd">
                     <rect
                       fillOpacity=".07"
                       fill="#000"
@@ -655,7 +654,7 @@ const Footer = () => {
                     <path
                       d="M24.675 8.36c0 3.064-2.557 7.045-4.633 9.84h-4.74L13.4 6.57l4.151-.402 1.005 8.275c.94-1.566 2.099-4.025 2.099-5.702 0-.918-.154-1.543-.394-2.058l3.78-.783c.437.738.634 1.499.634 2.46z"
                       fill="#FFF"
-                      fill-rule="nonzero"
+                      fillRule="nonzero"
                     ></path>
                   </g>
                 </svg>

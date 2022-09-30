@@ -12,34 +12,8 @@ import {
   Transition,
 } from '@headlessui/react';
 import { XIcon } from '@heroicons/react/outline';
-
-const products = [
-  {
-    id: 1,
-    name: 'Throwback Hip Bag',
-    href: '#',
-    color: 'Salmon',
-    price: '$90.00',
-    quantity: 1,
-    imageSrc:
-      'https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-01.jpg',
-    imageAlt:
-      'Salmon orange fabric pouch with match zipper, gray zipper pull, and adjustable hip belt.',
-  },
-  {
-    id: 2,
-    name: 'Medium Stuff Satchel',
-    href: '#',
-    color: 'Blue',
-    price: '$32.00',
-    quantity: 1,
-    imageSrc:
-      'https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-02.jpg',
-    imageAlt:
-      'Front of satchel with blue canvas body, black straps and handle, drawstring top, and front zipper pouch.',
-  },
-  // More products...
-];
+import { useCartStore } from '@shopify/state';
+import { IconShoppingCartOff } from '@tabler/icons';
 
 interface Props {
   isOpen: boolean;
@@ -48,10 +22,17 @@ interface Props {
 
 const PopupCart: FC<Props> = ({ isOpen, onCartClose }) => {
   const [open, setOpen] = useState(isOpen);
+  const cartStore = useCartStore();
 
   useEffect(() => {
     setOpen(isOpen);
   }, [isOpen]);
+
+  const handleRemoveProduct = (e: any, id: string) => {
+    e.preventDefault();
+    e.stopPropagation();
+    cartStore.removeItem(id);
+  };
 
   return (
     <Transition.Root show={open} as={Fragment}>
@@ -108,12 +89,20 @@ const PopupCart: FC<Props> = ({ isOpen, onCartClose }) => {
                     <div className="mt-8">
                       <div className="flow-root">
                         <ul className="-my-6 divide-y divide-gray-200">
-                          {products.map((product) => (
+                          {cartStore.items.length === 0 && (
+                            <div className="mt-20 flex items-center flex-col">
+                              <IconShoppingCartOff size={60} color="#5046e5" />
+                              <p className="text-2xl mt-4">
+                                Your cart is empty
+                              </p>
+                            </div>
+                          )}
+                          {cartStore.items.map((product) => (
                             <li key={product.id} className="py-6 flex">
                               <div className="flex-shrink-0 w-24 h-24 border border-gray-200 rounded-md overflow-hidden">
                                 <img
-                                  src={product.imageSrc}
-                                  alt={product.imageAlt}
+                                  src={product.image}
+                                  alt={product.title}
                                   className="w-full h-full object-center object-cover"
                                 />
                               </div>
@@ -122,21 +111,23 @@ const PopupCart: FC<Props> = ({ isOpen, onCartClose }) => {
                                 <div>
                                   <div className="flex justify-between text-base font-medium text-gray-900">
                                     <h3>
-                                      <a href={product.href}>{product.name}</a>
+                                      <a href={product.handle}>
+                                        {product.title}
+                                      </a>
                                     </h3>
-                                    <p className="ml-4">{product.price}</p>
+                                    <p className="ml-4">${product.price}</p>
                                   </div>
-                                  <p className="mt-1 text-sm text-gray-500">
-                                    {product.color}
-                                  </p>
                                 </div>
                                 <div className="flex-1 flex items-end justify-between text-sm">
                                   <p className="text-gray-500">
-                                    Qty {product.quantity}
+                                    Qty {product.qty}
                                   </p>
 
                                   <div className="flex">
                                     <button
+                                      onClick={(e) => {
+                                        handleRemoveProduct(e, product.id);
+                                      }}
                                       type="button"
                                       className="font-medium text-indigo-600 hover:text-indigo-500"
                                     >
@@ -155,7 +146,7 @@ const PopupCart: FC<Props> = ({ isOpen, onCartClose }) => {
                   <div className="border-t border-gray-200 py-6 px-4 sm:px-6">
                     <div className="flex justify-between text-base font-medium text-gray-900">
                       <p>Subtotal</p>
-                      <p>$262.00</p>
+                      <p>${cartStore.subtotal()}</p>
                     </div>
                     <p className="mt-0.5 text-sm text-gray-500">
                       Shipping and taxes calculated at checkout.

@@ -1,5 +1,6 @@
 import {
   Fragment,
+  useEffect,
   useState,
 } from 'react';
 
@@ -18,6 +19,7 @@ import {
   ShoppingBagIcon,
   XIcon,
 } from '@heroicons/react/outline';
+import { useCartStore } from '@shopify/state';
 
 import PopupCart from '../popup-cart';
 
@@ -158,15 +160,29 @@ function classNames(...classes: any) {
 export default function Header() {
   const [open, setOpen] = useState(false);
   const [cartOpen, setCartOpen] = useState(false);
+  const cartStore = useCartStore();
 
   const handleDisplayCart = (e: any) => {
     e.preventDefault();
     setCartOpen(!cartOpen);
-  }
+  };
+
+  useEffect(() => {
+    const cartInitialData = localStorage.getItem("user_cart");
+
+    if (cartInitialData){
+      cartStore.initiate(JSON.parse(cartInitialData));
+    }
+  }, [])
 
   return (
-    <div className="bg-white">
-      <PopupCart isOpen={cartOpen} onCartClose={() => {setCartOpen(false)}} />
+    <div className="bg-white sticky top-0 z-50">
+      <PopupCart
+        isOpen={cartOpen}
+        onCartClose={() => {
+          setCartOpen(false);
+        }}
+      />
       {/* Mobile menu */}
       <Transition.Root show={open} as={Fragment}>
         <Dialog as="div" className="fixed inset-0 flex z-40" onClose={setOpen}>
@@ -207,6 +223,7 @@ export default function Header() {
               <Tab.Group as="div" className="mt-2">
                 <div className="border-b border-gray-200">
                   <Tab.List className="-mb-px flex px-4 space-x-8">
+                    []
                     {navigation.categories.map((category) => (
                       <Tab
                         key={category.name}
@@ -369,7 +386,6 @@ export default function Header() {
                         <>
                           <div className="relative flex">
                             <Popover.Button
-
                               className={classNames(
                                 open
                                   ? 'border-indigo-600 text-indigo-600'
@@ -524,13 +540,17 @@ export default function Header() {
 
                 {/* Cart */}
                 <div className="ml-4 flow-root lg:ml-6">
-                  <a href="#" className="group -m-2 p-2 flex items-center" onClick={handleDisplayCart}>
+                  <a
+                    href="#"
+                    className="group -m-2 p-2 flex items-center"
+                    onClick={handleDisplayCart}
+                  >
                     <ShoppingBagIcon
                       className="flex-shrink-0 h-6 w-6 text-gray-400 group-hover:text-gray-500"
                       aria-hidden="true"
                     />
                     <span className="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">
-                      0
+                      {cartStore.items.length}
                     </span>
                     <span className="sr-only">items in cart, view bag</span>
                   </a>
