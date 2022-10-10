@@ -12,6 +12,7 @@ module.exports = {
   ],
   theme: {
     extend: {
+      fontFamily: { sans: ['slate', 'sans-serif'] },
       colors: {
         botanical: '#1d2349',
       },

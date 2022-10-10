@@ -49,7 +49,7 @@ const Testimonials: FC = () => {
           {testimonials.map((testimonial) => (
             <blockquote
               key={testimonial.id}
-              className=" border-2 p-4 sm:flex flex justify-between flex-col"
+              className=" border-2 p-4 sm:flex flex justify-center items-center flex-col"
             >
               <svg
                 width={24}
@@ -57,20 +57,20 @@ const Testimonials: FC = () => {
                 viewBox="0 0 24 18"
                 xmlns="http://www.w3.org/2000/svg"
                 aria-hidden="true"
-                className="flex-shrink-0 text-gray-300 mb-8"
+                className="flex-shrink-0 text-gray-700 mb-8 margin-auto"
               >
                 <path
                   d="M0 18h8.7v-5.555c-.024-3.906 1.113-6.841 2.892-9.68L6.452 0C3.188 2.644-.026 7.86 0 12.469V18zm12.408 0h8.7v-5.555C21.083 8.539 22.22 5.604 24 2.765L18.859 0c-3.263 2.644-6.476 7.86-6.451 12.469V18z"
                   fill="currentColor"
                 />
               </svg>
-              <div className="sm:flex flex justify-between flex-col flex-1">
-                <p className="text-lg text-gray-600">{testimonial.quote}</p>
+              <div className="sm:flex flex justify-between flex-col flex-1 text-center">
+                <p className=" text-gray-600 font-light text-md">{testimonial.quote}</p>
                 <div className="flex justify-between flex-col">
-                  <cite className="mt-4 block font-semibold not-italic text-gray-900">
+                  <cite className="mt-4 block font-light text-sm text-gray-900">
                     {testimonial.attribution}
                   </cite>
-                  <cite className="block font-semibold not-italic text-gray-900">
+                  <cite className="block font-light text-sm text-gray-700">
                     {testimonial.role}
                   </cite>
                 </div>

@@ -1,3 +1,66 @@
+@font-face {
+  font-family: Slate;
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+  src: url(https://fonts.shopifycdn.com/slate/slate_n3.a2bfe209cc89a5cc1db1069d4736d296cfc9f3ea.woff2?h1=Ym90YW5pY2Fsc2tpbnNjaWVuY2UuY29t&h2=Ym90YW5pY2Fsc2tpbnNjaWVuY2UuYXBw&hmac=fb0c847bfb245b747ab2ff9117f50d58243190e25feaab8d8cc2cda3e7abb717) format("woff2"),url(https://fonts.shopifycdn.com/slate/slate_n3.11d709bbf5a4175913436a16c78dae9f507df984.woff?h1=Ym90YW5pY2Fsc2tpbnNjaWVuY2UuY29t&h2=Ym90YW5pY2Fsc2tpbnNjaWVuY2UuYXBw&hmac=46111556350613dfd724abe5559e55b0d8c6dc6b08d9ccc7b4c7bff780bc0ce4) format("woff")
+}
+
+@font-face {
+  font-family: Slate;
+  font-weight: 300;
+  font-style: italic;
+  font-display: swap;
+  src: url(https://fonts.shopifycdn.com/slate/slate_i3.35c09439232af198b4df8caa1c9a4f2b098b5646.woff2?h1=Ym90YW5pY2Fsc2tpbnNjaWVuY2UuY29t&h2=Ym90YW5pY2Fsc2tpbnNjaWVuY2UuYXBw&hmac=1f9b944a94a1ac62dd795357773a53e02e3fc85aa4fb843a74a62c17576e6210) format("woff2"),url(https://fonts.shopifycdn.com/slate/slate_i3.70a30afc7aacf26c578c3e32b1e9a79b514d26d5.woff?h1=Ym90YW5pY2Fsc2tpbnNjaWVuY2UuY29t&h2=Ym90YW5pY2Fsc2tpbnNjaWVuY2UuYXBw&hmac=9f29a60c0f3a43d0fb8a1c036b7e859ffe54840af2b9b80db7efe2a3dd819274) format("woff")
+}
+
+@font-face {
+  font-family: Slate;
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  src: url(https://fonts.shopifycdn.com/slate/slate_n4.faa35720632c2e0584b79394c950a1330379d438.woff2?h1=Ym90YW5pY2Fsc2tpbnNjaWVuY2UuY29t&h2=Ym90YW5pY2Fsc2tpbnNjaWVuY2UuYXBw&hmac=4fb52b6d939870d236727fbd28b81a8efbaa72a553d4ffa265d91b88e3a9c1bc) format("woff2"),url(https://fonts.shopifycdn.com/slate/slate_n4.39937dd01f008e721ee0d671d98c76d5486c4fe2.woff?h1=Ym90YW5pY2Fsc2tpbnNjaWVuY2UuY29t&h2=Ym90YW5pY2Fsc2tpbnNjaWVuY2UuYXBw&hmac=0cf11217dded127b1b87922485313c56bad4f2f1e842e4a5941cae3817dac234) format("woff")
+}
+
+@font-face {
+  font-family: Slate;
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+  src: url(https://fonts.shopifycdn.com/slate/slate_i4.92c270cab6020b468d822f033bafa8e4f679dec5.woff2?h1=Ym90YW5pY2Fsc2tpbnNjaWVuY2UuY29t&h2=Ym90YW5pY2Fsc2tpbnNjaWVuY2UuYXBw&hmac=b14c675de3c6fe81ae7a700db8ed66a9254f834d63fa03fdaf2341a426391160) format("woff2"),url(https://fonts.shopifycdn.com/slate/slate_i4.ec2f912a0970fed2874fda8d8d3af7d91df6df66.woff?h1=Ym90YW5pY2Fsc2tpbnNjaWVuY2UuY29t&h2=Ym90YW5pY2Fsc2tpbnNjaWVuY2UuYXBw&hmac=a36f62fec04919ac9223770c88d04f803a3e0ece7b015003d9891b089d74f04b) format("woff")
+}
+
+@font-face {
+  font-family: Slate;
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+  src: url(https://fonts.shopifycdn.com/slate/slate_n7.44dd0ad8af665e8eb61c329806c8f1fb23216de5.woff2?h1=Ym90YW5pY2Fsc2tpbnNjaWVuY2UuY29t&h2=Ym90YW5pY2Fsc2tpbnNjaWVuY2UuYXBw&hmac=1ce6b092a0ed1e2f21c45dcd0cdba04f7b5cb830f0fd16e366bd25dc9382a14b) format("woff2"),url(https://fonts.shopifycdn.com/slate/slate_n7.cbed0054b50c5df7cfdad012cfa08f2e74972e87.woff?h1=Ym90YW5pY2Fsc2tpbnNjaWVuY2UuY29t&h2=Ym90YW5pY2Fsc2tpbnNjaWVuY2UuYXBw&hmac=266df4485270355d70b3041d407b2027a20a6a22ae75dec7d3a5737e513b4779) format("woff")
+}
+
+@font-face {
+  font-family: Slate;
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+  src: url(https://fonts.shopifycdn.com/slate/slate_i7.aa42ffb250ded5368f621c28745bf015f5786d98.woff2?h1=Ym90YW5pY2Fsc2tpbnNjaWVuY2UuY29t&h2=Ym90YW5pY2Fsc2tpbnNjaWVuY2UuYXBw&hmac=aa5306c871ecf198cd4ac13135e1825283228991a29ff7df1696082f1af3a36e) format("woff2"),url(https://fonts.shopifycdn.com/slate/slate_i7.6c511ee07d0f6186c306c79850e429eb496386d4.woff?h1=Ym90YW5pY2Fsc2tpbnNjaWVuY2UuY29t&h2=Ym90YW5pY2Fsc2tpbnNjaWVuY2UuYXBw&hmac=7aaca11e3c60dadaf8ae7d391016d3212888d901c088c5cff8fbf6df5c967911) format("woff")
+}
+
+@font-face {
+  font-family: Slate;
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
+  src: url(https://fonts.shopifycdn.com/slate/slate_n2.6938b26d0842012527f8ebdeae2c8a6d8c4c7f33.woff2?h1=Ym90YW5pY2Fsc2tpbnNjaWVuY2UuY29t&h2=Ym90YW5pY2Fsc2tpbnNjaWVuY2UuYXBw&hmac=0c83c7c4ac32d085cf4ecd33be628ccac4d1728f797b8944311201199bc84f80) format("woff2"),url(https://fonts.shopifycdn.com/slate/slate_n2.88f5964c512eb93a41751495ba3f975d44414106.woff?h1=Ym90YW5pY2Fsc2tpbnNjaWVuY2UuY29t&h2=Ym90YW5pY2Fsc2tpbnNjaWVuY2UuYXBw&hmac=597b372a91f89bdee0212f5e9d759c5212660258a3269ff610af0774db1be3de) format("woff")
+}
+
+@font-face {
+  font-family: Slate;
+  font-weight: 200;
+  font-style: italic;
+  font-display: swap;
+  src: url(https://fonts.shopifycdn.com/slate/slate_i2.43e931ade9797bb754cacad6f0253e1196be688c.woff2?h1=Ym90YW5pY2Fsc2tpbnNjaWVuY2UuY29t&h2=Ym90YW5pY2Fsc2tpbnNjaWVuY2UuYXBw&hmac=20fdc819bba71439c2b6f44fbeb58a85406b5d7a852a2c01d6d2e3a67c017b9c) format("woff2"),url(https://fonts.shopifycdn.com/slate/slate_i2.ce3aed1818e3ff367ffcf2c5835e95004bdfc4dc.woff?h1=Ym90YW5pY2Fsc2tpbnNjaWVuY2UuY29t&h2=Ym90YW5pY2Fsc2tpbnNjaWVuY2UuYXBw&hmac=77114ce99cdafabc72ac72ae952a9ccbe4f68cdf1183727d48ae70aea9bcedcf) format("woff")
+}
 @tailwind components;
 @tailwind base;
 @tailwind utilities;
