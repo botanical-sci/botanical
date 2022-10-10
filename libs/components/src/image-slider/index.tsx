@@ -77,31 +77,63 @@ function Arrow(props: {
 const ImageSlider: FC = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [loaded, setLoaded] = useState(false);
-  const [sliderRef, instanceRef] = useKeenSlider({
-    initial: 0,
-    loop: true,
-    slideChanged(slider) {
-      setCurrentSlide(slider.track.details.rel);
+  const [sliderRef, instanceRef] = useKeenSlider(
+    {
+      initial: 0,
+      loop: true,
+      slideChanged(slider) {
+        setCurrentSlide(slider.track.details.rel);
+      },
+      created() {
+        setLoaded(true);
+      },
     },
-    created() {
-      setLoaded(true);
-    },
-  });
+    [
+      (slider) => {
+        const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+        if (!isMobile) return;
+
+        let timeout: any;
+        let mouseOver = false;
+        function clearNextTimeout() {
+          clearTimeout(timeout);
+        }
+        function nextTimeout() {
+          clearTimeout(timeout);
+          if (mouseOver) return;
+          timeout = setTimeout(() => {
+            slider.next();
+          }, 3000);
+        }
+        slider.on('created', () => {
+          slider.container.addEventListener('mouseover', () => {
+            mouseOver = true;
+            clearNextTimeout();
+          });
+          slider.container.addEventListener('mouseout', () => {
+            mouseOver = false;
+            nextTimeout();
+          });
+          nextTimeout();
+        });
+        slider.on('dragStarted', clearNextTimeout);
+        slider.on('animationEnded', nextTimeout);
+        slider.on('updated', nextTimeout);
+      },
+    ]
+  );
 
   const renderSlide = (slide: Slide) => (
     <figure
       key={slide.id}
-      className="keen-slider__slide rounded-md relative overflow-hidden"
+      className="keen-slider__slide  rounded-none md:rounded-md lg:rounded-md relative overflow-hidden"
     >
-      <Image
-        style={{ width: '100%', height: '100%' }}
-        fill
-        src={slide.image}
-        alt={slide.title}
-      />
-      <figcaption className="absolute top-0 left-0 bottom-0 right-0 m-auto flex justify-center items-center flex-col gap-10">
+      <div className="relative  h-200 md:h-460 lg:h-460">
+        <Image fill src={slide.image} alt={slide.title} />
+      </div>
+      <figcaption className="relative md:absolute lg:absolute top-0 left-0 bottom-0 right-0 m-auto flex justify-center items-center flex-col my-10 lg:my-0 md:my-0 gap-3 md:gap-10 lg:gap-10">
         <h5
-          className="font-light spacing text-5xl tracking-widest"
+          className="font-light spacing text-2xl md:text-5xl lg:text-5xl tracking-widest"
           style={{ color: slide.textColor }}
         >
           {slide.title}
@@ -116,12 +148,12 @@ const ImageSlider: FC = () => {
   );
 
   return (
-    <div className="max-w-2xl mx-auto py-8 sm:py-10 sm:px-6 lg:max-w-7xl lg:px-86 relative rounded-md overflow-hidden">
-      <div ref={sliderRef} className="keen-slider " style={{ minHeight: 460 }}>
+    <div className="mx-auto my-0 lg:my-10 md:my-10 lg:max-w-7xl relative rounded-none md:rounded-md lg:rounded-md">
+      <div ref={sliderRef} className="keen-slider">
         {data.map((img) => renderSlide(img))}
       </div>
       {loaded && instanceRef.current && (
-        <>
+        <div className="hidden md:block lg:block">
           <Arrow
             left
             onClick={(e: any) =>
@@ -139,10 +171,10 @@ const ImageSlider: FC = () => {
               instanceRef.current?.track?.details?.slides.length - 1
             }
           />
-        </>
+        </div>
       )}
       {loaded && instanceRef.current && (
-        <div className='absolute b-0 right-0 left-0 m-auto flex justify-center'>
+        <div className="absolute b-0 right-0 left-0 m-auto justify-center hidden md:flex lg:flex">
           <div className="dots flex gap-2 -mt-10">
             {[...Array(data.length).keys()].map((idx) => {
               return (

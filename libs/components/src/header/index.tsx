@@ -50,7 +50,7 @@ const Header: FC<Props> = ({ menu }: Props) => {
   }, []);
 
   return (
-    <div className="bg-white sticky top-0 z-50">
+    <div className="bg-white sticky top-0 z-40">
       <PopupCart
         isOpen={cartOpen}
         onCartClose={() => {
@@ -59,7 +59,7 @@ const Header: FC<Props> = ({ menu }: Props) => {
       />
       {/* Mobile menu */}
       <Transition.Root show={open} as={Fragment}>
-        <Dialog as="div" className="fixed inset-0 flex z-40" onClose={setOpen}>
+        <Dialog as="div" className="fixed inset-0 flex z-50" onClose={setOpen}>
           <Transition.Child
             as={Fragment}
             enter="transition-opacity ease-linear duration-200"
@@ -82,27 +82,44 @@ const Header: FC<Props> = ({ menu }: Props) => {
             leaveTo="-translate-x-full"
           >
             <div className="relative max-w-xs w-full bg-white shadow-xl pb-12 flex flex-col overflow-y-auto">
-              <div className="px-4 pt-5 pb-2 flex">
-                <button
-                  type="button"
-                  className="-m-2 p-2 rounded-md inline-flex items-center justify-center text-gray-400"
-                  onClick={() => setOpen(false)}
-                >
-                  <span className="sr-only">Close menu</span>
-                  <XIcon className="h-6 w-6" aria-hidden="true" />
-                </button>
+              <div className="px-4 pt-5 pb-5 mb-5 border-stone-200 border-b flex justify-between">
+
+                <Link href="/">
+                  <a>
+                    <span className="sr-only">botanical skin science</span>
+                    <Image
+                      width={100}
+                      height={40}
+                      priority={true}
+                      className="h-8 w-auto"
+                      src="/images/logo-top.png"
+                      alt="botanical skin science"
+                    />
+                  </a>
+                </Link>
+                <div>
+                  <button
+                    type="button"
+                    className="-m-2 p-2 rounded-md inline-flex items-center justify-center text-gray-400"
+                    onClick={() => setOpen(false)}
+                  >
+                    <span className="sr-only">Close menu</span>
+                    <XIcon className="h-6 w-6" aria-hidden="true" />
+                  </button>
+                </div>
               </div>
 
-              {menu?.map((category) => (
-                <li
-                  key={category.title}
-                  className={classNames(
-                    'flex-1 whitespace-nowrap py-4 px-1 border-b-2 text-base font-medium'
-                  )}
-                >
-                  {category.title}
-                </li>
-              ))}
+              <ul className="flex flex-col gap-5 ml-4 mb-5 md:hidden lg:hidden">
+                {menu?.map((category) => (
+                  <a
+                    href="/"
+                    key={category.title}
+                    className="text-sm group relative"
+                  >
+                    {category.title}
+                  </a>
+                ))}
+              </ul>
 
               <div className="border-t border-gray-200 py-6 px-4 space-y-6">
                 <div className="flow-root">
@@ -161,24 +178,25 @@ const Header: FC<Props> = ({ menu }: Props) => {
                 </Link>
               </div>
 
-              <ul className='flex gap-5 ml-7'>
+              <ul className="hidden gap-5 ml-7 lg:flex md:flex">
                 {menu?.map((category) => (
                   <a
                     href="/"
                     key={category.title}
-                    className='text-sm group relative'
+                    className="text-sm group relative"
                   >
                     {category.title}
 
                     {category.items && category.items.length > 0 && (
-                      <ul className='hidden group-hover:flex gap-3 flex-col absolute z-50 shadow-md bg-white p-3 rounded-md' style={{minWidth: 250}}>
+                      <ul
+                        className="hidden group-hover:flex gap-3 flex-col absolute z-50 shadow-md bg-white p-3 rounded-md"
+                        style={{ minWidth: 250 }}
+                      >
                         {category.items.map((i) => (
                           <a
                             href={`${i.resourceId}`}
                             key={i.title}
-                            className={classNames(
-                              ' text-sm'
-                            )}
+                            className={classNames(' text-sm')}
                           >
                             {i.title}
                           </a>

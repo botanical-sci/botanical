@@ -12,6 +12,10 @@ module.exports = {
   ],
   theme: {
     extend: {
+      spacing: {
+        460: '460px',
+        200: '200px',
+      },
       fontFamily: { sans: ['slate', 'sans-serif'] },
       colors: {
         botanical: '#1d2349',

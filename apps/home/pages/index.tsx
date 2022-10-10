@@ -18,12 +18,12 @@ const Index: FC<HomeBasicModel> = ({ data }) => {
     <>
       <Header menu={data.menu.items} />
 
-      <Container>
+      <Container paddingOnDesktop={true}>
         <ImageSlider />
       </Container>
 
       <section className="bg-neutral-100">
-        <Container>
+        <Container paddingOnDesktop={false}>
           <ProductList
             title={data.trendingProducts.title}
             moreText="Shop the collection"
@@ -34,7 +34,7 @@ const Index: FC<HomeBasicModel> = ({ data }) => {
       </section>
       <Perks />
       <section className="bg-neutral-100">
-        <Container>
+        <Container paddingOnDesktop={false}>
           <ProductList
             title={data.bestSellersProducts.title}
             moreText="Shop the collection"
@@ -44,12 +44,12 @@ const Index: FC<HomeBasicModel> = ({ data }) => {
         </Container>
       </section>
 
-      <Container>
+      <Container paddingOnDesktop={false}>
         <SelectedCategories />
       </Container>
 
       <section className="bg-neutral-100">
-        <Container>
+        <Container paddingOnDesktop={false}>
           <Testimonials />
         </Container>
       </section>
