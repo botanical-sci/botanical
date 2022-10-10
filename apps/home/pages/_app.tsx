@@ -5,19 +5,15 @@ import { AppProps } from 'next/app';
 import Head from 'next/head';
 import { Toaster } from 'react-hot-toast';
 
-import {
-  Footer,
-  Header,
-} from '@shopify/components';
+import { Footer } from '@shopify/components';
 
 function CustomApp({ Component, pageProps }: AppProps) {
   return (
     <>
       <Head>
-        <title>Welcome to home!</title>
+        <title>Botanical Skin Science</title>
       </Head>
       <main className="app">
-        <Header />
         <Component {...pageProps} />
         <Footer />
         <Toaster position="bottom-center" reverseOrder={false} toastOptions={{duration: 5000}} />

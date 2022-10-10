@@ -31,7 +31,7 @@ const ProductCard: FC<Props> = ({ product }) => {
   return (
     <div className="group relative rounded-md block">
       <Link href={`/product/${product.handle}`}>
-        <a className="relative rounded-md block border border-transparent p-1 group-hover:-translate-y-2 group-hover:border-indigo-200 transition-all duration-300 ">
+        <a className="relative rounded-md block border border-transparent p-1 lg:group-hover:-translate-y-2 md:group-hover:-translate-y-2 lg:group-hover:border-indigo-200 md:group-hover:border-indigo-200 transition-all duration-300">
           <div className="w-full overflow-hidden relative lg:h-72 xl:h-80 ">
             <Image
               width={278}
@@ -43,7 +43,7 @@ const ProductCard: FC<Props> = ({ product }) => {
           </div>
           <div className="pt-1">
             <h3 className="text-sm text-gray-700" style={{ minHeight: 45 }}>
-              {truncateString(product.title, 40)}
+              {truncateString(product.title, 55)}
             </h3>
             <div className="flex justify-between mt-2 items-center">
               <p className="mt-1 text-md font-medium text-gray-900">

@@ -2,6 +2,7 @@ import { FC } from 'react';
 
 import {
   Container,
+  Header,
   ImageSlider,
   Perks,
   ProductList,
@@ -15,9 +16,12 @@ import { storefront } from '@shopify/utilities';
 const Index: FC<HomeBasicModel> = ({ data }) => {
   return (
     <>
+      <Header menu={data.menu.items} />
+
       <Container>
         <ImageSlider />
       </Container>
+
       <section className="bg-neutral-100">
         <Container>
           <ProductList

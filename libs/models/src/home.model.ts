@@ -1,20 +1,10 @@
 import { CollectionModel } from './collections.model';
-
-export interface MenuItemModel {
-  title: string;
-  type: '';
-  resourceId: 'string';
-  items: MenuItemModel[];
-}
-
-export interface MenuModel {
-  items: MenuItemModel[];
-}
+import { MenuModel } from './menu.model';
 
 export interface HomeBasicModel {
   data: {
     trendingProducts: CollectionModel;
     bestSellersProducts: CollectionModel;
-    menu: MenuModel;
+    menu: { items: MenuModel[] };
   };
 }
