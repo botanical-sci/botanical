@@ -2,7 +2,7 @@ import { FC } from 'react';
 
 import {
   Container,
-  HeaderHero,
+  ImageSlider,
   Perks,
   ProductList,
   SelectedCategories,
@@ -16,7 +16,7 @@ const Index: FC<HomeBasicModel> = ({ data }) => {
   return (
     <>
       <Container>
-        <HeaderHero />
+        <ImageSlider />
       </Container>
       <section className="bg-neutral-100">
         <Container>

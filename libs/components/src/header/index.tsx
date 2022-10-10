@@ -161,6 +161,7 @@ export default function Header() {
   const [open, setOpen] = useState(false);
   const [cartOpen, setCartOpen] = useState(false);
   const cartStore = useCartStore();
+  const [openMenu, setOpenMenu] = useState(false);
 
   const handleDisplayCart = (e: any) => {
     e.preventDefault();
@@ -381,14 +382,14 @@ export default function Header() {
               <Popover.Group className="hidden lg:ml-8 lg:block lg:self-stretch">
                 <div className="h-full flex space-x-8">
                   {navigation.categories.map((category) => (
-                    <Popover key={category.name} className="flex">
+                    <Popover key={category.name} className="flex" >
                       {({ open }) => (
                         <>
                           <div className="relative flex">
                             <Popover.Button
                               className={classNames(
-                                open
-                                  ? 'border-indigo-600 text-indigo-600'
+                                openMenu
+                                  ? 'text-indigo-600'
                                   : 'border-transparent text-gray-700 hover:text-gray-800',
                                 'relative z-10 flex items-center transition-colors ease-out duration-200 text-sm font-medium border-b-2 -mb-px pt-px'
                               )}
@@ -419,7 +420,6 @@ export default function Header() {
                               >
                                 <div
                                   className={classNames(
-                                    open ? 'bg-gray-200' : 'bg-transparent',
                                     'w-full h-px transition-colors ease-out duration-200'
                                   )}
                                 />

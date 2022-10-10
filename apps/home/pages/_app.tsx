@@ -1,3 +1,4 @@
+import 'keen-slider/keen-slider.min.css';
 import './styles.css';
 
 import { AppProps } from 'next/app';
@@ -19,7 +20,7 @@ function CustomApp({ Component, pageProps }: AppProps) {
         <Header />
         <Component {...pageProps} />
         <Footer />
-        <Toaster position="bottom-center" reverseOrder={false} toastOptions={{duration: 5000 , style: {fontSize: 18}}} />
+        <Toaster position="bottom-center" reverseOrder={false} toastOptions={{duration: 5000}} />
       </main>
     </>
   );

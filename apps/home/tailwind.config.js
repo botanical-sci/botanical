@@ -11,7 +11,11 @@ module.exports = {
     ...createGlobPatternsForDependencies(__dirname),
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        botanical: '#1d2349',
+      },
+    },
   },
   plugins: [
     require('@tailwindcss/forms'),

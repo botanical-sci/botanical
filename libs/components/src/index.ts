@@ -6,3 +6,4 @@ export { default as Perks } from './perks';
 export { default as SelectedCategories } from './selected-categories';
 export { default as Footer } from './footer';
 export { default as Testimonials } from './testimonials';
+export { default as ImageSlider } from './image-slider';

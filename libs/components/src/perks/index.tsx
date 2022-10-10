@@ -9,25 +9,25 @@ import Container from '../container';
 const perks = [
   {
     name: '30 Day Money Back Guarantee',
-    Icon: <IconShieldChevron width={50} height={50} color="#5046e5" />,
+    Icon: <IconShieldChevron width={50} height={50} className='text-botanical' />,
     description:
       'Most effective treatment for all types of skin ailments. Guarantee you see results or your money back!',
   },
   {
     name: 'Free Delivery',
-    Icon: <IconTruckDelivery width={50} height={50} color="#5046e5" />,
+    Icon: <IconTruckDelivery width={50} height={50} className='text-botanical' />,
     description:
       'Free shipping over 50$',
   },
   {
     name: 'All year discount',
-    Icon: <IconShoppingCartPlus width={50} height={50} color="#5046e5" />,
+    Icon: <IconShoppingCartPlus width={50} height={50} className='text-botanical' />,
     description:
       'Looking for a deal? You can use the code "ALLYEAR" at checkout and get money off all year round.',
   },
   {
     name: 'For the planet',
-    Icon: <IconShoppingCartPlus width={50} height={50} color="#5046e5" />,
+    Icon: <IconShoppingCartPlus width={50} height={50} className='text-botanical' />,
     description:
       'We’ve pledged 1% of sales to the preservation and restoration of the natural environment.',
   },

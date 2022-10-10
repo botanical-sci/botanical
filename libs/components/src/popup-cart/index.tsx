@@ -5,6 +5,7 @@ import {
   useState,
 } from 'react';
 
+import Image from 'next/future/image';
 import Link from 'next/link';
 
 import {
@@ -100,7 +101,9 @@ const PopupCart: FC<Props> = ({ isOpen, onCartClose }) => {
                           {cartStore.items.map((product) => (
                             <li key={product.id} className="py-6 flex">
                               <div className="flex-shrink-0 w-24 h-24 border border-gray-200 rounded-md overflow-hidden">
-                                <img
+                                <Image
+                                  width={96}
+                                  height={96}
                                   src={product.image}
                                   alt={product.title}
                                   className="w-full h-full object-center object-cover"
