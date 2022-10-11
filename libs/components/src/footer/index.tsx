@@ -272,7 +272,7 @@ const Footer = () => {
           </div>
           <div className="mt-8 border-t border-gray-200 pt-8 md:flex md:items-center md:justify-between">
             <div className="flex space-x-6 md:order-2">
-              <div className="flex gap-2">
+              <div className="flex gap-2 flex-wrap">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   role="img"
