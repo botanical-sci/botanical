@@ -1,17 +1,9 @@
-import {
-  FC,
-  Fragment,
-  useEffect,
-  useState,
-} from 'react';
+import { FC, Fragment, useEffect, useState } from 'react';
 
 import Image from 'next/future/image';
 import Link from 'next/link';
 
-import {
-  Dialog,
-  Transition,
-} from '@headlessui/react';
+import { Dialog, Transition } from '@headlessui/react';
 import {
   MenuIcon,
   SearchIcon,
@@ -83,7 +75,6 @@ const Header: FC<Props> = ({ menu }: Props) => {
           >
             <div className="relative max-w-xs w-full bg-white shadow-xl pb-12 flex flex-col overflow-y-auto">
               <div className="px-4 pt-5 pb-5 mb-5 border-stone-200 border-b flex justify-between">
-
                 <Link href="/">
                   <a>
                     <span className="sr-only">botanical skin science</span>
@@ -180,30 +171,31 @@ const Header: FC<Props> = ({ menu }: Props) => {
 
               <ul className="hidden gap-5 ml-7 lg:flex md:flex">
                 {menu?.map((category) => (
-                  <a
-                    href="/"
-                    key={category.title}
-                    className="text-sm group relative"
-                  >
-                    {category.title}
+                  <li className="text-sm group relative cursor-pointer">
+                    {(!category.items || category.items.length === 0) && (
+                      <Link href={category.title}><a>{category.title}</a></Link>
+                    )}
 
                     {category.items && category.items.length > 0 && (
+                      <>
+                      <span>{category.title}</span>
                       <ul
                         className="hidden group-hover:flex gap-3 flex-col absolute z-50 shadow-md bg-white p-3 rounded-md"
                         style={{ minWidth: 250 }}
                       >
                         {category.items.map((i) => (
-                          <a
-                            href={`${i.resourceId}`}
-                            key={i.title}
-                            className={classNames(' text-sm')}
-                          >
-                            {i.title}
-                          </a>
+                          <li>
+                            <Link href={`${i.resourceId}`} key={i.title}>
+                              <a className={classNames(' text-sm')}>
+                                {i.title}
+                              </a>
+                            </Link>
+                          </li>
                         ))}
                       </ul>
+                      </>
                     )}
-                  </a>
+                  </li>
                 ))}
               </ul>
 

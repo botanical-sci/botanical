@@ -5,6 +5,9 @@ export interface HomeBasicModel {
   data: {
     trendingProducts: CollectionModel;
     bestSellersProducts: CollectionModel;
-    menu: { items: MenuModel[] };
   };
+}
+
+export interface MenuBasicModel {
+    menu: { items: MenuModel[] };
 }

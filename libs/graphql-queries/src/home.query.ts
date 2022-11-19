@@ -1,6 +1,6 @@
 const gql = String.raw;
 
-const homeStructureQuery = gql`
+const menuQuery = gql`
   {
     menu(handle: "new-main-menu") {
       items {
@@ -14,6 +14,11 @@ const homeStructureQuery = gql`
         }
       }
     }
+  }
+`;
+
+const homeStructureQuery = gql`
+  {
     trendingProducts: collection(handle: "trending") {
       title
       handle
@@ -75,4 +80,4 @@ const homeStructureQuery = gql`
   }
 `;
 
-export { homeStructureQuery };
+export { homeStructureQuery, menuQuery };

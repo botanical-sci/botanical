@@ -16,8 +16,6 @@ import { storefront } from '@shopify/utilities';
 const Index: FC<HomeBasicModel> = ({ data }) => {
   return (
     <>
-      <Header menu={data.menu.items} />
-
       <Container paddingOnDesktop={true}>
         <ImageSlider />
       </Container>

@@ -1,24 +1,15 @@
-import { Fragment } from 'react';
+import { FC, Fragment, useState } from 'react';
 
 import { Tab } from '@headlessui/react';
 import { StarIcon } from '@heroicons/react/solid';
+import { GetServerSideProps } from 'next';
+import { storefront } from '@shopify/utilities';
+import { getProductByHandleQuery } from '@shopify/graphql-queries';
+import { SingleProductModel } from '@shopify/models';
+import Image from 'next/future/image';
+import { useCartStore } from '@shopify/state';
+import Head from 'next/head';
 
-const product = {
-  name: 'Application UI Icon Pack',
-  version: { name: '1.0', date: 'June 5, 2021', datetime: '2021-06-05' },
-  price: '$220',
-  description:
-    'The Application UI Icon Pack comes with over 200 icons in 3 styles: outline, filled, and branded. This playful icon pack is tailored for complex application user interfaces with a friendly and legible look.',
-  highlights: [
-    '200+ SVG icons in 3 unique styles',
-    'Compatible with Figma, Sketch, and Adobe XD',
-    'Drawn on 24 x 24 pixel grid',
-  ],
-  imageSrc:
-    'https://tailwindui.com/img/ecommerce-images/product-page-05-product-01.jpg',
-  imageAlt:
-    'Sample of 30 icons with friendly and fun details in outline, filled, and brand color styles.',
-};
 const reviews = {
   average: 4,
   featured: [
@@ -62,74 +53,122 @@ const faqs = [
   },
   // More FAQs...
 ];
-const license = {
-  href: '#',
-  summary:
-    'For personal and professional use. You cannot resell or redistribute these icons in their original or modified state.',
-  content: `
-      <h4>Overview</h4>
 
-      <p>For personal and professional use. You cannot resell or redistribute these icons in their original or modified state.</p>
+const customSpecifications = [
+  {
+    id: 1,
+    title: 'VEGAN',
+    img: '/images/pdp/vegan.jpeg',
+  },
+  {
+    id: 2,
+    title: 'CRUELTY-FREE',
+    img: '/images/pdp/cruelty-free.png',
+  },
+  {
+    id: 3,
+    title: 'ZERO WASTE',
+    img: '/images/pdp/zerowaste.jpg',
+  },
+];
 
-      <ul role="list">
-      <li>You're allowed to use the icons in unlimited projects.</li>
-      <li>Attribution is not required to use the icons.</li>
-      </ul>
+interface Props {
+  product: SingleProductModel;
+}
 
-      <h4>What you can do with it</h4>
+const ProductDetails: FC<Props> = ({ product: drivedProduct }: Props) => {
+  const product = drivedProduct.data.product;
+  const [featureImageSrc, setFeatureImageSrc] = useState(
+    product.featuredImage.url
+  );
 
-      <ul role="list">
-      <li>Use them freely in your personal and professional work.</li>
-      <li>Make them your own. Change the colors to suit your project or brand.</li>
-      </ul>
+  const useCart = useCartStore();
 
-      <h4>What you can't do with it</h4>
+  const handleAddToCart = (e: any) => {
+    e.preventDefault();
+    e.stopPropagation();
+    useCart.addItem({
+      id: product.id,
+      handle: product.handle,
+      image: product.featuredImage.url,
+      price: product.priceRange.maxVariantPrice.amount,
+      qty: 1,
+      title: product.title,
+    });
+  };
 
-      <ul role="list">
-      <li>Don't be greedy. Selling or distributing these icons in their original or modified state is prohibited.</li>
-      <li>Don't be evil. These icons cannot be used on websites or applications that promote illegal or immoral beliefs or activities.</li>
-      </ul>
-    `,
-};
-const ProductDetails = () => {
   function classNames(...classes) {
     return classes.filter(Boolean).join(' ');
   }
 
+  const renderCustomSpecifications = () =>
+    customSpecifications.map((c) => (
+      <li
+        key={c.id}
+        className="flex items-center justify-end flex-col border-indigo-600 gap-5 border-2 py-5 rounded-xl"
+      >
+        <Image src={c.img} width={50} height={50} alt={c.title} />
+        <p>{c.title}</p>
+      </li>
+    ));
+
   return (
-    <div className="bg-white">
+    <div>
+      <Head>
+        <title>{product.title} | Botanical Skin Science</title>
+      </Head>
       <div className="mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8">
         {/* Product */}
-        <div className="lg:grid lg:grid-rows-1 lg:grid-cols-7 lg:gap-x-8 lg:gap-y-10 xl:gap-x-16">
+        <div className="lg:grid lg:grid-rows-1 lg:grid-cols-10 lg:gap-x-8 lg:gap-y-10 xl:gap-x-16">
           {/* Product image */}
-          <div className="lg:row-end-1 lg:col-span-4">
-            <div className="aspect-w-4 aspect-h-3 rounded-lg bg-gray-100 overflow-hidden">
+          <div className="lg:row-end-1 lg:col-span-5">
+            <div className="aspect-w-3 aspect-h-4 rounded-lg bg-gray-100 overflow-hidden">
               <img
-                src={product.imageSrc}
-                alt={product.imageAlt}
+                src={featureImageSrc}
+                alt={product.featuredImage.altText}
                 className="object-center object-cover"
               />
             </div>
+
+            <ul className="grid grid-flow-col gap-5 mt-5">
+              {product?.images.edges.map((image) => (
+                <li
+                  className={classNames(
+                    'aspect-w-3 aspect-h-4 rounded-lg bg-gray-100 border-4 border-transparent overflow-hidden',
+                    featureImageSrc === image.node.url
+                      ? 'border-4 border-indigo-500'
+                      : ''
+                  )}
+                  onClick={() => {
+                    setFeatureImageSrc(image.node.url);
+                  }}
+                >
+                  <Image
+                    src={image.node.url}
+                    alt={image.node.altText}
+                    width={100}
+                    height={50}
+                  />
+                </li>
+              ))}
+            </ul>
           </div>
 
           {/* Product details */}
-          <div className="max-w-2xl mx-auto mt-14 sm:mt-16 lg:max-w-none lg:mt-0 lg:row-end-2 lg:row-span-2 lg:col-span-3">
+          <div className="max-w-2xl mx-auto mt-14 sm:mt-16 lg:max-w-none lg:mt-0 lg:row-end-2 lg:row-span-2 lg:col-span-5">
             <div className="flex flex-col-reverse">
               <div className="mt-4">
                 <h1 className="text-2xl font-extrabold tracking-tight text-gray-900 sm:text-3xl">
-                  {product.name}
+                  {product.title}
                 </h1>
+
+                <p className=" text-2xl">
+                  ${product.priceRange.maxVariantPrice.amount}
+                </p>
 
                 <h2 id="information-heading" className="sr-only">
                   Product information
                 </h2>
-                <p className="text-sm text-gray-500 mt-2">
-                  Version {product.version.name} (Updated{' '}
-                  <time dateTime={product.version.datetime}>
-                    {product.version.date}
-                  </time>
-                  )
-                </p>
               </div>
 
               <div>
@@ -139,7 +178,7 @@ const ProductDetails = () => {
                     <StarIcon
                       key={rating}
                       className={classNames(
-                        reviews.average > rating
+                        product.ratingCount.value > rating
                           ? 'text-yellow-400'
                           : 'text-gray-300',
                         'h-5 w-5 flex-shrink-0'
@@ -148,50 +187,29 @@ const ProductDetails = () => {
                     />
                   ))}
                 </div>
-                <p className="sr-only">{reviews.average} out of 5 stars</p>
+                <p className="sr-only">
+                  {product.ratingCount.value} out of 5 stars
+                </p>
               </div>
             </div>
-
-            <p className="text-gray-500 mt-6">{product.description}</p>
-
             <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-2">
               <button
+                onClick={handleAddToCart}
                 type="button"
                 className="w-full bg-indigo-600 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-indigo-500"
               >
-                Pay {product.price}
-              </button>
-              <button
-                type="button"
-                className="w-full bg-indigo-50 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-indigo-700 hover:bg-indigo-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-indigo-500"
-              >
-                Preview
+                Add To Cart
               </button>
             </div>
 
-            <div className="border-t border-gray-200 mt-10 pt-10">
-              <h3 className="text-sm font-medium text-gray-900">Highlights</h3>
-              <div className="mt-4 prose prose-sm text-gray-500">
-                <ul role="list">
-                  {product.highlights.map((highlight) => (
-                    <li key={highlight}>{highlight}</li>
-                  ))}
-                </ul>
-              </div>
-            </div>
+            <div
+              className="text-gray-500 mt-6 font-thin"
+              dangerouslySetInnerHTML={{ __html: product.descriptionHtml }}
+            ></div>
 
-            <div className="border-t border-gray-200 mt-10 pt-10">
-              <h3 className="text-sm font-medium text-gray-900">License</h3>
-              <p className="mt-4 text-sm text-gray-500">
-                {license.summary}{' '}
-                <a
-                  href={license.href}
-                  className="font-medium text-indigo-600 hover:text-indigo-500"
-                >
-                  Read full license
-                </a>
-              </p>
-            </div>
+            <ul className="grid grid-cols-3 mt-10 gap-5">
+              {renderCustomSpecifications()}
+            </ul>
 
             <div className="border-t border-gray-200 mt-10 pt-10">
               <h3 className="text-sm font-medium text-gray-900">Share</h3>
@@ -255,135 +273,29 @@ const ProductDetails = () => {
               </ul>
             </div>
           </div>
-
-          <div className="w-full max-w-2xl mx-auto mt-16 lg:max-w-none lg:mt-0 lg:col-span-4">
-            <Tab.Group as="div">
-              <div className="border-b border-gray-200">
-                <Tab.List className="-mb-px flex space-x-8">
-                  <Tab
-                    className={({ selected }) =>
-                      classNames(
-                        selected
-                          ? 'border-indigo-600 text-indigo-600'
-                          : 'border-transparent text-gray-700 hover:text-gray-800 hover:border-gray-300',
-                        'whitespace-nowrap py-6 border-b-2 font-medium text-sm'
-                      )
-                    }
-                  >
-                    Customer Reviews
-                  </Tab>
-                  <Tab
-                    className={({ selected }) =>
-                      classNames(
-                        selected
-                          ? 'border-indigo-600 text-indigo-600'
-                          : 'border-transparent text-gray-700 hover:text-gray-800 hover:border-gray-300',
-                        'whitespace-nowrap py-6 border-b-2 font-medium text-sm'
-                      )
-                    }
-                  >
-                    FAQ
-                  </Tab>
-                  <Tab
-                    className={({ selected }) =>
-                      classNames(
-                        selected
-                          ? 'border-indigo-600 text-indigo-600'
-                          : 'border-transparent text-gray-700 hover:text-gray-800 hover:border-gray-300',
-                        'whitespace-nowrap py-6 border-b-2 font-medium text-sm'
-                      )
-                    }
-                  >
-                    License
-                  </Tab>
-                </Tab.List>
-              </div>
-              <Tab.Panels as={Fragment}>
-                <Tab.Panel className="-mb-10">
-                  <h3 className="sr-only">Customer Reviews</h3>
-
-                  {reviews.featured.map((review, reviewIdx) => (
-                    <div
-                      key={review.id}
-                      className="flex text-sm text-gray-500 space-x-4"
-                    >
-                      <div className="flex-none py-10">
-                        <img
-                          src={review.avatarSrc}
-                          alt=""
-                          className="w-10 h-10 bg-gray-100 rounded-full"
-                        />
-                      </div>
-                      <div
-                        className={classNames(
-                          reviewIdx === 0 ? '' : 'border-t border-gray-200',
-                          'py-10'
-                        )}
-                      >
-                        <h3 className="font-medium text-gray-900">
-                          {review.author}
-                        </h3>
-                        <p>
-                          <time dateTime={review.datetime}>{review.date}</time>
-                        </p>
-
-                        <div className="flex items-center mt-4">
-                          {[0, 1, 2, 3, 4].map((rating) => (
-                            <StarIcon
-                              key={rating}
-                              className={classNames(
-                                review.rating > rating
-                                  ? 'text-yellow-400'
-                                  : 'text-gray-300',
-                                'h-5 w-5 flex-shrink-0'
-                              )}
-                              aria-hidden="true"
-                            />
-                          ))}
-                        </div>
-                        <p className="sr-only">
-                          {review.rating} out of 5 stars
-                        </p>
-
-                        <div
-                          className="mt-4 prose prose-sm max-w-none text-gray-500"
-                          dangerouslySetInnerHTML={{ __html: review.content }}
-                        />
-                      </div>
-                    </div>
-                  ))}
-                </Tab.Panel>
-
-                <Tab.Panel as="dl" className="text-sm text-gray-500">
-                  <h3 className="sr-only">Frequently Asked Questions</h3>
-
-                  {faqs.map((faq) => (
-                    <Fragment key={faq.question}>
-                      <dt className="mt-10 font-medium text-gray-900">
-                        {faq.question}
-                      </dt>
-                      <dd className="mt-2 prose prose-sm max-w-none text-gray-500">
-                        <p>{faq.answer}</p>
-                      </dd>
-                    </Fragment>
-                  ))}
-                </Tab.Panel>
-
-                <Tab.Panel className="pt-10">
-                  <h3 className="sr-only">License</h3>
-
-                  <div
-                    className="prose prose-sm max-w-none text-gray-500"
-                    dangerouslySetInnerHTML={{ __html: license.content }}
-                  />
-                </Tab.Panel>
-              </Tab.Panels>
-            </Tab.Group>
-          </div>
         </div>
       </div>
     </div>
   );
+};
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  context.res.setHeader(
+    'Cache-Control',
+    'public, s-maxage=10, stale-while-revalidate=59'
+  );
+
+  const slug = context.params.slug;
+
+  const product = await storefront<SingleProductModel>(
+    getProductByHandleQuery(slug as string)
+  );
+
+  return {
+    props: {
+      product,
+    },
+  } as any;
 };
 
 export default ProductDetails;
