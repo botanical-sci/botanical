@@ -9,8 +9,7 @@ class BotanicalDocument extends Document {
   render() {
     return (
       <Html lang="en">
-        <Head>
-        </Head>
+        <Head />
         <body>
           <Main />
           <NextScript />

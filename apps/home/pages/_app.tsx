@@ -48,7 +48,7 @@ ShopifyApp.getInitialProps = async ({ req, res }) => {
   );
 
   const data = await storefront<any>(menuQuery);
-
+  
   return {
     menuData: data.data,
   } as any;

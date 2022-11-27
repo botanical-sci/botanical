@@ -7,10 +7,12 @@ const menuQuery = gql`
         title
         type
         resourceId
+        url
         items {
           title
           type
           resourceId
+          url
         }
       }
     }

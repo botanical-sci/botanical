@@ -7,3 +7,9 @@ export interface CollectionModel {
     nodes: ProductModel[];
   };
 }
+
+export interface SingleCollectionModel {
+  data: {
+    collection: CollectionModel
+  }
+}

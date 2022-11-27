@@ -6,13 +6,17 @@ export const truncateString = (str: string, num: number) => {
   }
 };
 
-// export const extractLink = (link: string, type: 'COLLECTION' | 'PAGE') => {
-//   const reg = /g/d;
-//   reg.
-//   switch (type) {
-//     case 'COLLECTION':
-//       return `${process.env['NEXT_PUBLIC_SITE_URL']}collection/${}`
-//     case 'PAGE':
-//       break;
-//   }
-// };
+export const extractHandleFromUrl = (link: string, type: 'COLLECTION' | 'PAGE' | 'SHOP_POLICY' | 'BLOG' | 'ARTICLE') => {
+  const collectionRegex = /.*collections\/(.*)/gm;
+  const pageRegex = /.*pages\/(.*)/gm;
+
+  switch (type) {
+    case 'COLLECTION':
+      const collectionSlug = collectionRegex.exec(link)?.[1];
+      return `/collection/${collectionSlug}`;
+
+    case 'PAGE':
+      const pageSlug = pageRegex.exec(link)?.[1];
+      return `/page/${pageSlug}`;
+  }
+};

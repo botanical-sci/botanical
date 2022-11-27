@@ -14,6 +14,7 @@ import { MenuModel } from '@shopify/models';
 import { useCartStore } from '@shopify/state';
 
 import PopupCart from '../popup-cart';
+import { extractHandleFromUrl } from '@shopify/utilities';
 
 function classNames(...classes: any) {
   return classes.filter(Boolean).join(' ');
@@ -173,26 +174,36 @@ const Header: FC<Props> = ({ menu }: Props) => {
                 {menu?.map((category) => (
                   <li className="text-sm group relative cursor-pointer">
                     {(!category.items || category.items.length === 0) && (
-                      <Link href={category.title}><a>{category.title}</a></Link>
+                      <Link
+                        href={
+                          extractHandleFromUrl(category.url, category.type) ??
+                          ''
+                        }
+                      >
+                        <a>{category.title}</a>
+                      </Link>
                     )}
 
                     {category.items && category.items.length > 0 && (
                       <>
-                      <span>{category.title}</span>
-                      <ul
-                        className="hidden group-hover:flex gap-3 flex-col absolute z-50 shadow-md bg-white p-3 rounded-md"
-                        style={{ minWidth: 250 }}
-                      >
-                        {category.items.map((i) => (
-                          <li>
-                            <Link href={`${i.resourceId}`} key={i.title}>
-                              <a className={classNames(' text-sm')}>
-                                {i.title}
-                              </a>
-                            </Link>
-                          </li>
-                        ))}
-                      </ul>
+                        <span>{category.title}</span>
+                        <ul
+                          className="hidden group-hover:flex gap-3 flex-col absolute z-50 shadow-md bg-white p-3 rounded-md"
+                          style={{ minWidth: 250 }}
+                        >
+                          {category.items.map((i) => (
+                            <li>
+                              <Link
+                                href={extractHandleFromUrl(i.url, i.type) ?? ""}
+                                key={i.title}
+                              >
+                                <a className={classNames(' text-sm')}>
+                                  {i.title}
+                                </a>
+                              </Link>
+                            </li>
+                          ))}
+                        </ul>
                       </>
                     )}
                   </li>

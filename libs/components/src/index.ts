@@ -7,3 +7,5 @@ export { default as SelectedCategories } from './selected-categories';
 export { default as Footer } from './footer';
 export { default as Testimonials } from './testimonials';
 export { default as ImageSlider } from './image-slider';
+export { default as Dropdown } from './dropdown';
+export { default as RadioGroup } from './radio-group';

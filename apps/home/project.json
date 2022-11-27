@@ -24,7 +24,7 @@
       "options": {
         "buildTarget": "home:build",
         "dev": true,
-        "port": 4305
+        "port": 4306
       },
       "configurations": {
         "development": {
