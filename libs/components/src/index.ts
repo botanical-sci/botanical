@@ -9,3 +9,5 @@ export { default as Testimonials } from './testimonials';
 export { default as ImageSlider } from './image-slider';
 export { default as Dropdown } from './dropdown';
 export { default as RadioGroup } from './radio-group';
+export { default as TextBox } from './textbox';
+export { default as Switch } from './switch';

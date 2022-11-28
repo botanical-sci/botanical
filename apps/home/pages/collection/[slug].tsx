@@ -1,4 +1,4 @@
-import { Dropdown, RadioGroup } from '@shopify/components';
+import { Dropdown, RadioGroup, Switch, TextBox } from '@shopify/components';
 import { getCollectionByHandleQuery } from '@shopify/graphql-queries';
 import { SingleCollectionModel, SingleProductModel } from '@shopify/models';
 import { storefront } from '@shopify/utilities';
@@ -6,22 +6,27 @@ import ProductCard from 'libs/components/src/product-card';
 import { GetServerSideProps } from 'next';
 import Head from 'next/head';
 import Link from 'next/link';
-import React, { FC } from 'react';
-import { Switch } from '@headlessui/react';
+import React, { FC, useState } from 'react';
+import classNames from 'classnames';
 
-const people = [
-  { name: 'Wade Cooper' },
-  { name: 'Arlene Mccoy' },
-  { name: 'Devon Webb' },
-  { name: 'Tom Cook' },
-  { name: 'Tanya Fox' },
-  { name: 'Hellen Schmidt' },
-];
-function classNames(...classes) {
-  return classes.filter(Boolean).join(' ');
-}
+type sortTypes =
+  | 'manual'
+  | 'best-selling'
+  | 'title-ascending'
+  | 'title-descending'
+  | 'price-ascending'
+  | 'price-descending'
+  | 'created-ascending'
+  | 'created-descending';
+
 interface Props {
   collection: SingleCollectionModel;
+  filters: {
+    availability: boolean;
+    sort_by: sortTypes;
+    price_min: number;
+    price_max: number;
+  };
   meta: {
     total_products: number;
     in_stock: number;
@@ -31,9 +36,13 @@ interface Props {
   };
 }
 
-const Collection: FC<Props> = ({ collection: drivedCollection, meta }) => {
+const Collection: FC<Props> = ({
+  collection: drivedCollection,
+  filters: initialFilters,
+  meta,
+}) => {
   const collection = drivedCollection.data.collection;
-  const pages = [
+  const breadcrumbList = [
     { name: 'Collection', href: '/collections', current: false },
     {
       name: collection.title,
@@ -42,8 +51,23 @@ const Collection: FC<Props> = ({ collection: drivedCollection, meta }) => {
     },
   ];
 
+  const [filters, setFilters] = useState(initialFilters);
+
   const renderFilterBox = () => (
     <div>
+      <div className="mb-10 border-b pb-10">
+        <p className="mb-5">Availability</p>
+
+        <Switch
+          title="In-Stock Products Only"
+          subtitle={`(${meta.in_stock})`}
+          defaultChecked={filters.availability}
+          checked={filters.availability}
+          onChange={(value) => {
+            setFilters({ ...filters, availability: value });
+          }}
+        />
+      </div>
       <div className="mb-10 border-b pb-10">
         <p className="mb-5">Sort by</p>
 
@@ -66,56 +90,24 @@ const Collection: FC<Props> = ({ collection: drivedCollection, meta }) => {
         />
       </div>
 
-      <div className="mb-5 border-b pb-10">
-        <p className="mb-5">Availability</p>
+      <div className="mb-10 pb-10">
+        <p className="mb-5">Price</p>
 
-        <Switch.Group as="div" className="flex items-center">
-          <Switch
-            checked={true}
-            //onChange={setEnabled}
-            className={classNames(
-              true ? 'bg-indigo-600' : 'bg-gray-200',
-              'relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:ring-0 focus:ring-offset-0'
-            )}
-          >
-            <span
-              aria-hidden="true"
-              className={classNames(
-                true ? 'translate-x-5' : 'translate-x-0',
-                'pointer-events-none inline-block h-5 w-5 rounded-full bg-white shadow transform ring-0 transition ease-in-out duration-200'
-              )}
-            />
-          </Switch>
-          <Switch.Label as="span" className="ml-3">
-            <span className="text-sm font-medium text-gray-900">In Stock</span>
-            <span className="text-sm text-gray-500">({meta.in_stock})</span>
-          </Switch.Label>
-        </Switch.Group>
-        <Switch.Group as="div" className="flex items-center mt-5">
-          <Switch
-            disabled={meta.out_of_stock === 0}
-            checked={false}
-            //onChange={setEnabled}
-            className={classNames(
-              false ? 'bg-indigo-600' : 'bg-gray-200',
-              'relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:ring-0 focus:ring-offset-0'
-            )}
-          >
-            <span
-              aria-hidden="true"
-              className={classNames(
-                false ? 'translate-x-5' : 'translate-x-0',
-                'pointer-events-none inline-block h-5 w-5 rounded-full bg-white shadow transform ring-0 transition ease-in-out duration-200'
-              )}
-            />
-          </Switch>
-          <Switch.Label as="span" className="ml-3">
-            <span className="text-sm font-medium text-gray-900">
-              Our of stock{' '}
-            </span>
-            <span className="text-sm text-gray-500">({meta.out_of_stock})</span>
-          </Switch.Label>
-        </Switch.Group>
+        <TextBox
+          name="From"
+          placeholder={meta.min_price.toString()}
+          defaultValue={filters.price_min > -1 && filters.price_min.toString()}
+          type="number"
+          onChange={(v) => console.log(v)}
+        />
+        <TextBox
+          name="To"
+          placeholder={meta.max_price.toString()}
+          defaultValue={filters.price_max > -1 && filters.price_max.toString()}
+          type="number"
+          onChange={(v) => console.log(v)}
+          extraClasses="mt-8"
+        />
       </div>
     </div>
   );
@@ -144,7 +136,7 @@ const Collection: FC<Props> = ({ collection: drivedCollection, meta }) => {
                 </Link>
               </div>
             </li>
-            {pages.map((page) => (
+            {breadcrumbList.map((page) => (
               <li key={page.name}>
                 <div className="flex items-center">
                   <svg
@@ -201,13 +193,11 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const query = context.query;
 
   const filters = {
-    availability: query.availability ? query.availability : '1',
-    sort_by: query.sort_by ? query.sort_by : 'manual',
-    price_min: query.price_min ? query.price_min : '0',
-    price_max: query.price_max ? query.price_max : '99999',
-  }
-
-  console.log(filters);
+    availability: query.availability ? !!query.availability : false,
+    sort_by: query.sort_by ? (query.sort_by as sortTypes) : 'manual',
+    price_min: query.price_min ? +query.price_min : -1,
+    price_max: query.price_max ? +query.price_max : -1,
+  };
 
   const collection = await storefront<SingleCollectionModel>(
     getCollectionByHandleQuery(slug as string)
@@ -228,6 +218,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   return {
     props: {
       collection,
+      filters,
       meta: {
         total_products: totalProducts,
         in_stock: availableProducts,
