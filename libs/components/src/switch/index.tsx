@@ -28,14 +28,11 @@ const Switch: FC<Props> = ({
   }, [checked]);
 
   const handleOnChange = (value: boolean) => {
-    console.log("change", value);
     setChecked(value);
     onChange && onChange(value);
   };
 
   const handleOnClick = () => {
-    console.log("handleOnClick", cchecked);
-
     setChecked(!cchecked);
     onChange && onChange(!cchecked);
   }

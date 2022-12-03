@@ -8,6 +8,9 @@ import Head from 'next/head';
 import Link from 'next/link';
 import React, { FC, useState } from 'react';
 import classNames from 'classnames';
+import { Accordion, Button } from 'flowbite-react';
+import { FilterIcon } from '@heroicons/react/outline';
+import { useRouter } from 'next/router';
 
 type sortTypes =
   | 'manual'
@@ -41,6 +44,9 @@ const Collection: FC<Props> = ({
   filters: initialFilters,
   meta,
 }) => {
+  const router = useRouter();
+  const [showFilters, setShowFilters] = useState(false);
+
   const collection = drivedCollection.data.collection;
   const breadcrumbList = [
     { name: 'Collection', href: '/collections', current: false },
@@ -53,18 +59,41 @@ const Collection: FC<Props> = ({
 
   const [filters, setFilters] = useState(initialFilters);
 
+  const modifyFilters = (key: string, value: string | number | boolean) => {
+    setFilters({ ...filters, [key]: value });
+  };
+
+  const modifyUrl = () => {
+    const newFilters = {
+      ...router.query,
+      availability: filters.availability,
+      ...(filters.sort_by !== 'manual' && { sort_by: filters.sort_by }),
+      ...(filters.price_min > 0 && { price_min: filters.price_min }),
+      ...(filters.price_max > 0 && { price_max: filters.price_max }),
+    };
+    router.push(
+      {
+        href: router.route,
+        query: newFilters,
+      },
+      null,
+      {
+        scroll: false,
+      }
+    );
+  };
+
   const renderFilterBox = () => (
     <div>
       <div className="mb-10 border-b pb-10">
         <p className="mb-5">Availability</p>
-
         <Switch
           title="In-Stock Products Only"
           subtitle={`(${meta.in_stock})`}
-          defaultChecked={filters.availability}
+          defaultChecked={initialFilters.availability}
           checked={filters.availability}
           onChange={(value) => {
-            setFilters({ ...filters, availability: value });
+            modifyFilters('availability', value);
           }}
         />
       </div>
@@ -72,11 +101,11 @@ const Collection: FC<Props> = ({
         <p className="mb-5">Sort by</p>
 
         <RadioGroup
-          onChange={(v) => {
-            console.log(v);
+          onChange={(value) => {
+            modifyFilters('sort_by', value.key);
           }}
           groupName="sort-by"
-          defaultChecked="manual"
+          defaultChecked={initialFilters.sort_by}
           items={[
             { key: 'manual', value: 'Featured' },
             { key: 'best-selling', value: 'Alphabetically, A-Z' },
@@ -90,7 +119,7 @@ const Collection: FC<Props> = ({
         />
       </div>
 
-      <div className="mb-10 pb-10">
+      <div className="mb-10 border-b pb-10">
         <p className="mb-5">Price</p>
 
         <TextBox
@@ -98,16 +127,29 @@ const Collection: FC<Props> = ({
           placeholder={meta.min_price.toString()}
           defaultValue={filters.price_min > -1 && filters.price_min.toString()}
           type="number"
-          onChange={(v) => console.log(v)}
+          onChange={(value) => modifyFilters('price_min', +value)}
         />
         <TextBox
           name="To"
           placeholder={meta.max_price.toString()}
           defaultValue={filters.price_max > -1 && filters.price_max.toString()}
           type="number"
-          onChange={(v) => console.log(v)}
+          onChange={(value) => modifyFilters('price_max', +value)}
           extraClasses="mt-8"
         />
+      </div>
+
+      <div className="mb-10 pb-10">
+        <Button
+          pill
+          color="dark"
+          onClick={() => {
+            modifyUrl();
+          }}
+        >
+          <FilterIcon width={15} className="mr-2" />
+          Apply Filters
+        </Button>
       </div>
     </div>
   );
@@ -171,9 +213,55 @@ const Collection: FC<Props> = ({
 
         <hr className="mt-10 mb-10" />
 
-        <div className="grid grid-cols-12 gap-5">
-          <div className="col-span-3">{renderFilterBox()}</div>
-          <div className="grid grid-cols-3 gap-5 col-span-9">
+        <div className="md:grid md:grid-cols-12 md:gap-5">
+          <div className="col-span-3 hidden md:block lg:block">
+            {renderFilterBox()}
+          </div>
+          <div className="col-span-3 md:hidden lg:hidden mb-5">
+            <div
+            data-accordion="collapse"
+              id="accordion-color"
+              data-active-classes="bg-blue-100 dark:bg-gray-800 text-blue-600 dark:text-white"
+            >
+              <h2 id="accordion-color-heading-1">
+                <button
+                onClick={() => {setShowFilters(!showFilters)}}
+                  type="button"
+                  className="flex items-center justify-between w-full p-5 font-medium text-left text-gray-500 border border-gray-200 rounded-md focus:ring-0 dark:border-gray-700 dark:text-gray-400 hover:bg-blue-100 dark:hover:bg-gray-800"
+                  data-accordion-target="#accordion-color-body-1"
+                  aria-expanded="true"
+                  aria-controls="accordion-color-body-1"
+                >
+                  <span>Filters</span>
+                  <svg
+                    data-accordion-icon
+                    className="w-6 h-6 rotate-180 shrink-0"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                      clip-rule="evenodd"
+                    ></path>
+                  </svg>
+                </button>
+              </h2>
+              <div
+                id="accordion-color-body-1"
+                className={classNames(!showFilters ? 'hidden': '')}
+                aria-labelledby="accordion-color-heading-1"
+              >
+                <div className="p-5 font-light border rounded-md border-gray-200 dark:border-gray-700 dark:bg-gray-900">
+                {renderFilterBox()}
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5 col-span-9">
             {renderProducts()}
           </div>
         </div>
@@ -193,20 +281,20 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const query = context.query;
 
   const filters = {
-    availability: query.availability ? !!query.availability : false,
+    availability: query.availability ? query.availability === 'true' : true,
     sort_by: query.sort_by ? (query.sort_by as sortTypes) : 'manual',
     price_min: query.price_min ? +query.price_min : -1,
     price_max: query.price_max ? +query.price_max : -1,
   };
 
   const collection = await storefront<SingleCollectionModel>(
-    getCollectionByHandleQuery(slug as string)
+    getCollectionByHandleQuery(slug as string, filters)
   );
 
-  const products = collection.data.collection.products.nodes;
+  const products = collection?.data?.collection.products.nodes ?? [];
   let MAX_PRICE = 0;
   let availableProducts = 0;
-  const totalProducts = products.length;
+  const totalProducts = products?.length;
 
   products.forEach((p) => {
     if (+p.priceRange.maxVariantPrice.amount > MAX_PRICE)
