@@ -9,6 +9,7 @@ import { SingleProductModel } from '@shopify/models';
 import Image from 'next/future/image';
 import { useCartStore } from '@shopify/state';
 import Head from 'next/head';
+import { Breadcrumb } from '@shopify/components';
 
 
 const customSpecifications = [
@@ -75,6 +76,13 @@ const ProductDetails: FC<Props> = ({ product: drivedProduct }: Props) => {
         <title>{product.title} | Botanical Skin Science</title>
       </Head>
       <div className="mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8">
+        <Breadcrumb extraClassName='mb-6' list={[
+          {
+            current: true,
+            href: `/product/${product.handle}`,
+            name: product.title
+          }
+        ]} />
         {/* Product */}
         <div className="lg:grid lg:grid-rows-1 lg:grid-cols-10 lg:gap-x-8 lg:gap-y-10 xl:gap-x-16">
           {/* Product image */}
@@ -135,7 +143,7 @@ const ProductDetails: FC<Props> = ({ product: drivedProduct }: Props) => {
                     <StarIcon
                       key={rating}
                       className={classNames(
-                        product.ratingCount.value > rating
+                        product.ratingCount?.value > rating
                           ? 'text-yellow-400'
                           : 'text-gray-300',
                         'h-5 w-5 flex-shrink-0'
@@ -145,7 +153,7 @@ const ProductDetails: FC<Props> = ({ product: drivedProduct }: Props) => {
                   ))}
                 </div>
                 <p className="sr-only">
-                  {product.ratingCount.value} out of 5 stars
+                  {product.ratingCount?.value} out of 5 stars
                 </p>
               </div>
             </div>

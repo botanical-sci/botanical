@@ -11,3 +11,4 @@ export { default as Dropdown } from './dropdown';
 export { default as RadioGroup } from './radio-group';
 export { default as TextBox } from './textbox';
 export { default as Switch } from './switch';
+export { default as Breadcrumb } from './breadcrumb';

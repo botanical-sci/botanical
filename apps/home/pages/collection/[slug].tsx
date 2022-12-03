@@ -1,4 +1,4 @@
-import { Dropdown, RadioGroup, Switch, TextBox } from '@shopify/components';
+import { Breadcrumb, Dropdown, RadioGroup, Switch, TextBox } from '@shopify/components';
 import { getCollectionByHandleQuery } from '@shopify/graphql-queries';
 import { SingleCollectionModel, SingleProductModel } from '@shopify/models';
 import { storefront } from '@shopify/utilities';
@@ -166,50 +166,7 @@ const Collection: FC<Props> = ({
       </Head>
       <div className="mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8">
         <h1 className="text-3xl">{collection.title}</h1>
-        <nav className="flex mt-3" aria-label="Breadcrumb">
-          <ol
-            role="list"
-            className="flex items-center justify-center space-x-2"
-          >
-            <li>
-              <div>
-                <Link href="/">
-                  <a className="text-xs font-thin hover:text-gray-700">Home</a>
-                </Link>
-              </div>
-            </li>
-            {breadcrumbList.map((page) => (
-              <li key={page.name}>
-                <div className="flex items-center">
-                  <svg
-                    className="flex-shrink-0 h-3 w-3 text-gray-300"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="currentColor"
-                    viewBox="0 0 15 15"
-                    aria-hidden="true"
-                  >
-                    <path d="M5.555 17.776l8-16 .894.448-8 16-.894-.448z" />
-                  </svg>
-                  {page.current && (
-                    <span className={'ml-3 text-xs font-thin'}>
-                      {page.name}
-                    </span>
-                  )}
-                  {!page.current && (
-                    <Link href={page.href}>
-                      <a
-                        className={'ml-3 text-xs font-thin hover:text-gray-700'}
-                        aria-current={page.current ? 'page' : undefined}
-                      >
-                        {page.name}
-                      </a>
-                    </Link>
-                  )}
-                </div>
-              </li>
-            ))}
-          </ol>
-        </nav>
+       <Breadcrumb list={breadcrumbList} />
 
         <hr className="mt-10 mb-10" />
 
@@ -219,13 +176,15 @@ const Collection: FC<Props> = ({
           </div>
           <div className="col-span-3 md:hidden lg:hidden mb-5">
             <div
-            data-accordion="collapse"
+              data-accordion="collapse"
               id="accordion-color"
               data-active-classes="bg-blue-100 dark:bg-gray-800 text-blue-600 dark:text-white"
             >
               <h2 id="accordion-color-heading-1">
                 <button
-                onClick={() => {setShowFilters(!showFilters)}}
+                  onClick={() => {
+                    setShowFilters(!showFilters);
+                  }}
                   type="button"
                   className="flex items-center justify-between w-full p-5 font-medium text-left text-gray-500 border border-gray-200 rounded-md focus:ring-0 dark:border-gray-700 dark:text-gray-400 hover:bg-blue-100 dark:hover:bg-gray-800"
                   data-accordion-target="#accordion-color-body-1"
@@ -250,16 +209,15 @@ const Collection: FC<Props> = ({
               </h2>
               <div
                 id="accordion-color-body-1"
-                className={classNames(!showFilters ? 'hidden': '')}
+                className={classNames(!showFilters ? 'hidden' : '')}
                 aria-labelledby="accordion-color-heading-1"
               >
                 <div className="p-5 font-light border rounded-md border-gray-200 dark:border-gray-700 dark:bg-gray-900">
-                {renderFilterBox()}
+                  {renderFilterBox()}
                 </div>
               </div>
             </div>
           </div>
-
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5 col-span-9">
             {renderProducts()}

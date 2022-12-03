@@ -1,5 +1,23 @@
 import { ProductModel } from './products.model';
 
+export interface CollectionsModel {
+  title: string;
+  descriptionHtml: string;
+  handle: string;
+  image: {
+    url: string;
+    altText: string;
+  };
+}
+
+export interface CollectionsListModel {
+  data: {
+    collections: {
+      nodes: CollectionsModel
+    }
+  }
+}
+
 export interface CollectionModel {
   title: string;
   handle: string;
@@ -10,6 +28,6 @@ export interface CollectionModel {
 
 export interface SingleCollectionModel {
   data: {
-    collection: CollectionModel
-  }
+    collection: CollectionModel;
+  };
 }

@@ -8,7 +8,6 @@ const getCollectionByHandleQuery = (
     price_max: number;
   }
 ) => {
-  console.log(1);
   const splittedSort = filters.sort_by.split('-');
   const sortKey = splittedSort[0];
   const reverse = splittedSort[1] ?? false;
@@ -17,8 +16,6 @@ const getCollectionByHandleQuery = (
     ...(filters.availability && { available: filters.availability }),
     price: { min: filters.price_min, max: filters.price_max },
   };
-
-  console.log(gqlFilters);
 
   const query = gql`
    {
@@ -58,8 +55,23 @@ const getCollectionByHandleQuery = (
     }
   }
 `;
-  console.log(query);
   return query;
 };
 
-export { getCollectionByHandleQuery };
+const getCollections = gql`
+  {
+    collections(first: 100) {
+      nodes {
+        title
+        descriptionHtml
+        handle
+        image {
+          url
+          altText
+        }
+      }
+    }
+  }
+`;
+
+export { getCollectionByHandleQuery, getCollections };
