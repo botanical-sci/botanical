@@ -10,7 +10,7 @@ import Image from 'next/future/image';
 import { useCartStore } from '@shopify/state';
 import Head from 'next/head';
 import { Breadcrumb } from '@shopify/components';
-
+import { Spinner } from 'flowbite-react';
 
 const customSpecifications = [
   {
@@ -36,6 +36,7 @@ interface Props {
 
 const ProductDetails: FC<Props> = ({ product: drivedProduct }: Props) => {
   const product = drivedProduct.data.product;
+  const [imageIsLoading, setImageIsLoading] = useState(false);
   const [featureImageSrc, setFeatureImageSrc] = useState(
     product.featuredImage.url
   );
@@ -76,23 +77,33 @@ const ProductDetails: FC<Props> = ({ product: drivedProduct }: Props) => {
         <title>{product.title} | Botanical Skin Science</title>
       </Head>
       <div className="mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8">
-        <Breadcrumb extraClassName='mb-6' list={[
-          {
-            current: true,
-            href: `/product/${product.handle}`,
-            name: product.title
-          }
-        ]} />
+        <Breadcrumb
+          extraClassName="mb-6"
+          list={[
+            {
+              current: true,
+              href: `/product/${product.handle}`,
+              name: product.title,
+            },
+          ]}
+        />
         {/* Product */}
         <div className="lg:grid lg:grid-rows-1 lg:grid-cols-10 lg:gap-x-8 lg:gap-y-10 xl:gap-x-16">
           {/* Product image */}
           <div className="lg:row-end-1 lg:col-span-5">
-            <div className="aspect-w-3 aspect-h-4 rounded-lg bg-gray-100 overflow-hidden">
-              <img
-                src={featureImageSrc}
-                alt={product.featuredImage.altText}
-                className="object-center object-cover"
-              />
+            <div className="aspect-w-3 aspect-h-4 relative rounded-lg bg-gray-100 overflow-hidden">
+              {imageIsLoading && (
+                <Spinner size='xl'  className="absolute top-0 bottom-0 left-0 right-0 m-auto z-30" />
+              )}
+          
+                <Image
+                  onLoadingComplete={() => setImageIsLoading(false)}
+                  className={'object-center object-cover'}
+                  width={400}
+                  height={800}
+                  src={featureImageSrc}
+                  alt={product.featuredImage.altText}
+                />
             </div>
 
             <ul className="grid grid-flow-col gap-5 mt-5">
@@ -105,6 +116,7 @@ const ProductDetails: FC<Props> = ({ product: drivedProduct }: Props) => {
                       : ''
                   )}
                   onClick={() => {
+                    setImageIsLoading(true);
                     setFeatureImageSrc(image.node.url);
                   }}
                 >
