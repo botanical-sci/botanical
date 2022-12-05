@@ -78,6 +78,7 @@ const Cart = () => {
                       <select
                         id={`quantity-${productIdx}`}
                         name={`quantity-${productIdx}`}
+                        defaultValue={product.qty}
                         onChange={(e) =>
                           handleChangeQty(product.id, e.target.value)
                         }
