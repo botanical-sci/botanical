@@ -2,10 +2,7 @@ import toast from 'react-hot-toast';
 import { mountStoreDevtool } from 'simple-zustand-devtools';
 import create from 'zustand';
 
-import {
-  CartItemModel,
-  CartStoreModel,
-} from '@shopify/models';
+import { CartItemModel, CartStoreModel } from '@shopify/models';
 
 const useCartStore = create<CartStoreModel>((set, get) => ({
   items: [],
@@ -67,6 +64,16 @@ const useCartStore = create<CartStoreModel>((set, get) => ({
       return {
         items: state.items.map((p) => {
           if (p.id === id) p.qty += 1;
+
+          return p;
+        }),
+      };
+    }),
+  changeQty: (id, newQty) =>
+    set((state) => {
+      return {
+        items: state.items.map((p) => {
+          if (p.id === id) p.qty = newQty;
 
           return p;
         }),

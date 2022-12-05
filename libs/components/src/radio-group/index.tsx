@@ -1,20 +1,21 @@
+import classNames from 'classnames';
 import { FC } from 'react';
 
 interface IOption {
-    key: string;
-    value: string | number;
-  }
+  key: string;
+  value: string | number;
+}
 
 interface Props {
   groupName: string;
-  defaultChecked: string;
+  checkedByDefault: string;
   onChange?: (value: IOption) => void;
   items: IOption[];
 }
 
 const RadioGroup: FC<Props> = ({
   groupName,
-  defaultChecked,
+  checkedByDefault,
   items,
   onChange,
 }) => {
@@ -26,8 +27,10 @@ const RadioGroup: FC<Props> = ({
           name={groupName}
           type="radio"
           onChange={() => onChange && onChange(item)}
-          defaultChecked={defaultChecked === item.key}
-          className="focus:ring-0 focus:ring-offset-0 h-4 w-4 text-indigo-600 border-gray-300"
+          defaultChecked={checkedByDefault === item.key}
+          className={classNames(
+            'focus:ring-0 focus:ring-offset-0 h-4 w-4 text-indigo-600 border-gray-300'
+          )}
         />
         <label
           htmlFor={item.key}

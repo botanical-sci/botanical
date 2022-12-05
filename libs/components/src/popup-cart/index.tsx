@@ -1,20 +1,13 @@
-import {
-  FC,
-  Fragment,
-  useEffect,
-  useState,
-} from 'react';
+import { FC, Fragment, useEffect, useState } from 'react';
 
 import Image from 'next/future/image';
 import Link from 'next/link';
 
-import {
-  Dialog,
-  Transition,
-} from '@headlessui/react';
+import { Dialog, Transition } from '@headlessui/react';
 import { XIcon } from '@heroicons/react/outline';
 import { useCartStore } from '@shopify/state';
 import { IconShoppingCartOff } from '@tabler/icons';
+import { useRouter } from 'next/router';
 
 interface Props {
   isOpen: boolean;
@@ -24,6 +17,7 @@ interface Props {
 const PopupCart: FC<Props> = ({ isOpen, onCartClose }) => {
   const [open, setOpen] = useState(isOpen);
   const cartStore = useCartStore();
+  const router = useRouter();
 
   useEffect(() => {
     setOpen(isOpen);
@@ -33,6 +27,12 @@ const PopupCart: FC<Props> = ({ isOpen, onCartClose }) => {
     e.preventDefault();
     e.stopPropagation();
     cartStore.removeItem(id);
+  };
+
+  const handleGoToCart = (e: any) => {
+    e.preventDefault();
+    setOpen(false);
+    router.push('/cart');
   };
 
   return (
@@ -155,11 +155,12 @@ const PopupCart: FC<Props> = ({ isOpen, onCartClose }) => {
                       Shipping and taxes calculated at checkout.
                     </p>
                     <div className="mt-6">
-                      <Link href="/checkout">
-                        <a className="flex justify-center items-center px-6 py-3 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700">
-                          Checkout
-                        </a>
-                      </Link>
+                      <a
+                        onClick={handleGoToCart}
+                        className="flex justify-center cursor-pointer items-center px-6 py-3 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700"
+                      >
+                        My Cart
+                      </a>
                     </div>
                     <div className="mt-6 flex justify-center text-sm text-center text-gray-500">
                       <p>

@@ -1,4 +1,10 @@
-import { Breadcrumb, Dropdown, RadioGroup, Switch, TextBox } from '@shopify/components';
+import {
+  Breadcrumb,
+  Dropdown,
+  RadioGroup,
+  Switch,
+  TextBox,
+} from '@shopify/components';
 import { getCollectionByHandleQuery } from '@shopify/graphql-queries';
 import { SingleCollectionModel, SingleProductModel } from '@shopify/models';
 import { storefront } from '@shopify/utilities';
@@ -11,6 +17,7 @@ import classNames from 'classnames';
 import { Accordion, Button } from 'flowbite-react';
 import { FilterIcon } from '@heroicons/react/outline';
 import { useRouter } from 'next/router';
+import { BrowserView, MobileView } from 'react-device-detect';
 
 type sortTypes =
   | 'manual'
@@ -47,7 +54,10 @@ const Collection: FC<Props> = ({
   const router = useRouter();
   const [showFilters, setShowFilters] = useState(false);
 
-  const collection = drivedCollection.data.collection;
+  const collection = drivedCollection.data?.collection;
+
+  if (!collection) return <div>Error Fetching Collection</div>;
+
   const breadcrumbList = [
     { name: 'Collection', href: '/collections', current: false },
     {
@@ -105,7 +115,7 @@ const Collection: FC<Props> = ({
             modifyFilters('sort_by', value.key);
           }}
           groupName="sort-by"
-          defaultChecked={initialFilters.sort_by}
+          checkedByDefault={initialFilters.sort_by}
           items={[
             { key: 'manual', value: 'Featured' },
             { key: 'best-selling', value: 'Alphabetically, A-Z' },
@@ -166,59 +176,62 @@ const Collection: FC<Props> = ({
       </Head>
       <div className="mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8">
         <h1 className="text-3xl">{collection.title}</h1>
-       <Breadcrumb list={breadcrumbList} />
+        <Breadcrumb list={breadcrumbList} />
 
         <hr className="mt-10 mb-10" />
 
         <div className="md:grid md:grid-cols-12 md:gap-5">
-          <div className="col-span-3 hidden md:block lg:block">
-            {renderFilterBox()}
-          </div>
-          <div className="col-span-3 md:hidden lg:hidden mb-5">
-            <div
-              data-accordion="collapse"
-              id="accordion-color"
-              data-active-classes="bg-blue-100 dark:bg-gray-800 text-blue-600 dark:text-white"
-            >
-              <h2 id="accordion-color-heading-1">
-                <button
-                  onClick={() => {
-                    setShowFilters(!showFilters);
-                  }}
-                  type="button"
-                  className="flex items-center justify-between w-full p-5 font-medium text-left text-gray-500 border border-gray-200 rounded-md focus:ring-0 dark:border-gray-700 dark:text-gray-400 hover:bg-blue-100 dark:hover:bg-gray-800"
-                  data-accordion-target="#accordion-color-body-1"
-                  aria-expanded="true"
-                  aria-controls="accordion-color-body-1"
-                >
-                  <span>Filters</span>
-                  <svg
-                    data-accordion-icon
-                    className="w-6 h-6 rotate-180 shrink-0"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      fill-rule="evenodd"
-                      d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                      clip-rule="evenodd"
-                    ></path>
-                  </svg>
-                </button>
-              </h2>
+            <div className="col-span-3 hidden md:block lg:block">
+          <BrowserView>
+              {renderFilterBox()}
+          </BrowserView>
+            </div>
+          <MobileView>
+            <div className="col-span-3 md:hidden lg:hidden mb-5">
               <div
-                id="accordion-color-body-1"
-                className={classNames(!showFilters ? 'hidden' : '')}
-                aria-labelledby="accordion-color-heading-1"
+                data-accordion="collapse"
+                id="accordion-color"
+                data-active-classes="bg-blue-100 dark:bg-gray-800 text-blue-600 dark:text-white"
               >
-                <div className="p-5 font-light border rounded-md border-gray-200 dark:border-gray-700 dark:bg-gray-900">
-                  {renderFilterBox()}
+                <h2 id="accordion-color-heading-1">
+                  <button
+                    onClick={() => {
+                      setShowFilters(!showFilters);
+                    }}
+                    type="button"
+                    className="flex items-center justify-between w-full p-5 font-medium text-left text-gray-500 border border-gray-200 rounded-md focus:ring-0 dark:border-gray-700 dark:text-gray-400 hover:bg-blue-100 dark:hover:bg-gray-800"
+                    data-accordion-target="#accordion-color-body-1"
+                    aria-expanded="true"
+                    aria-controls="accordion-color-body-1"
+                  >
+                    <span>Filters</span>
+                    <svg
+                      data-accordion-icon
+                      className="w-6 h-6 rotate-180 shrink-0"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                        clip-rule="evenodd"
+                      ></path>
+                    </svg>
+                  </button>
+                </h2>
+                <div
+                  id="accordion-color-body-1"
+                  className={classNames(!showFilters ? 'hidden' : '')}
+                  aria-labelledby="accordion-color-heading-1"
+                >
+                  <div className="p-5 font-light border rounded-md border-gray-200 dark:border-gray-700 dark:bg-gray-900">
+                    {renderFilterBox()}
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-
+          </MobileView>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5 col-span-9">
             {renderProducts()}
           </div>

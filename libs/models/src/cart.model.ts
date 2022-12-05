@@ -14,5 +14,6 @@ export interface CartStoreModel {
   addItem: (item: CartItemModel) => void;
   removeItem: (id: string) => void;
   increaseQty: (id: string) => void;
+  changeQty: (id: string, newQty: number) => void;
   decreaseQty: (id: string) => void;
 }

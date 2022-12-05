@@ -10,7 +10,7 @@ const getCollectionByHandleQuery = (
 ) => {
   const splittedSort = filters.sort_by.split('-');
   const sortKey = splittedSort[0];
-  const reverse = splittedSort[1] ?? false;
+  const reverse = splittedSort[1] === 'descending' ?? false;
 
   const gqlFilters = {
     ...(filters.availability && { available: filters.availability }),
