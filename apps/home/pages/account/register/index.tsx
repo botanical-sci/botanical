@@ -1,6 +1,8 @@
 import Link from 'next/link';
 
 import { Breadcrumb } from '@shopify/components';
+import { storefront } from '@shopify/utilities';
+import { registerQuery } from '@shopify/graphql-queries';
 
 const breadcrumbList = [
   { name: 'Account', href: '/account', current: false },
@@ -8,6 +10,20 @@ const breadcrumbList = [
 ];
 
 const Register = () => {
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const data = await storefront(registerQuery, {
+      input: {
+        firstName: event.target.firstName.value,
+        lastName: event.target.lastName.value,
+        phone: event.target.phone.value,
+        email: event.target.email.value,
+        password: event.target.password.value,
+        acceptsMarketing: true,
+      },
+    });
+    console.log(data);
+  };
   return (
     <div className="min-h-full flex flex-col justify-center py-12 px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
@@ -21,7 +37,7 @@ const Register = () => {
 
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
         <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
-          <form className="space-y-6" action="#" method="POST">
+          <form className="space-y-6" onSubmit={handleSubmit}>
             <div>
               <label
                 htmlFor="firstName"
