@@ -1,4 +1,4 @@
-export interface userResponseModel {
+export interface UserResponseModel {
   data: {
     customer: {
       id: string;

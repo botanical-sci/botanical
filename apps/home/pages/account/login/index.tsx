@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { Breadcrumb } from '@shopify/components';
 import { storefront } from '@shopify/utilities';
 import { getUserByHandleQuery, loginQuery } from '@shopify/graphql-queries';
-import { LoginResponseModel, userResponseModel } from '@shopify/models';
+import { LoginResponseModel, UserResponseModel } from '@shopify/models';
 
 const breadcrumbList = [
   { name: 'Account', href: '/account', current: false },
@@ -38,7 +38,7 @@ const Login = () => {
     console.log(token);
 
     const getUser = async () => {
-      const userResponse = await storefront<userResponseModel>(
+      const userResponse = await storefront<UserResponseModel>(
         getUserByHandleQuery(token)
       );
       console.log('userResponse', userResponse);
