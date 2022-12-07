@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import Link from 'next/link';
+import toast from 'react-hot-toast';
 
 import { Breadcrumb } from '@shopify/components';
 import { storefront } from '@shopify/utilities';
@@ -29,11 +30,16 @@ const Register = () => {
         },
       }
     );
+
+    const registeredUser = registerResponse?.data?.customerCreate?.customer;
+
+    if (registeredUser) {
+      toast.success('You have been registered successfully!');
+      localStorage.setItem('user', JSON.stringify(registeredUser));
+    } else {
+      toast.error('Something goes wrong!');
+    }
     setLoading(false);
-    localStorage.setItem(
-      'user',
-      JSON.stringify(registerResponse?.data?.customerCreate?.customer)
-    );
   };
   return (
     <div className="min-h-full flex flex-col justify-center py-12 px-6 lg:px-8">

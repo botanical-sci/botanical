@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
+import toast from 'react-hot-toast';
 
 import { Breadcrumb } from '@shopify/components';
 import { storefront } from '@shopify/utilities';
@@ -22,14 +23,17 @@ const Login = () => {
         password: event.target.password.value,
       },
     });
+    const token =
+      loginResponse?.data?.customerAccessTokenCreate?.customerAccessToken
+        ?.accessToken;
+    if (token) {
+      toast.success('You have been logged in successfully!');
+      localStorage.setItem('token', JSON.stringify(token));
+    } else {
+      toast.error('Something goes wrong!');
+    }
+
     setLoading(false);
-    localStorage.setItem(
-      'token',
-      JSON.stringify(
-        loginResponse?.data?.customerAccessTokenCreate?.customerAccessToken
-          ?.accessToken
-      )
-    );
   };
 
   useEffect(() => {
