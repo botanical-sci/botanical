@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import toast from 'react-hot-toast';
 
 import { Breadcrumb } from '@shopify/components';
@@ -13,6 +14,7 @@ const breadcrumbList = [
 ];
 
 const Register = () => {
+  const router = useRouter();
   const [loading, setLoading] = useState<boolean>(false);
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -36,6 +38,7 @@ const Register = () => {
     if (registeredUser) {
       toast.success('You have been registered successfully!');
       localStorage.setItem('user', JSON.stringify(registeredUser));
+      router.push('/account/login');
     } else {
       toast.error('Something goes wrong!');
     }
