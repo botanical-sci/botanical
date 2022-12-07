@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import Link from 'next/link';
 
 import { Breadcrumb } from '@shopify/components';
@@ -10,18 +11,21 @@ const breadcrumbList = [
 ];
 
 const Register = () => {
+  const [loading, setLoading] = useState<boolean>(false);
   const handleSubmit = async (event) => {
     event.preventDefault();
+    setLoading(true);
     const data = await storefront(registerQuery, {
       input: {
         firstName: event.target.firstName.value,
         lastName: event.target.lastName.value,
-        phone: event.target.phone.value,
+        ...(event.target.phone.value && { phone: event.target.phone.value }),
         email: event.target.email.value,
         password: event.target.password.value,
         acceptsMarketing: true,
       },
     });
+    setLoading(false);
     console.log(data);
   };
   return (
@@ -151,7 +155,8 @@ const Register = () => {
             <div>
               <button
                 type="submit"
-                className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                disabled={loading}
+                className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:cursor-not-allowed disabled:bg-indigo-300"
               >
                 Register
               </button>
