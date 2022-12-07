@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { Breadcrumb } from '@shopify/components';
 import { storefront } from '@shopify/utilities';
 import { registerQuery } from '@shopify/graphql-queries';
+import { RegisterResponseModel } from '@shopify/models';
 
 const breadcrumbList = [
   { name: 'Account', href: '/account', current: false },
@@ -15,18 +16,24 @@ const Register = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     setLoading(true);
-    const data = await storefront(registerQuery, {
-      input: {
-        firstName: event.target.firstName.value,
-        lastName: event.target.lastName.value,
-        ...(event.target.phone.value && { phone: event.target.phone.value }),
-        email: event.target.email.value,
-        password: event.target.password.value,
-        acceptsMarketing: true,
-      },
-    });
+    const registerResponse = await storefront<RegisterResponseModel>(
+      registerQuery,
+      {
+        input: {
+          firstName: event.target.firstName.value,
+          lastName: event.target.lastName.value,
+          ...(event.target.phone.value && { phone: event.target.phone.value }),
+          email: event.target.email.value,
+          password: event.target.password.value,
+          acceptsMarketing: true,
+        },
+      }
+    );
     setLoading(false);
-    console.log(data);
+    localStorage.setItem(
+      'user',
+      JSON.stringify(registerResponse?.data?.customerCreate?.customer)
+    );
   };
   return (
     <div className="min-h-full flex flex-col justify-center py-12 px-6 lg:px-8">
