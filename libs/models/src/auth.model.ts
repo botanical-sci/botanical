@@ -12,3 +12,14 @@ export interface RegisterResponseModel {
     };
   };
 }
+export interface LoginResponseModel {
+  data: {
+    customerAccessTokenCreate: {
+      customerAccessToken: {
+        accessToken: string;
+        expiresAt: string;
+      };
+      customerUserErrors: [];
+    };
+  };
+}

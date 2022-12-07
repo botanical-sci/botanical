@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { Breadcrumb } from '@shopify/components';
 import { storefront } from '@shopify/utilities';
 import { loginQuery } from '@shopify/graphql-queries';
+import { LoginResponseModel } from '@shopify/models';
 
 const breadcrumbList = [
   { name: 'Account', href: '/account', current: false },
@@ -15,14 +16,20 @@ const Login = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     setLoading(true);
-    const data = await storefront(loginQuery, {
+    const loginResponse = await storefront<LoginResponseModel>(loginQuery, {
       input: {
         email: event.target.email.value,
         password: event.target.password.value,
       },
     });
     setLoading(false);
-    console.log(data);
+    localStorage.setItem(
+      'token',
+      JSON.stringify(
+        loginResponse?.data?.customerAccessTokenCreate?.customerAccessToken
+          ?.accessToken
+      )
+    );
   };
   return (
     <div className="min-h-full flex flex-col justify-center py-12 px-6 lg:px-8">
