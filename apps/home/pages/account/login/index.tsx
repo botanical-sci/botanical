@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 import { Breadcrumb } from '@shopify/components';
 
 const breadcrumbList = [
@@ -91,6 +93,15 @@ const Login = () => {
               >
                 Login
               </button>
+            </div>
+
+            <div className="font-medium text-sm">
+              <span>{`Don't have an account?`}</span>
+              <Link href="/account/register">
+                <a className="font-medium text-indigo-600 hover:text-indigo-500 ml-1">
+                  Register
+                </a>
+              </Link>
             </div>
           </form>
 
