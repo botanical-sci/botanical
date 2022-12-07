@@ -66,6 +66,7 @@ const Login = () => {
                 className="block text-sm font-medium text-gray-700"
               >
                 Email address
+                <span className="text-red-700 ml-1">*</span>
               </label>
               <div className="mt-1">
                 <input
@@ -85,6 +86,7 @@ const Login = () => {
                 className="block text-sm font-medium text-gray-700"
               >
                 Password
+                <span className="text-red-700 ml-1">*</span>
               </label>
               <div className="mt-1">
                 <input
