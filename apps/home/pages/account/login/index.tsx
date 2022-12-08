@@ -1,12 +1,12 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import toast from 'react-hot-toast';
 
 import { Breadcrumb } from '@shopify/components';
 import { storefront } from '@shopify/utilities';
-import { getUserByHandleQuery, loginQuery } from '@shopify/graphql-queries';
-import { LoginResponseModel, UserResponseModel } from '@shopify/models';
+import { loginQuery } from '@shopify/graphql-queries';
+import { LoginResponseModel } from '@shopify/models';
 
 const breadcrumbList = [
   { name: 'Account', href: '/account', current: false },
@@ -38,20 +38,6 @@ const Login = () => {
 
     setLoading(false);
   };
-
-  useEffect(() => {
-    const token = JSON.parse(localStorage.getItem('token'));
-
-    console.log(token);
-
-    const getUser = async () => {
-      const userResponse = await storefront<UserResponseModel>(
-        getUserByHandleQuery(token)
-      );
-      console.log('userResponse', userResponse);
-    };
-    getUser();
-  }, []);
 
   return (
     <div className="min-h-full flex flex-col justify-center py-12 px-6 lg:px-8">

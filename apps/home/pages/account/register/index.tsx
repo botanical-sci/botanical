@@ -37,7 +37,6 @@ const Register = () => {
 
     if (registeredUser) {
       toast.success('You have been registered successfully!');
-      localStorage.setItem('user', JSON.stringify(registeredUser));
       router.push('/account/login');
     } else {
       toast.error('Something goes wrong!');
@@ -152,23 +151,6 @@ const Register = () => {
                   className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm 
                   focus:invalid:border-red-500 focus:invalid:ring-red-500"
                 />
-              </div>
-            </div>
-
-            <div className="flex items-center justify-between">
-              <div className="flex items-center">
-                <input
-                  id="remember-me"
-                  name="remember-me"
-                  type="checkbox"
-                  className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
-                />
-                <label
-                  htmlFor="remember-me"
-                  className="ml-2 block text-sm text-gray-900"
-                >
-                  Remember me
-                </label>
               </div>
             </div>
 

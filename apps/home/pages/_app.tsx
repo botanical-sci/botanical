@@ -1,15 +1,17 @@
 import 'keen-slider/keen-slider.min.css';
 import './styles.css';
 
+import { useEffect } from 'react';
 import { AppProps } from 'next/app';
 import Head from 'next/head';
 import { Toaster } from 'react-hot-toast';
 
 import { Footer, Header } from '@shopify/components';
-import { MenuBasicModel } from '@shopify/models';
+import { MenuBasicModel, UserResponseModel } from '@shopify/models';
 import { storefront } from '@shopify/utilities';
-import { menuQuery } from '@shopify/graphql-queries';
+import { getUserByHandleQuery, menuQuery } from '@shopify/graphql-queries';
 import { NextPage } from 'next';
+import { useUserStore } from '@shopify/state';
 
 interface Props extends AppProps {
   menuData: MenuBasicModel;
@@ -20,6 +22,21 @@ const ShopifyApp: NextPage<Props> = ({
   pageProps,
   menuData,
 }: Props) => {
+  const userStore = useUserStore();
+  useEffect(() => {
+    const token = JSON.parse(localStorage.getItem('token'));
+    const getUser = async () => {
+      const userResponse = await storefront<UserResponseModel>(
+        getUserByHandleQuery(token)
+      );
+
+      userStore.initiate(userResponse?.data?.customer);
+    };
+    if (token) {
+      getUser();
+    }
+  }, []);
+
   return (
     <>
       <Head>
@@ -41,14 +58,14 @@ const ShopifyApp: NextPage<Props> = ({
 };
 
 ShopifyApp.getInitialProps = async ({ req, res }) => {
-  
-  res && res.setHeader(
-    'Cache-Control',
-    'public, s-maxage=10, stale-while-revalidate=59'
-  );
+  res &&
+    res.setHeader(
+      'Cache-Control',
+      'public, s-maxage=10, stale-while-revalidate=59'
+    );
 
   const data = await storefront<any>(menuQuery);
-  
+
   return {
     menuData: data.data,
   } as any;

@@ -11,7 +11,7 @@ import {
   XIcon,
 } from '@heroicons/react/outline';
 import { MenuModel } from '@shopify/models';
-import { useCartStore } from '@shopify/state';
+import { useCartStore, useUserStore } from '@shopify/state';
 
 import PopupCart from '../popup-cart';
 import { extractHandleFromUrl } from '@shopify/utilities';
@@ -28,6 +28,12 @@ const Header: FC<Props> = ({ menu }: Props) => {
   const [open, setOpen] = useState(false);
   const [cartOpen, setCartOpen] = useState(false);
   const cartStore = useCartStore();
+  const userStore = useUserStore();
+
+  const handleSignOut = () => {
+    localStorage.removeItem('token');
+    userStore.initiate(null);
+  };
 
   const handleDisplayCart = (e: any) => {
     e.preventDefault();
@@ -114,20 +120,42 @@ const Header: FC<Props> = ({ menu }: Props) => {
               </ul>
 
               <div className="border-t border-gray-200 py-6 px-4 space-y-6">
-                <div className="flow-root">
-                  <Link href="/account/login">
-                    <a className="-m-2 p-2 block font-medium text-gray-900">
-                      Sign in
-                    </a>
-                  </Link>
-                </div>
-                <div className="flow-root">
-                  <Link href="/account/register">
-                    <a className="-m-2 p-2 block font-medium text-gray-900">
-                      Create account
-                    </a>
-                  </Link>
-                </div>
+                {userStore.user ? (
+                  <>
+                    <div className="flow-root">
+                      <Link href="/account/">
+                        <a className="-m-2 p-2 block font-medium text-gray-900">
+                          Profile
+                        </a>
+                      </Link>
+                    </div>
+                    <div className="flow-root">
+                      <span
+                        className="-m-2 p-2 block font-medium text-gray-900 cursor-pointer"
+                        onClick={handleSignOut}
+                      >
+                        Sign out
+                      </span>
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <div className="flow-root">
+                      <Link href="/account/login">
+                        <a className="-m-2 p-2 block font-medium text-gray-900">
+                          Sign in
+                        </a>
+                      </Link>
+                    </div>
+                    <div className="flow-root">
+                      <Link href="/account/register">
+                        <a className="-m-2 p-2 block font-medium text-gray-900">
+                          Create account
+                        </a>
+                      </Link>
+                    </div>
+                  </>
+                )}
               </div>
             </div>
           </Transition.Child>
@@ -209,19 +237,45 @@ const Header: FC<Props> = ({ menu }: Props) => {
               </ul>
 
               <div className="ml-auto flex items-center">
-                <div className="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
-                  <Link href="/account/login">
-                    <a className="text-sm font-medium text-gray-700 hover:text-gray-800">
-                      Sign in
-                    </a>
-                  </Link>
-                  <span className="h-6 w-px bg-gray-200" aria-hidden="true" />
-                  <Link href="/account/register">
-                    <a className="text-sm font-medium text-gray-700 hover:text-gray-800">
-                      Create account
-                    </a>
-                  </Link>
-                </div>
+                {userStore.user ? (
+                  <div className="hidden lg:flex lg:flex-col lg:flex-1 lg:items-center lg:justify-end lg:space-x-6 lg:space-y-1">
+                    <span className="text-sm font-medium text-gray-700">
+                      {userStore.user?.email}
+                    </span>
+                    <span
+                      className="w-full w-px bg-gray-200"
+                      aria-hidden="true"
+                    />
+                    <div className="ml-auto flex items-center space-x-5">
+                      <Link href="/account">
+                        <a className="text-sm font-medium text-gray-700 hover:text-gray-800">
+                          Profile
+                        </a>
+                      </Link>
+
+                      <span
+                        className="text-sm font-medium text-gray-700 hover:text-gray-800 cursor-pointer"
+                        onClick={handleSignOut}
+                      >
+                        Sign out
+                      </span>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
+                    <Link href="/account/login">
+                      <a className="text-sm font-medium text-gray-700 hover:text-gray-800">
+                        Sign in
+                      </a>
+                    </Link>
+                    <span className="h-6 w-px bg-gray-200" aria-hidden="true" />
+                    <Link href="/account/register">
+                      <a className="text-sm font-medium text-gray-700 hover:text-gray-800">
+                        Create account
+                      </a>
+                    </Link>
+                  </div>
+                )}
 
                 {/* Search */}
                 <div className="flex lg:ml-6">

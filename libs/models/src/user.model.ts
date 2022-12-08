@@ -10,3 +10,17 @@ export interface UserResponseModel {
     };
   };
 }
+
+interface UserModel {
+  id: string;
+  firstName: string;
+  lastName: string;
+  acceptsMarketing: boolean;
+  email: string;
+  phone: string | null;
+}
+
+export interface UserStoreModel {
+  user: UserModel | null;
+  initiate: (user: UserModel | null) => void;
+}
