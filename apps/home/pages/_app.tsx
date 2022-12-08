@@ -24,7 +24,9 @@ const ShopifyApp: NextPage<Props> = ({
 }: Props) => {
   const userStore = useUserStore();
   useEffect(() => {
-    const token = JSON.parse(localStorage.getItem('token'));
+    const token = JSON.parse(
+      localStorage.getItem('token') || sessionStorage.getItem('token')
+    );
     const getUser = async () => {
       const userResponse = await storefront<UserResponseModel>(
         getUserByHandleQuery(token)

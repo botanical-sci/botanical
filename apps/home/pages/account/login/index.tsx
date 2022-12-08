@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import toast from 'react-hot-toast';
 
-import { Breadcrumb } from '@shopify/components';
+import { Breadcrumb, Spinner } from '@shopify/components';
 import { storefront } from '@shopify/utilities';
 import { loginQuery } from '@shopify/graphql-queries';
 import { LoginResponseModel } from '@shopify/models';
@@ -30,7 +30,9 @@ const Login = () => {
         ?.accessToken;
     if (token) {
       toast.success('You have been logged in successfully!');
-      localStorage.setItem('token', JSON.stringify(token));
+      event.target.rememberMe.checked
+        ? localStorage.setItem('token', JSON.stringify(token))
+        : sessionStorage.setItem('token', JSON.stringify(token));
       router.push('/account');
     } else {
       toast.error('Something goes wrong!');
@@ -96,13 +98,13 @@ const Login = () => {
             <div className="flex items-center justify-between">
               <div className="flex items-center">
                 <input
-                  id="remember-me"
-                  name="remember-me"
+                  id="rememberMe"
+                  name="rememberMe"
                   type="checkbox"
                   className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
                 />
                 <label
-                  htmlFor="remember-me"
+                  htmlFor="rememberMe"
                   className="ml-2 block text-sm text-gray-900"
                 >
                   Remember me
@@ -123,8 +125,9 @@ const Login = () => {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:cursor-not-allowed disabled:bg-indigo-300"
+                className="w-full flex justify-center items-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
               >
+                {loading && <Spinner />}
                 Login
               </button>
             </div>

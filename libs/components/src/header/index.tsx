@@ -1,7 +1,9 @@
 import { FC, Fragment, useEffect, useState } from 'react';
 
+import { useRouter } from 'next/router';
 import Image from 'next/future/image';
 import Link from 'next/link';
+import { IconLogout, IconUserCircle } from '@tabler/icons';
 
 import { Dialog, Transition } from '@headlessui/react';
 import {
@@ -25,6 +27,7 @@ interface Props {
 }
 
 const Header: FC<Props> = ({ menu }: Props) => {
+  const router = useRouter();
   const [open, setOpen] = useState(false);
   const [cartOpen, setCartOpen] = useState(false);
   const cartStore = useCartStore();
@@ -32,7 +35,9 @@ const Header: FC<Props> = ({ menu }: Props) => {
 
   const handleSignOut = () => {
     localStorage.removeItem('token');
+    sessionStorage.removeItem('token');
     userStore.initiate(null);
+    router.push('/');
   };
 
   const handleDisplayCart = (e: any) => {
@@ -238,7 +243,7 @@ const Header: FC<Props> = ({ menu }: Props) => {
 
               <div className="ml-auto flex items-center">
                 {userStore.user ? (
-                  <div className="hidden lg:flex lg:flex-col lg:flex-1 lg:items-center lg:justify-end lg:space-x-6 lg:space-y-1">
+                  <div className="hidden lg:flex lg:flex-col lg:flex-1 lg:items-center lg:justify-end lg:space-y-1">
                     <span className="text-sm font-medium text-gray-700">
                       {userStore.user?.email}
                     </span>
@@ -246,18 +251,20 @@ const Header: FC<Props> = ({ menu }: Props) => {
                       className="w-full w-px bg-gray-200"
                       aria-hidden="true"
                     />
-                    <div className="ml-auto flex items-center space-x-5">
+                    <div className="mx-auto flex items-center space-x-5">
                       <Link href="/account">
-                        <a className="text-sm font-medium text-gray-700 hover:text-gray-800">
-                          Profile
+                        <a className="text-sm font-medium text-gray-700 hover:text-gray-800 flex items-center space-x-1">
+                          <IconUserCircle size="20px" />
+                          <span>Profile</span>
                         </a>
                       </Link>
 
                       <span
-                        className="text-sm font-medium text-gray-700 hover:text-gray-800 cursor-pointer"
+                        className="text-sm font-medium text-gray-700 hover:text-gray-800 cursor-pointer flex items-center space-x-1"
                         onClick={handleSignOut}
                       >
-                        Sign out
+                        <IconLogout size="20px" />
+                        <span>Sign out</span>
                       </span>
                     </div>
                   </div>
