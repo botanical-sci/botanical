@@ -1,7 +1,8 @@
-import { useState } from 'react';
+import { ReactElement, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import toast from 'react-hot-toast';
+import classNames from 'classnames';
 
 import { Breadcrumb, Spinner } from '@shopify/components';
 import { storefront } from '@shopify/utilities';
@@ -12,19 +13,39 @@ const breadcrumbList = [
   { name: 'Account', href: '/account', current: false },
   { name: 'Register', href: '/account/register', current: true },
 ];
+const InputsBaseCssClasses =
+  'appearance-none block w-full px-3 py-2 border rounded-md shadow-sm sm:text-sm';
+const InputsDefaultCssClasses =
+  'border-gray-300 placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500';
+const InputsErrorCssClasses =
+  'border-red-500 ring-red-500 focus:border-red-500 focus:ring-red-500';
+
+type InputErrors = {
+  firstName?: ReactElement;
+  lastName?: ReactElement;
+  phone?: ReactElement;
+  email?: ReactElement;
+  password?: ReactElement;
+};
 
 const Register = () => {
   const router = useRouter();
   const [loading, setLoading] = useState<boolean>(false);
+  const [errors, setErrors] = useState<InputErrors>({});
   const handleSubmit = async (event) => {
     event.preventDefault();
+    setErrors({});
     setLoading(true);
     const registerResponse = await storefront<RegisterResponseModel>(
       registerQuery,
       {
         input: {
-          firstName: event.target.firstName.value,
-          lastName: event.target.lastName.value,
+          ...(event.target.firstName.value && {
+            firstName: event.target.firstName.value,
+          }),
+          ...(event.target.lastName.value && {
+            lastName: event.target.lastName.value,
+          }),
           ...(event.target.phone.value && { phone: event.target.phone.value }),
           email: event.target.email.value,
           password: event.target.password.value,
@@ -38,8 +59,19 @@ const Register = () => {
     if (registeredUser) {
       toast.success('You have been registered successfully!');
       router.push('/account/login');
+    } else if (registerResponse?.errors) {
+      registerResponse.errors.forEach((error) => toast.error(error.message));
     } else {
-      toast.error('Something goes wrong!');
+      registerResponse.data.customerCreate.userErrors.forEach((error) =>
+        setErrors((prevState) => ({
+          ...prevState,
+          [error.field[1]]: (
+            <div className="text-xs font-medium text-red-700 mt-1">
+              {error.message}
+            </div>
+          ),
+        }))
+      );
     }
     setLoading(false);
   };
@@ -56,25 +88,29 @@ const Register = () => {
 
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
         <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
-          <form className="space-y-6" onSubmit={handleSubmit}>
+          <form className="space-y-6" onSubmit={handleSubmit} noValidate>
             <div>
               <label
                 htmlFor="firstName"
                 className="flex items-center text-sm font-medium text-gray-700"
               >
                 First name
-                <span className="text-red-700 ml-1">*</span>
+                <span className="text-xs ml-1">(Optional)</span>
               </label>
               <div className="mt-1">
                 <input
                   id="firstName"
                   name="firstName"
                   type="text"
-                  required
-                  className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm
-                  focus:invalid:border-red-500 focus:invalid:ring-red-500"
+                  className={classNames(
+                    InputsBaseCssClasses,
+                    errors['firstName']
+                      ? InputsErrorCssClasses
+                      : InputsDefaultCssClasses
+                  )}
                 />
               </div>
+              {errors['firstName']}
             </div>
             <div>
               <label
@@ -82,35 +118,44 @@ const Register = () => {
                 className="block text-sm font-medium text-gray-700"
               >
                 Last name
-                <span className="text-red-700 ml-1">*</span>
+                <span className="text-xs ml-1">(Optional)</span>
               </label>
               <div className="mt-1">
                 <input
                   id="lastName"
                   name="lastName"
                   type="text"
-                  required
-                  className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm 
-                  focus:invalid:border-red-500 focus:invalid:ring-red-500"
+                  className={classNames(
+                    InputsBaseCssClasses,
+                    errors['lastName']
+                      ? InputsErrorCssClasses
+                      : InputsDefaultCssClasses
+                  )}
                 />
               </div>
+              {errors['lastName']}
             </div>
             <div>
               <label
                 htmlFor="phone"
                 className="block text-sm font-medium text-gray-700"
               >
-                Phone number <span className="text-xs">(Optional)</span>
+                Phone number<span className="text-xs ml-1">(Optional)</span>
               </label>
               <div className="mt-1">
                 <input
                   id="phone"
                   name="phone"
                   type="tel"
-                  className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm 
-                  focus:invalid:border-red-500 focus:invalid:ring-red-500"
+                  className={classNames(
+                    InputsBaseCssClasses,
+                    errors['phone']
+                      ? InputsErrorCssClasses
+                      : InputsDefaultCssClasses
+                  )}
                 />
               </div>
+              {errors['phone']}
             </div>
             <div>
               <label
@@ -127,10 +172,15 @@ const Register = () => {
                   type="email"
                   autoComplete="email"
                   required
-                  className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm 
-                  focus:invalid:border-red-500 focus:invalid:ring-red-500"
+                  className={classNames(
+                    InputsBaseCssClasses,
+                    errors['email']
+                      ? InputsErrorCssClasses
+                      : InputsDefaultCssClasses
+                  )}
                 />
               </div>
+              {errors['email']}
             </div>
 
             <div>
@@ -148,10 +198,15 @@ const Register = () => {
                   type="password"
                   autoComplete="current-password"
                   required
-                  className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm 
-                  focus:invalid:border-red-500 focus:invalid:ring-red-500"
+                  className={classNames(
+                    InputsBaseCssClasses,
+                    errors['password']
+                      ? InputsErrorCssClasses
+                      : InputsDefaultCssClasses
+                  )}
                 />
               </div>
+              {errors['password']}
             </div>
 
             <div>

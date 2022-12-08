@@ -9,8 +9,19 @@ export interface RegisterResponseModel {
         lastName: string;
         phone: string | null;
       };
+      userErrors: [
+        {
+          field: string[];
+          message: string;
+        }
+      ];
     };
   };
+  errors: [
+    {
+      message: string;
+    }
+  ];
 }
 export interface LoginResponseModel {
   data: {
@@ -19,7 +30,12 @@ export interface LoginResponseModel {
         accessToken: string;
         expiresAt: string;
       };
-      customerUserErrors: [];
+      customerUserErrors: [
+        {
+          field: string[];
+          message: string;
+        }
+      ];
     };
   };
 }
