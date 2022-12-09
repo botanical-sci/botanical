@@ -13,3 +13,4 @@ export { default as TextBox } from './textbox';
 export { default as Switch } from './switch';
 export { default as Breadcrumb } from './breadcrumb';
 export { default as Spinner } from './spinner';
+export { default as AccountLayout } from './account-layout';

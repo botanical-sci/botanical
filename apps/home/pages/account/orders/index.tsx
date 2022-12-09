@@ -1,23 +1,7 @@
 import { FC } from 'react';
 import { CheckIcon } from '@heroicons/react/outline';
-import { IconUserCircle, IconBasket, IconAddressBook } from '@tabler/icons';
-import Link from 'next/link';
 
-const subNavigation = [
-  {
-    name: 'Profile',
-    href: '/account',
-    icon: IconUserCircle,
-    current: false,
-  },
-  { name: 'Orders', href: '/account/orders', icon: IconBasket, current: true },
-  {
-    name: 'Addresses',
-    href: '/account/addresses',
-    icon: IconAddressBook,
-    current: false,
-  },
-];
+import { AccountLayout } from '@shopify/components';
 
 const orders = [
   {
@@ -47,196 +31,152 @@ const orders = [
   },
 ];
 
-function classNames(...classes) {
-  return classes.filter(Boolean).join(' ');
-}
-
 const Orders: FC = () => {
   return (
-    <>
-      <div className="h-full">
-        <main className="max-w-7xl mx-auto pb-10 lg:py-12 lg:px-8">
-          <div className="lg:grid lg:grid-cols-12 lg:gap-x-5">
-            <aside className="py-6 px-2 sm:px-6 lg:py-0 lg:px-0 lg:col-span-3">
-              <nav className="space-y-1">
-                {subNavigation.map((item) => (
-                  <Link key={item.name} href={item.href}>
-                    <a
-                      className={classNames(
-                        item.current
-                          ? 'bg-gray-50 text-indigo-700'
-                          : 'text-gray-700 hover:text-gray-900',
-                        'group rounded-md px-3 py-2 flex items-center text-sm font-medium hover:bg-white'
-                      )}
-                      aria-current={item.current ? 'page' : undefined}
-                    >
-                      <item.icon
-                        className={classNames(
-                          item.current
-                            ? 'text-indigo-700'
-                            : 'text-gray-400 group-hover:text-gray-500',
-                          'flex-shrink-0 -ml-1 mr-3 h-6 w-6'
-                        )}
-                        aria-hidden="true"
-                      />
-                      <span className="truncate">{item.name}</span>
-                    </a>
-                  </Link>
-                ))}
-              </nav>
-            </aside>
-            <div className="space-y-6 sm:px-6 px-4 lg:px-0 lg:col-span-9">
-              <div className="bg-white shadow rounded-md py-6 sm:px-6">
-                <div className="px-4 sm:px-0">
-                  <h1 className="text-2xl font-extrabold tracking-tight text-gray-900 sm:text-3xl">
-                    Order history
-                  </h1>
-                  <p className="mt-2 text-sm text-gray-500">
-                    Check the status of recent orders, manage returns, and
-                    download invoices.
-                  </p>
-                </div>
+    <AccountLayout page="Orders">
+      <div className="space-y-6 sm:px-6 px-4 lg:px-0 lg:col-span-9">
+        <div className="bg-white shadow rounded-md py-6 sm:px-6">
+          <div className="px-4 sm:px-0">
+            <h1 className="text-2xl font-extrabold tracking-tight text-gray-900 sm:text-3xl">
+              Order history
+            </h1>
+            <p className="mt-2 text-sm text-gray-500">
+              Check the status of recent orders, manage returns, and download
+              invoices.
+            </p>
+          </div>
 
-                <div className="mt-16">
-                  <h2 className="sr-only">Recent orders</h2>
+          <div className="mt-16">
+            <h2 className="sr-only">Recent orders</h2>
 
-                  <div className="space-y-16 sm:space-y-24">
-                    {orders.map((order) => (
-                      <div key={order.number}>
-                        <h3 className="sr-only">
-                          Order placed on{' '}
+            <div className="space-y-16 sm:space-y-24">
+              {orders.map((order) => (
+                <div key={order.number}>
+                  <h3 className="sr-only">
+                    Order placed on{' '}
+                    <time dateTime={order.datetime}>{order.date}</time>
+                  </h3>
+
+                  <div className="bg-gray-50 px-4 py-6 sm:rounded-lg sm:p-6 md:flex md:items-center md:justify-between md:space-x-6 lg:space-x-8">
+                    <dl className="divide-y divide-gray-200 space-y-4 text-sm text-gray-600 flex-auto md:divide-y-0 md:space-y-0 md:grid md:grid-cols-3 md:gap-x-6 lg:w-1/2 lg:flex-none lg:gap-x-8">
+                      <div className="flex justify-between md:block">
+                        <dt className="font-medium text-gray-900">
+                          Order number
+                        </dt>
+                        <dd className="md:mt-1">{order.number}</dd>
+                      </div>
+                      <div className="flex justify-between pt-4 md:block md:pt-0">
+                        <dt className="font-medium text-gray-900">
+                          Date placed
+                        </dt>
+                        <dd className="md:mt-1">
                           <time dateTime={order.datetime}>{order.date}</time>
-                        </h3>
+                        </dd>
+                      </div>
+                      <div className="flex justify-between pt-4 font-medium text-gray-900 md:block md:pt-0">
+                        <dt>Total amount</dt>
+                        <dd className="md:mt-1">{order.total}</dd>
+                      </div>
+                    </dl>
+                    <div className="space-y-4 mt-6 sm:flex sm:space-x-4 sm:space-y-0 md:mt-0">
+                      <a
+                        href={order.href}
+                        className="w-full flex items-center justify-center bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 md:w-auto"
+                      >
+                        View Order
+                        <span className="sr-only">{order.number}</span>
+                      </a>
+                      <a
+                        href={order.invoiceHref}
+                        className="w-full flex items-center justify-center bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 md:w-auto"
+                      >
+                        View Invoice
+                        <span className="sr-only">
+                          for order {order.number}
+                        </span>
+                      </a>
+                    </div>
+                  </div>
 
-                        <div className="bg-gray-50 px-4 py-6 sm:rounded-lg sm:p-6 md:flex md:items-center md:justify-between md:space-x-6 lg:space-x-8">
-                          <dl className="divide-y divide-gray-200 space-y-4 text-sm text-gray-600 flex-auto md:divide-y-0 md:space-y-0 md:grid md:grid-cols-3 md:gap-x-6 lg:w-1/2 lg:flex-none lg:gap-x-8">
-                            <div className="flex justify-between md:block">
-                              <dt className="font-medium text-gray-900">
-                                Order number
-                              </dt>
-                              <dd className="md:mt-1">{order.number}</dd>
-                            </div>
-                            <div className="flex justify-between pt-4 md:block md:pt-0">
-                              <dt className="font-medium text-gray-900">
-                                Date placed
-                              </dt>
-                              <dd className="md:mt-1">
-                                <time dateTime={order.datetime}>
-                                  {order.date}
-                                </time>
-                              </dd>
-                            </div>
-                            <div className="flex justify-between pt-4 font-medium text-gray-900 md:block md:pt-0">
-                              <dt>Total amount</dt>
-                              <dd className="md:mt-1">{order.total}</dd>
-                            </div>
-                          </dl>
-                          <div className="space-y-4 mt-6 sm:flex sm:space-x-4 sm:space-y-0 md:mt-0">
-                            <a
-                              href={order.href}
-                              className="w-full flex items-center justify-center bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 md:w-auto"
-                            >
-                              View Order
-                              <span className="sr-only">{order.number}</span>
-                            </a>
-                            <a
-                              href={order.invoiceHref}
-                              className="w-full flex items-center justify-center bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 md:w-auto"
-                            >
-                              View Invoice
-                              <span className="sr-only">
-                                for order {order.number}
-                              </span>
-                            </a>
-                          </div>
-                        </div>
-
-                        <div className="mt-6 flow-root px-4 sm:mt-10 sm:px-0">
-                          <div className="-my-6 divide-y divide-gray-200 sm:-my-10">
-                            {order.products.map((product) => (
-                              <div
-                                key={product.id}
-                                className="flex py-6 sm:py-10"
-                              >
-                                <div className="min-w-0 flex-1 lg:flex lg:flex-col">
-                                  <div className="lg:flex-1">
-                                    <div className="sm:flex">
-                                      <div>
-                                        <h4 className="font-medium text-gray-900">
-                                          {product.name}
-                                        </h4>
-                                        <p className="hidden mt-2 text-sm text-gray-500 sm:block">
-                                          {product.description}
-                                        </p>
-                                      </div>
-                                      <p className="mt-1 font-medium text-gray-900 sm:mt-0 sm:ml-6">
-                                        {product.price}
-                                      </p>
-                                    </div>
-                                    <div className="mt-2 flex text-sm font-medium sm:mt-4">
-                                      <a
-                                        href={product.href}
-                                        className="text-indigo-600 hover:text-indigo-500"
-                                      >
-                                        View Product
-                                      </a>
-                                      <div className="border-l border-gray-200 ml-4 pl-4 sm:ml-6 sm:pl-6">
-                                        <a
-                                          href="#"
-                                          className="text-indigo-600 hover:text-indigo-500"
-                                        >
-                                          Buy Again
-                                        </a>
-                                      </div>
-                                    </div>
-                                  </div>
-                                  <div className="mt-6 font-medium">
-                                    {product.status === 'delivered' ? (
-                                      <div className="flex space-x-2">
-                                        <CheckIcon
-                                          className="flex-none w-6 h-6 text-green-500"
-                                          aria-hidden="true"
-                                        />
-                                        <p>
-                                          Delivered
-                                          <span className="hidden sm:inline">
-                                            {' '}
-                                            on{' '}
-                                            <time dateTime={product.datetime}>
-                                              {product.date}
-                                            </time>
-                                          </span>
-                                        </p>
-                                      </div>
-                                    ) : product.status ===
-                                      'out-for-delivery' ? (
-                                      <p>Out for delivery</p>
-                                    ) : product.status === 'cancelled' ? (
-                                      <p className="text-gray-500">Cancelled</p>
-                                    ) : null}
-                                  </div>
+                  <div className="mt-6 flow-root px-4 sm:mt-10 sm:px-0">
+                    <div className="-my-6 divide-y divide-gray-200 sm:-my-10">
+                      {order.products.map((product) => (
+                        <div key={product.id} className="flex py-6 sm:py-10">
+                          <div className="min-w-0 flex-1 lg:flex lg:flex-col">
+                            <div className="lg:flex-1">
+                              <div className="sm:flex">
+                                <div>
+                                  <h4 className="font-medium text-gray-900">
+                                    {product.name}
+                                  </h4>
+                                  <p className="hidden mt-2 text-sm text-gray-500 sm:block">
+                                    {product.description}
+                                  </p>
                                 </div>
-                                <div className="ml-4 flex-shrink-0 sm:m-0 sm:mr-6 sm:order-first">
-                                  <img
-                                    src={product.imageSrc}
-                                    alt={product.imageAlt}
-                                    className="col-start-2 col-end-3 sm:col-start-1 sm:row-start-1 sm:row-span-2 w-20 h-20 rounded-lg object-center object-cover sm:w-40 sm:h-40 lg:w-52 lg:h-52"
-                                  />
+                                <p className="mt-1 font-medium text-gray-900 sm:mt-0 sm:ml-6">
+                                  {product.price}
+                                </p>
+                              </div>
+                              <div className="mt-2 flex text-sm font-medium sm:mt-4">
+                                <a
+                                  href={product.href}
+                                  className="text-indigo-600 hover:text-indigo-500"
+                                >
+                                  View Product
+                                </a>
+                                <div className="border-l border-gray-200 ml-4 pl-4 sm:ml-6 sm:pl-6">
+                                  <a
+                                    href="#"
+                                    className="text-indigo-600 hover:text-indigo-500"
+                                  >
+                                    Buy Again
+                                  </a>
                                 </div>
                               </div>
-                            ))}
+                            </div>
+                            <div className="mt-6 font-medium">
+                              {product.status === 'delivered' ? (
+                                <div className="flex space-x-2">
+                                  <CheckIcon
+                                    className="flex-none w-6 h-6 text-green-500"
+                                    aria-hidden="true"
+                                  />
+                                  <p>
+                                    Delivered
+                                    <span className="hidden sm:inline">
+                                      {' '}
+                                      on{' '}
+                                      <time dateTime={product.datetime}>
+                                        {product.date}
+                                      </time>
+                                    </span>
+                                  </p>
+                                </div>
+                              ) : product.status === 'out-for-delivery' ? (
+                                <p>Out for delivery</p>
+                              ) : product.status === 'cancelled' ? (
+                                <p className="text-gray-500">Cancelled</p>
+                              ) : null}
+                            </div>
+                          </div>
+                          <div className="ml-4 flex-shrink-0 sm:m-0 sm:mr-6 sm:order-first">
+                            <img
+                              src={product.imageSrc}
+                              alt={product.imageAlt}
+                              className="col-start-2 col-end-3 sm:col-start-1 sm:row-start-1 sm:row-span-2 w-20 h-20 rounded-lg object-center object-cover sm:w-40 sm:h-40 lg:w-52 lg:h-52"
+                            />
                           </div>
                         </div>
-                      </div>
-                    ))}
+                      ))}
+                    </div>
                   </div>
                 </div>
-              </div>
+              ))}
             </div>
           </div>
-        </main>
+        </div>
       </div>
-    </>
+    </AccountLayout>
   );
 };
 
