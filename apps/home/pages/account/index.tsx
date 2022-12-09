@@ -1,10 +1,26 @@
-import { FC, useState, useEffect } from 'react';
+import { FC, useState, useEffect, ReactElement } from 'react';
+import classNames from 'classnames';
+import toast from 'react-hot-toast';
 
-import { AccountLayout } from '@shopify/components';
+import { AccountLayout, Spinner } from '@shopify/components';
 import { useUserStore } from '@shopify/state';
 import { storefront } from '@shopify/utilities';
 import { updateUserQuery } from '@shopify/graphql-queries';
 import { UpdateUserResponseModel } from '@shopify/models';
+
+const InputsBaseCssClasses =
+  'appearance-none block w-full px-3 py-2 border rounded-md shadow-sm sm:text-sm';
+const InputsDefaultCssClasses =
+  'border-gray-300 placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500';
+const InputsErrorCssClasses =
+  'border-red-500 ring-red-500 focus:border-red-500 focus:ring-red-500';
+
+type InputErrors = {
+  firstName?: ReactElement;
+  lastName?: ReactElement;
+  phone?: ReactElement;
+  email?: ReactElement;
+};
 
 type FormValuesType = {
   firstName: string;
@@ -16,6 +32,7 @@ type FormValuesType = {
 const Account: FC = () => {
   const userStore = useUserStore();
   const [loading, setLoading] = useState<boolean>(false);
+  const [errors, setErrors] = useState<InputErrors>({});
   const [formValues, setFormValues] = useState<FormValuesType>({
     firstName: '',
     lastName: '',
@@ -30,6 +47,7 @@ const Account: FC = () => {
   };
   const handleSubmit = async (event) => {
     event.preventDefault();
+    setErrors({});
     setLoading(true);
     const updatedUserResponse = await storefront<UpdateUserResponseModel>(
       updateUserQuery,
@@ -45,7 +63,23 @@ const Account: FC = () => {
         ),
       }
     );
-    userStore.getUser();
+    const newCustomer = updatedUserResponse?.data?.customerUpdate?.customer;
+    if (newCustomer) {
+      userStore.getUser();
+      toast.success('Your profile has been updated successfully!');
+    } else {
+      updatedUserResponse?.data?.customerUpdate?.customerUserErrors?.forEach(
+        (error) =>
+          setErrors((prevState) => ({
+            ...prevState,
+            [error.field[1]]: (
+              <div className="text-xs font-medium text-red-700 mt-1">
+                {error.message}
+              </div>
+            ),
+          }))
+      );
+    }
     setLoading(false);
   };
   useEffect(() => {
@@ -85,8 +119,14 @@ const Account: FC = () => {
                       autoComplete="cc-given-name"
                       value={formValues.firstName}
                       onChange={handleOnChangeFormInputs}
-                      className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                      className={classNames(
+                        InputsBaseCssClasses,
+                        errors['firstName']
+                          ? InputsErrorCssClasses
+                          : InputsDefaultCssClasses
+                      )}
                     />
+                    {errors['firstName']}
                   </div>
 
                   <div className="col-span-4 sm:col-span-2">
@@ -103,8 +143,14 @@ const Account: FC = () => {
                       autoComplete="cc-family-name"
                       value={formValues.lastName}
                       onChange={handleOnChangeFormInputs}
-                      className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                      className={classNames(
+                        InputsBaseCssClasses,
+                        errors['lastName']
+                          ? InputsErrorCssClasses
+                          : InputsDefaultCssClasses
+                      )}
                     />
+                    {errors['lastName']}
                   </div>
 
                   <div className="col-span-4 sm:col-span-2">
@@ -121,8 +167,14 @@ const Account: FC = () => {
                       autoComplete="email"
                       value={formValues.email}
                       onChange={handleOnChangeFormInputs}
-                      className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                      className={classNames(
+                        InputsBaseCssClasses,
+                        errors['email']
+                          ? InputsErrorCssClasses
+                          : InputsDefaultCssClasses
+                      )}
                     />
+                    {errors['email']}
                   </div>
 
                   <div className="col-span-4 sm:col-span-2">
@@ -139,16 +191,24 @@ const Account: FC = () => {
                       autoComplete="phone"
                       value={formValues.phone}
                       onChange={handleOnChangeFormInputs}
-                      className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                      className={classNames(
+                        InputsBaseCssClasses,
+                        errors['phone']
+                          ? InputsErrorCssClasses
+                          : InputsDefaultCssClasses
+                      )}
                     />
+                    {errors['phone']}
                   </div>
                 </div>
               </div>
               <div className="px-4 py-3 bg-gray-50 text-right sm:px-6">
                 <button
                   type="submit"
-                  className="bg-gray-800 border border-transparent rounded-md shadow-sm py-2 px-4 inline-flex justify-center text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                  disabled={loading}
+                  className="flex justify-center items-center bg-gray-800 border border-transparent rounded-md shadow-sm py-2 px-4 inline-flex justify-center text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                 >
+                  {loading && <Spinner />}
                   Save
                 </button>
               </div>
