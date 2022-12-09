@@ -1,4 +1,4 @@
-import { ReactElement, useState } from 'react';
+import { FC, ReactElement, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import toast from 'react-hot-toast';
@@ -28,7 +28,7 @@ type InputErrors = {
   password?: ReactElement;
 };
 
-const Register = () => {
+const Register: FC = () => {
   const router = useRouter();
   const [loading, setLoading] = useState<boolean>(false);
   const [errors, setErrors] = useState<InputErrors>({});

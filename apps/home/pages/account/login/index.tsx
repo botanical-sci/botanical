@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { FC, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import toast from 'react-hot-toast';
@@ -13,7 +13,7 @@ const breadcrumbList = [
   { name: 'Login', href: '/account/login', current: true },
 ];
 
-const Login = () => {
+const Login: FC = () => {
   const router = useRouter();
   const [loading, setLoading] = useState<boolean>(false);
   const handleSubmit = async (event) => {
