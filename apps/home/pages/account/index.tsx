@@ -1,13 +1,69 @@
-import { FC } from 'react';
+import { FC, useState, useEffect } from 'react';
 
 import { AccountLayout } from '@shopify/components';
+import { useUserStore } from '@shopify/state';
+import { storefront } from '@shopify/utilities';
+import { updateUserQuery } from '@shopify/graphql-queries';
+import { UpdateUserResponseModel } from '@shopify/models';
+
+type FormValuesType = {
+  firstName: string;
+  lastName: string;
+  phone: string;
+  email: string;
+};
 
 const Account: FC = () => {
+  const userStore = useUserStore();
+  const [loading, setLoading] = useState<boolean>(false);
+  const [formValues, setFormValues] = useState<FormValuesType>({
+    firstName: '',
+    lastName: '',
+    phone: '',
+    email: '',
+  });
+  const handleOnChangeFormInputs = (event) => {
+    setFormValues({
+      ...formValues,
+      [event.target.name]: event.target.value,
+    });
+  };
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    setLoading(true);
+    const updatedUserResponse = await storefront<UpdateUserResponseModel>(
+      updateUserQuery,
+      {
+        customer: {
+          firstName: event.target.firstName.value,
+          lastName: event.target.lastName.value,
+          phone: event.target.phone.value,
+          email: event.target.email.value,
+        },
+        customerAccessToken: JSON.parse(
+          localStorage.getItem('token') || sessionStorage.getItem('token')
+        ),
+      }
+    );
+    userStore.getUser();
+    setLoading(false);
+  };
+  useEffect(() => {
+    if (userStore.user) {
+      setFormValues({
+        firstName: userStore.user.firstName,
+        lastName: userStore.user.lastName,
+        phone: userStore.user.phone,
+        email: userStore.user.email,
+      });
+    }
+  }, [userStore.user]);
+
   return (
     <AccountLayout page="Profile">
       <div className="space-y-6 sm:px-6 px-4 lg:px-0 lg:col-span-9">
         <section aria-labelledby="payment-details-heading">
-          <form>
+          <form noValidate onSubmit={handleSubmit}>
             <div className="shadow rounded-md sm:overflow-hidden">
               <div className="bg-white py-6 px-4 sm:p-6">
                 <h1 className="text-2xl font-extrabold tracking-tight text-gray-900 sm:text-3xl">
@@ -17,48 +73,54 @@ const Account: FC = () => {
                 <div className="mt-6 grid grid-cols-4 gap-6">
                   <div className="col-span-4 sm:col-span-2">
                     <label
-                      htmlFor="first-name"
+                      htmlFor="firstName"
                       className="block text-sm font-medium text-gray-700"
                     >
                       First name
                     </label>
                     <input
                       type="text"
-                      name="first-name"
-                      id="first-name"
+                      name="firstName"
+                      id="firstName"
                       autoComplete="cc-given-name"
+                      value={formValues.firstName}
+                      onChange={handleOnChangeFormInputs}
                       className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                     />
                   </div>
 
                   <div className="col-span-4 sm:col-span-2">
                     <label
-                      htmlFor="last-name"
+                      htmlFor="lastName"
                       className="block text-sm font-medium text-gray-700"
                     >
                       Last name
                     </label>
                     <input
                       type="text"
-                      name="last-name"
-                      id="last-name"
+                      name="lastName"
+                      id="lastName"
                       autoComplete="cc-family-name"
+                      value={formValues.lastName}
+                      onChange={handleOnChangeFormInputs}
                       className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                     />
                   </div>
 
                   <div className="col-span-4 sm:col-span-2">
                     <label
-                      htmlFor="email-address"
+                      htmlFor="email"
                       className="block text-sm font-medium text-gray-700"
                     >
                       Email address
                     </label>
                     <input
                       type="text"
-                      name="email-address"
-                      id="email-address"
+                      name="email"
+                      id="email"
                       autoComplete="email"
+                      value={formValues.email}
+                      onChange={handleOnChangeFormInputs}
                       className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                     />
                   </div>
@@ -75,6 +137,8 @@ const Account: FC = () => {
                       name="phone"
                       id="phone"
                       autoComplete="phone"
+                      value={formValues.phone}
+                      onChange={handleOnChangeFormInputs}
                       className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                     />
                   </div>

@@ -1,7 +1,9 @@
 import { mountStoreDevtool } from 'simple-zustand-devtools';
 import create from 'zustand';
 
-import { UserStoreModel } from '@shopify/models';
+import { UserResponseModel, UserStoreModel } from '@shopify/models';
+import { storefront } from '@shopify/utilities';
+import { getUserByHandleQuery } from '@shopify/graphql-queries';
 
 const useUserStore = create<UserStoreModel>((set, get) => ({
   user: null,
@@ -9,6 +11,23 @@ const useUserStore = create<UserStoreModel>((set, get) => ({
     set(() => {
       return { user: newUser };
     }),
+  getUser: async () => {
+    const token = JSON.parse(
+      localStorage.getItem('token') || sessionStorage.getItem('token') || ''
+    );
+    const getUser = async () => {
+      const userResponse = await storefront<UserResponseModel>(
+        getUserByHandleQuery(token)
+      );
+
+      set({ user: userResponse?.data?.customer });
+    };
+    if (token) {
+      getUser();
+    } else {
+      set({ user: null });
+    }
+  },
 }));
 
 if (process.env['NODE_ENV'] === 'development') {

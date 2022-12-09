@@ -16,4 +16,32 @@ const getUserByHandleQuery = (token: string) => {
   return getUserQuery;
 };
 
-export { getUserByHandleQuery };
+const updateUserQuery = gql`
+  mutation customerUpdate(
+    $customer: CustomerUpdateInput!
+    $customerAccessToken: String!
+  ) {
+    customerUpdate(
+      customer: $customer
+      customerAccessToken: $customerAccessToken
+    ) {
+      customer {
+        firstName
+        lastName
+        email
+        phone
+      }
+      customerAccessToken {
+        accessToken
+        expiresAt
+      }
+      customerUserErrors {
+        code
+        field
+        message
+      }
+    }
+  }
+`;
+
+export { getUserByHandleQuery, updateUserQuery };

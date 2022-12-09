@@ -11,6 +11,29 @@ export interface UserResponseModel {
   };
 }
 
+export interface UpdateUserResponseModel {
+  data: {
+    customerUpdate: {
+      customer: {
+        firstName: string;
+        lastName: string;
+        email: string;
+        phone: string | null;
+      };
+      customerAccessToken: {
+        accessToken: string;
+        expiresAt: string;
+      } | null;
+      customerUserErrors: [
+        {
+          field: string[];
+          message: string;
+        }
+      ];
+    };
+  };
+}
+
 interface UserModel {
   id: string;
   firstName: string;
@@ -23,4 +46,5 @@ interface UserModel {
 export interface UserStoreModel {
   user: UserModel | null;
   initiate: (user: UserModel | null) => void;
+  getUser: () => void;
 }

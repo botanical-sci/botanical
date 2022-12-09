@@ -7,9 +7,9 @@ import Head from 'next/head';
 import { Toaster } from 'react-hot-toast';
 
 import { Footer, Header } from '@shopify/components';
-import { MenuBasicModel, UserResponseModel } from '@shopify/models';
+import { MenuBasicModel } from '@shopify/models';
 import { storefront } from '@shopify/utilities';
-import { getUserByHandleQuery, menuQuery } from '@shopify/graphql-queries';
+import { menuQuery } from '@shopify/graphql-queries';
 import { NextPage } from 'next';
 import { useUserStore } from '@shopify/state';
 
@@ -24,19 +24,7 @@ const ShopifyApp: NextPage<Props> = ({
 }: Props) => {
   const userStore = useUserStore();
   useEffect(() => {
-    const token = JSON.parse(
-      localStorage.getItem('token') || sessionStorage.getItem('token')
-    );
-    const getUser = async () => {
-      const userResponse = await storefront<UserResponseModel>(
-        getUserByHandleQuery(token)
-      );
-
-      userStore.initiate(userResponse?.data?.customer);
-    };
-    if (token) {
-      getUser();
-    }
+    userStore.getUser();
   }, []);
 
   return (
