@@ -46,5 +46,5 @@ interface UserModel {
 export interface UserStoreModel {
   user: UserModel | null;
   initiate: (user: UserModel | null) => void;
-  getUser: () => void;
+  getUser: (token?: string) => void;
 }

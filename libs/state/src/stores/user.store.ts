@@ -11,9 +11,12 @@ const useUserStore = create<UserStoreModel>((set, get) => ({
     set(() => {
       return { user: newUser };
     }),
-  getUser: async () => {
+  getUser: async (newtoken) => {
     const token =
-      localStorage.getItem('token') || sessionStorage.getItem('token') || '';
+      localStorage.getItem('token') ||
+      sessionStorage.getItem('token') ||
+      newtoken ||
+      '';
 
     const getUser = async () => {
       const userResponse = await storefront<UserResponseModel>(

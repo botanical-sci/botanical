@@ -7,6 +7,7 @@ import { Breadcrumb, Spinner } from '@shopify/components';
 import { storefront } from '@shopify/utilities';
 import { loginQuery } from '@shopify/graphql-queries';
 import { LoginResponseModel } from '@shopify/models';
+import { useUserStore } from '@shopify/state';
 
 const breadcrumbList = [
   { name: 'Account', href: '/account', current: false },
@@ -15,6 +16,7 @@ const breadcrumbList = [
 
 const Login: FC = () => {
   const router = useRouter();
+  const userStore = useUserStore();
   const [loading, setLoading] = useState<boolean>(false);
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -33,6 +35,7 @@ const Login: FC = () => {
       event.target.rememberMe.checked
         ? localStorage.setItem('token', token)
         : sessionStorage.setItem('token', token);
+      userStore.getUser(token);
       router.push('/account');
     } else {
       loginResponse.data.customerAccessTokenCreate.customerUserErrors.forEach(
