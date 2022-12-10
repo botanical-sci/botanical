@@ -82,24 +82,9 @@ const OrderDetails = () => {
                           <div className="font-medium text-gray-900 sm:flex sm:justify-between">
                             <h5>{product.title}</h5>
                             <p className="mt-2 sm:mt-0">
-                              {product.priceV2.amount}
+                              ${product.priceV2.amount}
                             </p>
                           </div>
-                        </div>
-                      </div>
-
-                      <div className="mt-6 sm:flex sm:justify-between">
-                        <div className="flex items-center">
-                          <CheckCircleIcon
-                            className="w-5 h-5 text-green-500"
-                            aria-hidden="true"
-                          />
-                          <p className="ml-2 text-sm font-medium text-gray-500">
-                            Delivered on{' '}
-                            <time dateTime={orderStore.order?.processedAt}>
-                              {orderStore.order?.processedAt}
-                            </time>
-                          </p>
                         </div>
                       </div>
                     </li>
