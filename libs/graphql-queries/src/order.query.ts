@@ -6,7 +6,14 @@ const getOrderByHandleQuery = (id: string) => {
       node(id: "${id}") {
         id
         ... on Order {
-          name
+            name
+            orderNumber
+            processedAt
+            fulfillmentStatus
+            financialStatus
+            currentTotalPrice {
+              amount
+            }
         }
       }
     }
