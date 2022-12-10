@@ -41,6 +41,23 @@ interface UserModel {
   acceptsMarketing: boolean;
   email: string;
   phone: string | null;
+  orders: {
+    edges: [
+      {
+        node: {
+          id: string;
+          orderNumber: number;
+          fulfillmentStatus: string;
+          processedAt: string;
+          financialStatus: string;
+          currentTotalPrice: {
+            amount: string;
+            currencyCode: string;
+          };
+        };
+      }
+    ];
+  };
 }
 
 export interface UserStoreModel {

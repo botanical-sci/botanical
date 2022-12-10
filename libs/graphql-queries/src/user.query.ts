@@ -10,6 +10,21 @@ const getUserByHandleQuery = (token: string) => {
         acceptsMarketing
         email
         phone
+        orders(first: 10) {
+          edges {
+            node {
+              id
+              orderNumber
+              fulfillmentStatus
+              processedAt
+              financialStatus
+              currentTotalPrice {
+                amount
+                currencyCode
+              }
+            }
+          }
+        }
       }
     }
   `;
