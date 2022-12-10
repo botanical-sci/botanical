@@ -6,8 +6,6 @@ import { useUserStore } from '@shopify/state';
 
 const Orders: FC = () => {
   const userStore = useUserStore();
-  const id =
-    'gid://shopify/Order/5161040314613?key=12bc16871f9c88bdebe7b762d369495c';
   return (
     <AccountLayout page="Orders">
       <div className="space-y-6 sm:px-6 px-4 lg:px-0 lg:col-span-9">
@@ -26,7 +24,8 @@ const Orders: FC = () => {
 
             <div className="space-y-16 sm:space-y-24">
               {userStore.user?.orders.edges.map(({ node: order }) => {
-                const href = id.split('/')[id.split('/').length - 1];
+                const href =
+                  order.id.split('/')[order.id.split('/').length - 1];
                 const datePlaced = new Date(order.processedAt).toDateString();
                 return (
                   <div key={order.orderNumber}>

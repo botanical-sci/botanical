@@ -1,9 +1,9 @@
-import { useEffect } from 'react';
+import { FC, useEffect } from 'react';
 import { useRouter } from 'next/router';
 
 import { useOrderStore } from '@shopify/state';
 
-const OrderDetails = () => {
+const OrderDetails: FC = () => {
   const router = useRouter();
   const orderStore = useOrderStore();
   useEffect(() => {
