@@ -94,9 +94,8 @@ const Addresses: FC = () => {
           zip: event.target.zip.value,
           phone: event.target.phone.value,
         },
-        customerAccessToken: JSON.parse(
-          localStorage.getItem('token') || sessionStorage.getItem('token')
-        ),
+        customerAccessToken:
+          localStorage.getItem('token') || sessionStorage.getItem('token'),
       }
     );
     const createdAddress =

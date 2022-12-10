@@ -12,9 +12,9 @@ const useUserStore = create<UserStoreModel>((set, get) => ({
       return { user: newUser };
     }),
   getUser: async () => {
-    const token = JSON.parse(
-      localStorage.getItem('token') || sessionStorage.getItem('token') || ''
-    );
+    const token =
+      localStorage.getItem('token') || sessionStorage.getItem('token') || '';
+
     const getUser = async () => {
       const userResponse = await storefront<UserResponseModel>(
         getUserByHandleQuery(token)

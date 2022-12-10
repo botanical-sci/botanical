@@ -58,9 +58,8 @@ const Account: FC = () => {
           phone: event.target.phone.value,
           email: event.target.email.value,
         },
-        customerAccessToken: JSON.parse(
-          localStorage.getItem('token') || sessionStorage.getItem('token')
-        ),
+        customerAccessToken:
+          localStorage.getItem('token') || sessionStorage.getItem('token'),
       }
     );
     const newCustomer = updatedUserResponse?.data?.customerUpdate?.customer;

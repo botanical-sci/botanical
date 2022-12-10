@@ -31,8 +31,8 @@ const Login: FC = () => {
     if (token) {
       toast.success('You have been logged in successfully!');
       event.target.rememberMe.checked
-        ? localStorage.setItem('token', JSON.stringify(token))
-        : sessionStorage.setItem('token', JSON.stringify(token));
+        ? localStorage.setItem('token', token)
+        : sessionStorage.setItem('token', token);
       router.push('/account');
     } else {
       loginResponse.data.customerAccessTokenCreate.customerUserErrors.forEach(
