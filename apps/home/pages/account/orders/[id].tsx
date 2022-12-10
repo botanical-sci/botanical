@@ -1,6 +1,5 @@
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
-import { CheckCircleIcon } from '@heroicons/react/solid';
 
 import { useOrderStore } from '@shopify/state';
 
@@ -13,6 +12,8 @@ const OrderDetails = () => {
     );
   }, []);
 
+  const datePlaced = new Date(orderStore.order?.processedAt).toDateString();
+
   return (
     <div className="bg-white">
       <div className="py-16 sm:py-24">
@@ -21,10 +22,7 @@ const OrderDetails = () => {
           <div className="max-w-2xl mx-auto space-y-8 px-4 lg:max-w-4xl lg:px-0">
             <div className="bg-white border-t border-b border-gray-200 shadow-sm rounded-lg border">
               <h3 className="sr-only">
-                Order placed on{' '}
-                <time dateTime={orderStore.order?.processedAt}>
-                  {orderStore.order?.processedAt}
-                </time>
+                Order placed on <time dateTime={datePlaced}>{datePlaced}</time>
               </h3>
 
               <div className="flex items-center p-4 border-b border-gray-200 sm:p-6">
@@ -38,9 +36,7 @@ const OrderDetails = () => {
                   <div className="flex justify-between pt-4 md:block md:pt-0">
                     <dt className="font-medium text-gray-900">Date placed</dt>
                     <dd className="sm:mt-1 text-gray-500">
-                      <time dateTime={orderStore.order?.processedAt}>
-                        {orderStore.order?.processedAt}
-                      </time>
+                      <time dateTime={datePlaced}>{datePlaced}</time>
                     </dd>
                   </div>
                   <div className="flex justify-between pt-4 md:block md:pt-0">

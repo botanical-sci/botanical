@@ -27,13 +27,12 @@ const Orders: FC = () => {
             <div className="space-y-16 sm:space-y-24">
               {userStore.user?.orders.edges.map(({ node: order }) => {
                 const href = id.split('/')[id.split('/').length - 1];
+                const datePlaced = new Date(order.processedAt).toDateString();
                 return (
                   <div key={order.orderNumber}>
                     <h3 className="sr-only">
                       Order placed on{' '}
-                      <time dateTime={order.processedAt}>
-                        {order.processedAt}
-                      </time>
+                      <time dateTime={datePlaced}>{datePlaced}</time>
                     </h3>
 
                     <div className="bg-gray-50 px-4 py-6 sm:rounded-lg sm:p-6 md:flex md:items-center md:justify-between md:space-x-6 lg:space-x-8">
@@ -49,9 +48,7 @@ const Orders: FC = () => {
                             Date placed
                           </dt>
                           <dd className="md:mt-1">
-                            <time dateTime={order.processedAt}>
-                              {order.processedAt}
-                            </time>
+                            <time dateTime={datePlaced}>{datePlaced}</time>
                           </dd>
                         </div>
                         <div className="flex justify-between pt-4 md:block md:pt-0">
