@@ -5,3 +5,4 @@ export * from './collection.query';
 export * from './auth.query';
 export * from './user.query';
 export * from './address.query';
+export * from './order.query';
