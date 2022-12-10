@@ -10,6 +10,24 @@ export interface OrderResponseModel {
       currentTotalPrice: {
         amount: string;
       };
+      lineItems: {
+        edges: [
+          {
+            node: {
+              variant: {
+                id: string;
+                title: string;
+                priceV2: {
+                  amount: string;
+                };
+                image: {
+                  src: string;
+                };
+              };
+            };
+          }
+        ];
+      };
     };
   };
 }
@@ -23,6 +41,24 @@ interface OrderModel {
   financialStatus: string;
   currentTotalPrice: {
     amount: string;
+  };
+  lineItems: {
+    edges: [
+      {
+        node: {
+          variant: {
+            id: string;
+            title: string;
+            priceV2: {
+              amount: string;
+            };
+            image: {
+              src: string;
+            };
+          };
+        };
+      }
+    ];
   };
 }
 

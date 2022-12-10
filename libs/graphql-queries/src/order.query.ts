@@ -14,6 +14,22 @@ const getOrderByHandleQuery = (id: string) => {
             currentTotalPrice {
               amount
             }
+            lineItems(first:10) {
+                edges {
+                  node {
+                    variant {
+                      id
+                      title
+                      priceV2 {
+                        amount
+                      }
+                      image {
+                        src
+                      }
+                    }
+                  }
+                }
+            }
         }
       }
     }
