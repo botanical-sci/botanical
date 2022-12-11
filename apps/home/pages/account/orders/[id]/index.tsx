@@ -17,7 +17,9 @@ const OrderDetails: FC = () => {
     <AccountLayout page="Orders">
       <main className="lg:col-span-9 sm:px-6 px-4 lg:px-0">
         <div className="bg-white shadow rounded p-6">
-          <div className="text-indigo-600">{orderStore.order?.orderNumber}</div>
+          <div className="text-indigo-600">
+            Order - {orderStore.order?.orderNumber}
+          </div>
 
           <section
             aria-labelledby="order-heading"
