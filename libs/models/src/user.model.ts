@@ -7,6 +7,18 @@ export interface UserResponseModel {
       acceptsMarketing: boolean;
       email: string;
       phone: string | null;
+      addresses: {
+        nodes: [
+          {
+            id: string;
+            firstName: string;
+            lastName: string;
+            address1: string;
+            city: string;
+            zip: string;
+          }
+        ];
+      };
       orders: {
         edges: [
           {
@@ -58,6 +70,18 @@ interface UserModel {
   acceptsMarketing: boolean;
   email: string;
   phone: string | null;
+  addresses: {
+    nodes: [
+      {
+        id: string;
+        firstName: string;
+        lastName: string;
+        address1: string;
+        city: string;
+        zip: string;
+      }
+    ];
+  };
   orders: {
     edges: [
       {

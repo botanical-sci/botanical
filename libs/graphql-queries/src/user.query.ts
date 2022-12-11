@@ -10,6 +10,16 @@ const getUserByHandleQuery = (token: string) => {
         acceptsMarketing
         email
         phone
+        addresses(first:20) {
+          nodes {
+            id
+            firstName
+            lastName
+            address1
+            city
+            zip
+          }
+        }
         orders(first: 10) {
           edges {
             node {
