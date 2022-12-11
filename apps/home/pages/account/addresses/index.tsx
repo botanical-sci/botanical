@@ -1,8 +1,8 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import Link from 'next/link';
 import toast from 'react-hot-toast';
 
-import { AccountLayout } from '@shopify/components';
+import { AccountLayout, Spinner } from '@shopify/components';
 import { useUserStore } from '@shopify/state';
 import { storefront } from '@shopify/utilities';
 import { deleteAddressQuery } from '@shopify/graphql-queries';
@@ -10,9 +10,11 @@ import { DeleteAddressResponseModel } from '@shopify/models';
 
 const Addresses: FC = () => {
   const userStore = useUserStore();
+  const [loading, setLoading] = useState<boolean>(false);
 
   const handleDelete = async (event, addressID: string) => {
     event.preventDefault();
+    setLoading(true);
     const token =
       localStorage.getItem('token') || sessionStorage.getItem('token') || '';
 
@@ -29,6 +31,7 @@ const Addresses: FC = () => {
     } else {
       toast.error('The address has not been deleted!');
     }
+    setLoading(false);
   };
 
   return (
@@ -114,8 +117,10 @@ const Addresses: FC = () => {
                                     onClick={(event) =>
                                       handleDelete(event, address.id)
                                     }
+                                    disabled={loading}
                                     className="inline-flex ml-3 items-center px-2.5 py-1.5 border border-transparent text-xs font-medium rounded shadow-sm text-white bg-red-500 hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-300"
                                   >
+                                    {loading && <Spinner />}
                                     delete
                                   </button>
                                 </td>
