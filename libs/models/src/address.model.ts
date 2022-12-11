@@ -36,7 +36,7 @@ export interface DeleteAddressResponseModel {
 
 export interface UpdateAddressResponseModel {
   data: {
-    customerAddressUpdate: {
+    customerAddressCreate: {
       customerAddress: {
         address1: string;
         address2: string;

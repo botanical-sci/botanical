@@ -89,7 +89,7 @@ type FormValuesType = {
 
 const Address: FC = () => {
   const router = useRouter();
-  const addressID = `gid://shopify/MailingAddress/${router.query.id}?model_name=${router.query.model_name}&customer_access_token=${router.query.customer_access_token}`;
+  const addressID = router.query.id;
   const userStore = useUserStore();
   const [loading, setLoading] = useState<boolean>(false);
   const [errors, setErrors] = useState<InputErrors>({});
@@ -136,13 +136,13 @@ const Address: FC = () => {
       }
     );
     const updatedAddress =
-      createAddressResponse?.data?.customerAddressUpdate?.customerAddress;
+      createAddressResponse?.data?.customerAddressCreate?.customerAddress;
     if (updatedAddress) {
       toast.success('Your address has been Updated successfully!');
       router.push('/account/addresses');
       userStore.getUser();
     } else {
-      createAddressResponse?.data?.customerAddressUpdate?.customerUserErrors.forEach(
+      createAddressResponse?.data?.customerAddressCreate?.customerUserErrors.forEach(
         (error) => {
           if (error.field[1]) {
             setErrors((prevState) => ({
@@ -164,12 +164,9 @@ const Address: FC = () => {
 
   useEffect(() => {
     if (userStore.user) {
-      const foundedAddress = userStore.user?.addresses?.nodes?.find(
-        (address) => address.id === addressID
+      const foundedAddress = userStore.user?.addresses?.nodes?.find((address) =>
+        address.id.includes(addressID as string)
       );
-      console.log(userStore.user?.addresses?.nodes[0].id);
-      console.log(addressID);
-      console.log(userStore.user?.addresses?.nodes[0].id === addressID);
       setFormValues({
         firstName: foundedAddress?.firstName,
         lastName: foundedAddress?.lastName,
