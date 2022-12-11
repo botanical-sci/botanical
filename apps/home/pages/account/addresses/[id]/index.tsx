@@ -4,7 +4,7 @@ import toast from 'react-hot-toast';
 
 import { AccountLayout, Spinner } from '@shopify/components';
 import { storefront } from '@shopify/utilities';
-import { createAddressQuery } from '@shopify/graphql-queries';
+import { updateAddressQuery } from '@shopify/graphql-queries';
 import { UpdateAddressResponseModel } from '@shopify/models';
 import { useUserStore } from '@shopify/state';
 
@@ -89,7 +89,7 @@ type FormValuesType = {
 
 const Address: FC = () => {
   const router = useRouter();
-  const addressID = router.query.id;
+  const addressID = `gid://shopify/MailingAddress/${router.query.id}?model_name=${router.query.model_name}`;
   const userStore = useUserStore();
   const [loading, setLoading] = useState<boolean>(false);
   const [errors, setErrors] = useState<InputErrors>({});
@@ -116,7 +116,7 @@ const Address: FC = () => {
     setErrors({});
     setLoading(true);
     const createAddressResponse = await storefront<UpdateAddressResponseModel>(
-      createAddressQuery,
+      updateAddressQuery,
       {
         address: {
           firstName: event.target.firstName.value,
@@ -136,13 +136,13 @@ const Address: FC = () => {
       }
     );
     const updatedAddress =
-      createAddressResponse?.data?.customerAddressCreate?.customerAddress;
+      createAddressResponse?.data?.customerAddressUpdate?.customerAddress;
     if (updatedAddress) {
       toast.success('Your address has been Updated successfully!');
       router.push('/account/addresses');
       userStore.getUser();
     } else {
-      createAddressResponse?.data?.customerAddressCreate?.customerUserErrors.forEach(
+      createAddressResponse?.data?.customerAddressUpdate?.customerUserErrors.forEach(
         (error) => {
           if (error.field[1]) {
             setErrors((prevState) => ({
@@ -165,7 +165,7 @@ const Address: FC = () => {
   useEffect(() => {
     if (userStore.user) {
       const foundedAddress = userStore.user?.addresses?.nodes?.find((address) =>
-        address.id.includes(addressID as string)
+        address.id.includes(addressID)
       );
       setFormValues({
         firstName: foundedAddress?.firstName,
