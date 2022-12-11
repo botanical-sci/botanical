@@ -30,4 +30,17 @@ const createAddressQuery = gql`
   }
 `;
 
-export { createAddressQuery };
+const deleteAddressQuery = gql`
+  mutation customerAddressDelete($customerAccessToken: String!, $id: ID!) {
+    customerAddressDelete(customerAccessToken: $customerAccessToken, id: $id) {
+      customerUserErrors {
+        code
+        field
+        message
+      }
+      deletedCustomerAddressId
+    }
+  }
+`;
+
+export { createAddressQuery, deleteAddressQuery };

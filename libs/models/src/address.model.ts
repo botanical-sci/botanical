@@ -22,3 +22,14 @@ export interface CreateAddressResponseModel {
     };
   };
 }
+export interface DeleteAddressResponseModel {
+  data: {
+    deletedCustomerAddressId: string;
+    customerUserErrors: [
+      {
+        field: string[];
+        message: string;
+      }
+    ];
+  };
+}

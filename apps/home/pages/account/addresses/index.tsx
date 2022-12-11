@@ -1,11 +1,35 @@
 import { FC } from 'react';
 import Link from 'next/link';
+import toast from 'react-hot-toast';
 
 import { AccountLayout } from '@shopify/components';
 import { useUserStore } from '@shopify/state';
+import { storefront } from '@shopify/utilities';
+import { deleteAddressQuery } from '@shopify/graphql-queries';
+import { DeleteAddressResponseModel } from '@shopify/models';
 
 const Addresses: FC = () => {
   const userStore = useUserStore();
+
+  const handleDelete = async (event, addressID: string) => {
+    event.preventDefault();
+    const token =
+      localStorage.getItem('token') || sessionStorage.getItem('token') || '';
+
+    const deleteAddressResponse = await storefront<DeleteAddressResponseModel>(
+      deleteAddressQuery,
+      {
+        customerAccessToken: token,
+        id: addressID,
+      }
+    );
+    if (!deleteAddressResponse.data.customerUserErrors?.length) {
+      toast.success('The address has been deleted successfully!');
+      userStore.getUser();
+    } else {
+      toast.error('The address has not been deleted!');
+    }
+  };
 
   return (
     <AccountLayout page="Addresses">
@@ -60,30 +84,44 @@ const Addresses: FC = () => {
                           </tr>
                         </thead>
                         <tbody className="bg-white divide-y divide-gray-200">
-                          {userStore.user?.addresses.nodes.map((address) => (
-                            <tr key={address.id}>
-                              <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                {address.firstName} {address.lastName}
-                              </td>
-                              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                {address.address1}
-                              </td>
-                              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                {address.city}
-                              </td>
-                              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                {address.zip}
-                              </td>
-                              <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                <a
-                                  href="#"
-                                  className="text-indigo-600 hover:text-indigo-900"
-                                >
-                                  Edit
-                                </a>
-                              </td>
-                            </tr>
-                          ))}
+                          {userStore.user?.addresses.nodes.map((address) => {
+                            const href =
+                              address.id.split('/')[
+                                address.id.split('/').length - 1
+                              ];
+                            return (
+                              <tr key={address.id}>
+                                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                  {address.firstName} {address.lastName}
+                                </td>
+                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                  {address.address1}
+                                </td>
+                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                  {address.city}
+                                </td>
+                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                  {address.zip}
+                                </td>
+                                <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                  <Link href={`/account/addresses/${href}`}>
+                                    <a className="text-indigo-600 hover:text-indigo-900">
+                                      Edit
+                                    </a>
+                                  </Link>
+                                  <button
+                                    type="button"
+                                    onClick={(event) =>
+                                      handleDelete(event, address.id)
+                                    }
+                                    className="inline-flex ml-3 items-center px-2.5 py-1.5 border border-transparent text-xs font-medium rounded shadow-sm text-white bg-red-500 hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-300"
+                                  >
+                                    delete
+                                  </button>
+                                </td>
+                              </tr>
+                            );
+                          })}
                         </tbody>
                       </table>
                     </div>
