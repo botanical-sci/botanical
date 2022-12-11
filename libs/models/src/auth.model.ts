@@ -39,3 +39,37 @@ export interface LoginResponseModel {
     };
   };
 }
+export interface RecoverPasswordEmailResponseModel {
+  data: {
+    customerRecover: {
+      customerUserErrors: [
+        {
+          field: string[];
+          message: string;
+        }
+      ];
+    };
+  };
+  errors: [
+    {
+      field: string[];
+      message: string;
+    }
+  ];
+}
+
+export interface ResetPasswordResponseModel {
+  data: {
+    customerResetByUrl: {
+      customerAccessToken: {
+        accessToken: string;
+      };
+      customerUserErrors: [
+        {
+          field: string[];
+          message: string;
+        }
+      ];
+    };
+  };
+}

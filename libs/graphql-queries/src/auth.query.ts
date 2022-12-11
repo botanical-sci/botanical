@@ -33,5 +33,35 @@ const loginQuery = gql`
     }
   }
 `;
+const recoverPasswordEmailQuery = gql`
+  mutation customerResetByUrl($input: String!) {
+    customerRecover(email: $input) {
+      customerUserErrors {
+        code
+        field
+        message
+      }
+    }
+  }
+`;
 
-export { registerQuery, loginQuery };
+const resetPasswordQuery = gql`
+  mutation customerResetByUrl($resetUrl: URL!, $password: String!) {
+    customerResetByUrl(resetUrl: $resetUrl, password: $password) {
+      customerAccessToken {
+        accessToken
+      }
+      customerUserErrors {
+        field
+        message
+      }
+    }
+  }
+`;
+
+export {
+  registerQuery,
+  loginQuery,
+  recoverPasswordEmailQuery,
+  resetPasswordQuery,
+};
