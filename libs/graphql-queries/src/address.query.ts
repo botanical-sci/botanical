@@ -43,4 +43,36 @@ const deleteAddressQuery = gql`
   }
 `;
 
-export { createAddressQuery, deleteAddressQuery };
+const updateAddressQuery = gql`
+  mutation customerAddressUpdate(
+    $address: MailingAddressInput!
+    $customerAccessToken: String!
+    $id: ID!
+  ) {
+    customerAddressUpdate(
+      address: $address
+      customerAccessToken: $customerAccessToken
+      id: $id
+    ) {
+      customerAddress {
+        address1
+        address2
+        city
+        company
+        country
+        firstName
+        lastName
+        phone
+        province
+        zip
+      }
+      customerUserErrors {
+        code
+        field
+        message
+      }
+    }
+  }
+`;
+
+export { createAddressQuery, deleteAddressQuery, updateAddressQuery };

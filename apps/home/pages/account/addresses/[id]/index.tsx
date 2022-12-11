@@ -1,11 +1,11 @@
-import { FC, ReactElement, useState } from 'react';
+import { FC, ReactElement, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import toast from 'react-hot-toast';
 
 import { AccountLayout, Spinner } from '@shopify/components';
 import { storefront } from '@shopify/utilities';
 import { createAddressQuery } from '@shopify/graphql-queries';
-import { CreateAddressResponseModel } from '@shopify/models';
+import { UpdateAddressResponseModel } from '@shopify/models';
 import { useUserStore } from '@shopify/state';
 
 const UnitedStatesProvince = [
@@ -74,16 +74,48 @@ type InputErrors = {
   phone?: ReactElement;
 };
 
+type FormValuesType = {
+  firstName: string;
+  lastName: string;
+  company: string;
+  address1: string;
+  address2: string;
+  city: string;
+  country: string;
+  province: string;
+  zip: string;
+  phone: string;
+};
+
 const Address: FC = () => {
   const router = useRouter();
+  const addressID = `gid://shopify/MailingAddress/${router.query.id}?model_name=${router.query.model_name}&customer_access_token=${router.query.customer_access_token}`;
   const userStore = useUserStore();
   const [loading, setLoading] = useState<boolean>(false);
   const [errors, setErrors] = useState<InputErrors>({});
+  const [formValues, setFormValues] = useState<FormValuesType>({
+    firstName: '',
+    lastName: '',
+    company: '',
+    address1: '',
+    address2: '',
+    city: '',
+    country: '',
+    province: '',
+    zip: '',
+    phone: '',
+  });
+  const handleOnChangeFormInputs = (event) => {
+    setFormValues({
+      ...formValues,
+      [event.target.name]: event.target.value,
+    });
+  };
   const handleSubmit = async (event) => {
     event.preventDefault();
     setErrors({});
     setLoading(true);
-    const createAddressResponse = await storefront<CreateAddressResponseModel>(
+    const createAddressResponse = await storefront<UpdateAddressResponseModel>(
       createAddressQuery,
       {
         address: {
@@ -100,16 +132,17 @@ const Address: FC = () => {
         },
         customerAccessToken:
           localStorage.getItem('token') || sessionStorage.getItem('token'),
+        id: addressID,
       }
     );
-    const createdAddress =
-      createAddressResponse?.data?.customerAddressCreate?.customerAddress;
-    if (createdAddress) {
-      toast.success('Your address has been created successfully!');
+    const updatedAddress =
+      createAddressResponse?.data?.customerAddressUpdate?.customerAddress;
+    if (updatedAddress) {
+      toast.success('Your address has been Updated successfully!');
       router.push('/account/addresses');
       userStore.getUser();
     } else {
-      createAddressResponse?.data?.customerAddressCreate?.customerUserErrors.forEach(
+      createAddressResponse?.data?.customerAddressUpdate?.customerUserErrors.forEach(
         (error) => {
           if (error.field[1]) {
             setErrors((prevState) => ({
@@ -128,6 +161,29 @@ const Address: FC = () => {
     }
     setLoading(false);
   };
+
+  useEffect(() => {
+    if (userStore.user) {
+      const foundedAddress = userStore.user?.addresses?.nodes?.find(
+        (address) => address.id === addressID
+      );
+      console.log(userStore.user?.addresses?.nodes[0].id);
+      console.log(addressID);
+      console.log(userStore.user?.addresses?.nodes[0].id === addressID);
+      setFormValues({
+        firstName: foundedAddress?.firstName,
+        lastName: foundedAddress?.lastName,
+        company: foundedAddress?.company,
+        address1: foundedAddress?.address1,
+        address2: foundedAddress?.address2,
+        city: foundedAddress?.city,
+        country: foundedAddress?.country,
+        province: foundedAddress?.province,
+        zip: foundedAddress?.zip,
+        phone: foundedAddress?.phone,
+      });
+    }
+  }, [userStore.user, addressID]);
   return (
     <AccountLayout page="Addresses">
       <div className="space-y-6 sm:px-6 px-4 lg:px-0 lg:col-span-9">
@@ -152,6 +208,8 @@ const Address: FC = () => {
                       name="firstName"
                       id="firstName"
                       autoComplete="cc-given-name"
+                      onChange={handleOnChangeFormInputs}
+                      value={formValues.firstName}
                       className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                     />
                     {errors['firstName']}
@@ -169,6 +227,8 @@ const Address: FC = () => {
                       name="lastName"
                       id="lastName"
                       autoComplete="cc-family-name"
+                      value={formValues.lastName}
+                      onChange={handleOnChangeFormInputs}
                       className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                     />
                     {errors['lastName']}
@@ -185,6 +245,8 @@ const Address: FC = () => {
                       type="text"
                       name="company"
                       id="company"
+                      value={formValues.company}
+                      onChange={handleOnChangeFormInputs}
                       className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                     />
                     {errors['company']}
@@ -200,6 +262,8 @@ const Address: FC = () => {
                       type="text"
                       name="address1"
                       id="address1"
+                      value={formValues.address1}
+                      onChange={handleOnChangeFormInputs}
                       className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                     />
                     {errors['address1']}
@@ -215,6 +279,8 @@ const Address: FC = () => {
                       type="text"
                       name="address2"
                       id="address2"
+                      value={formValues.address2}
+                      onChange={handleOnChangeFormInputs}
                       className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                     />
                     {errors['address2']}
@@ -227,6 +293,8 @@ const Address: FC = () => {
                       City
                     </label>
                     <input
+                      value={formValues.city}
+                      onChange={handleOnChangeFormInputs}
                       type="text"
                       name="city"
                       id="city"
@@ -246,6 +314,7 @@ const Address: FC = () => {
                       name="country"
                       id="country"
                       value="United States"
+                      onChange={handleOnChangeFormInputs}
                       disabled
                       className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none"
                     />
@@ -263,6 +332,8 @@ const Address: FC = () => {
                       name="province"
                       className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
                       defaultValue="Alabama"
+                      value={formValues.province}
+                      onChange={handleOnChangeFormInputs}
                     >
                       {UnitedStatesProvince.map((province, index) => (
                         <option key={index}>{province}</option>
@@ -281,6 +352,8 @@ const Address: FC = () => {
                       type="text"
                       name="zip"
                       id="zip"
+                      value={formValues.zip}
+                      onChange={handleOnChangeFormInputs}
                       className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                     />
                     {errors['zip']}
@@ -297,6 +370,8 @@ const Address: FC = () => {
                       name="phone"
                       id="phone"
                       autoComplete="phone"
+                      value={formValues.phone}
+                      onChange={handleOnChangeFormInputs}
                       className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                     />
                     {errors['phone']}
