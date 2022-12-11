@@ -6,6 +6,7 @@ import { AccountLayout, Spinner } from '@shopify/components';
 import { storefront } from '@shopify/utilities';
 import { createAddressQuery } from '@shopify/graphql-queries';
 import { CreateAddressResponseModel } from '@shopify/models';
+import { useUserStore } from '@shopify/state';
 
 const UnitedStatesProvince = [
   'Alabama',
@@ -75,6 +76,7 @@ type InputErrors = {
 
 const CreateAddress: FC = () => {
   const router = useRouter();
+  const userStore = useUserStore();
   const [loading, setLoading] = useState<boolean>(false);
   const [errors, setErrors] = useState<InputErrors>({});
   const handleSubmit = async (event) => {
@@ -105,6 +107,7 @@ const CreateAddress: FC = () => {
     if (createdAddress) {
       toast.success('Your address has been created successfully!');
       router.push('/account/addresses');
+      userStore.getUser();
     } else {
       createAddressResponse?.data?.customerAddressCreate?.customerUserErrors.forEach(
         (error) => {
