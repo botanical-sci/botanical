@@ -10,11 +10,16 @@ export interface UserResponseModel {
       addresses: {
         nodes: [
           {
-            id: string;
+            address1: string;
+            address2: string;
+            city: string;
+            company: string;
+            country: string;
             firstName: string;
             lastName: string;
-            address1: string;
-            city: string;
+            id: string;
+            phone: string;
+            province: string;
             zip: string;
           }
         ];
@@ -73,11 +78,16 @@ interface UserModel {
   addresses: {
     nodes: [
       {
-        id: string;
+        address1: string;
+        address2: string;
+        city: string;
+        company: string;
+        country: string;
         firstName: string;
         lastName: string;
-        address1: string;
-        city: string;
+        id: string;
+        phone: string;
+        province: string;
         zip: string;
       }
     ];

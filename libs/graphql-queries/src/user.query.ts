@@ -12,11 +12,16 @@ const getUserByHandleQuery = (token: string) => {
         phone
         addresses(first:20) {
           nodes {
-            id
+            address1
+            address2
+            city
+            company
+            country
             firstName
             lastName
-            address1
-            city
+            id
+            phone
+            province
             zip
           }
         }
