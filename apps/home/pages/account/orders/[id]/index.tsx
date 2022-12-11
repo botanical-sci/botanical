@@ -2,6 +2,7 @@ import { FC, useEffect } from 'react';
 import { useRouter } from 'next/router';
 
 import { useOrderStore } from '@shopify/state';
+import { AccountLayout } from '@shopify/components';
 
 const OrderDetails: FC = () => {
   const router = useRouter();
@@ -15,11 +16,10 @@ const OrderDetails: FC = () => {
   const datePlaced = new Date(orderStore.order?.processedAt).toDateString();
 
   return (
-    <div className="bg-white">
-      <div className="py-16 sm:py-24">
-        <h2 className="sr-only">Recent orders</h2>
-        <div className="max-w-7xl mx-auto sm:px-2 lg:px-8">
-          <div className="max-w-2xl mx-auto space-y-8 px-4 lg:max-w-4xl lg:px-0">
+    <AccountLayout page="Orders">
+      <div className="lg:col-span-9">
+        <div className="max-w-7xl mx-auto sm:px-2 lg:px-0">
+          <div className=" space-y-8 px-4  lg:px-0">
             <div className="bg-white border-t border-b border-gray-200 shadow-sm rounded-lg border">
               <h3 className="sr-only">
                 Order placed on <time dateTime={datePlaced}>{datePlaced}</time>
@@ -40,14 +40,14 @@ const OrderDetails: FC = () => {
                     </dd>
                   </div>
                   <div className="flex justify-between pt-4 md:block md:pt-0">
-                    <dt className="font-medium text-gray-900">PAYMENT</dt>
-                    <dd className="sm:mt-1">
+                    <dt className="font-medium text-gray-900">Payment</dt>
+                    <dd className="sm:mt-1 text-gray-500">
                       {orderStore.order?.financialStatus}
                     </dd>
                   </div>
                   <div className="flex justify-between pt-4 md:block md:pt-0">
-                    <dt className="font-medium text-gray-900">FULFILLMENT</dt>
-                    <dd className="sm:mt-1">
+                    <dt className="font-medium text-gray-900">Fulfillment</dt>
+                    <dd className="sm:mt-1 text-gray-500">
                       {orderStore.order?.fulfillmentStatus}
                     </dd>
                   </div>
@@ -62,23 +62,22 @@ const OrderDetails: FC = () => {
 
               <h4 className="sr-only">Items</h4>
               <ul role="list" className="divide-y divide-gray-200">
-                {orderStore.order?.lineItems.edges.map((item) => {
-                  const product = item.node.variant;
+                {orderStore.order?.lineItems.edges.map((item, index) => {
                   return (
-                    <li key={product.id} className="p-4 sm:p-6">
+                    <li key={index} className="p-4 sm:p-6">
                       <div className="flex items-center sm:items-start">
                         <div className="flex-shrink-0 w-20 h-20 bg-gray-200 rounded-lg overflow-hidden sm:w-40 sm:h-40">
                           <img
-                            src={product.image.src}
-                            alt={product.title}
+                            src={item.node.variant.image.url}
+                            alt={item.node.title}
                             className="w-full h-full object-center object-cover"
                           />
                         </div>
                         <div className="flex-1 ml-6 text-sm">
                           <div className="font-medium text-gray-900 sm:flex sm:justify-between">
-                            <h5>{product.title}</h5>
+                            <h5>{item.node.title}</h5>
                             <p className="mt-2 sm:mt-0">
-                              ${product.priceV2.amount}
+                              ${item.node.originalTotalPrice.amount}
                             </p>
                           </div>
                         </div>
@@ -91,7 +90,7 @@ const OrderDetails: FC = () => {
           </div>
         </div>
       </div>
-    </div>
+    </AccountLayout>
   );
 };
 

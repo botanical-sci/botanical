@@ -17,14 +17,13 @@ const getOrderByHandleQuery = (id: string) => {
             lineItems(first:10) {
                 edges {
                   node {
+                    title
+                    originalTotalPrice {
+                      amount
+                    }
                     variant {
-                      id
-                      title
-                      priceV2 {
-                        amount
-                      }
                       image {
-                        src
+                        url
                       }
                     }
                   }

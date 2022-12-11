@@ -51,12 +51,12 @@ const Orders: FC = () => {
                           </dd>
                         </div>
                         <div className="flex justify-between pt-4 md:block md:pt-0">
-                          <dt className="font-medium text-gray-900">PAYMENT</dt>
+                          <dt className="font-medium text-gray-900">Payment</dt>
                           <dd className="md:mt-1">{order.financialStatus}</dd>
                         </div>
                         <div className="flex justify-between pt-4 md:block md:pt-0">
                           <dt className="font-medium text-gray-900">
-                            FULFILLMENT
+                            Fulfillment
                           </dt>
                           <dd className="md:mt-1">{order.fulfillmentStatus}</dd>
                         </div>

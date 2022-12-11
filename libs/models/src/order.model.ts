@@ -14,14 +14,13 @@ export interface OrderResponseModel {
         edges: [
           {
             node: {
+              title: string;
+              originalTotalPrice: {
+                amount: string;
+              };
               variant: {
-                id: string;
-                title: string;
-                priceV2: {
-                  amount: string;
-                };
                 image: {
-                  src: string;
+                  url: string;
                 };
               };
             };
@@ -46,14 +45,13 @@ interface OrderModel {
     edges: [
       {
         node: {
+          title: string;
+          originalTotalPrice: {
+            amount: string;
+          };
           variant: {
-            id: string;
-            title: string;
-            priceV2: {
-              amount: string;
-            };
             image: {
-              src: string;
+              url: string;
             };
           };
         };

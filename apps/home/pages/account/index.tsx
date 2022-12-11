@@ -53,9 +53,13 @@ const Account: FC = () => {
       updateUserQuery,
       {
         customer: {
-          firstName: event.target.firstName.value,
-          lastName: event.target.lastName.value,
-          phone: event.target.phone.value,
+          ...(event.target.firstName.value && {
+            firstName: event.target.firstName.value,
+          }),
+          ...(event.target.lastName.value && {
+            lastName: event.target.lastName.value,
+          }),
+          ...(event.target.phone.value && { phone: event.target.phone.value }),
           email: event.target.email.value,
         },
         customerAccessToken:
@@ -166,11 +170,13 @@ const Account: FC = () => {
                       autoComplete="email"
                       value={formValues.email}
                       onChange={handleOnChangeFormInputs}
+                      disabled
                       className={classNames(
                         InputsBaseCssClasses,
                         errors['email']
                           ? InputsErrorCssClasses
-                          : InputsDefaultCssClasses
+                          : InputsDefaultCssClasses,
+                        'disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none'
                       )}
                     />
                     {errors['email']}
