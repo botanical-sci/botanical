@@ -4,15 +4,11 @@ import { useRouter } from 'next/router';
 import toast from 'react-hot-toast';
 import classNames from 'classnames';
 
-import { Breadcrumb, Spinner } from '@shopify/components';
+import { Spinner } from '@shopify/components';
 import { storefront } from '@shopify/utilities';
 import { registerQuery } from '@shopify/graphql-queries';
 import { RegisterResponseModel } from '@shopify/models';
 
-const breadcrumbList = [
-  { name: 'Account', href: '/account', current: false },
-  { name: 'Register', href: '/account/register', current: true },
-];
 const InputsBaseCssClasses =
   'appearance-none block w-full px-3 py-2 border rounded-md shadow-sm sm:text-sm';
 const InputsDefaultCssClasses =
@@ -81,9 +77,6 @@ const Register: FC = () => {
         <h2 className="text-center text-3xl font-extrabold text-gray-900">
           Register
         </h2>
-        <div className="flex justify-center">
-          <Breadcrumb list={breadcrumbList} />
-        </div>
       </div>
 
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">

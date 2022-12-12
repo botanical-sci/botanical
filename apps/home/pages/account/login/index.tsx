@@ -3,16 +3,11 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import toast from 'react-hot-toast';
 
-import { Breadcrumb, Spinner } from '@shopify/components';
+import { Spinner } from '@shopify/components';
 import { storefront } from '@shopify/utilities';
 import { loginQuery } from '@shopify/graphql-queries';
 import { LoginResponseModel } from '@shopify/models';
 import { useUserStore } from '@shopify/state';
-
-const breadcrumbList = [
-  { name: 'Account', href: '/account', current: false },
-  { name: 'Login', href: '/account/login', current: true },
-];
 
 const Login: FC = () => {
   const router = useRouter();
@@ -52,9 +47,6 @@ const Login: FC = () => {
         <h2 className="text-center text-3xl font-extrabold text-gray-900">
           Login
         </h2>
-        <div className="flex justify-center">
-          <Breadcrumb list={breadcrumbList} />
-        </div>
       </div>
 
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
