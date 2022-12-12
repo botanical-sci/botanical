@@ -32,6 +32,10 @@ export interface OrderResponseModel {
                 image: {
                   url: string;
                 };
+                product: {
+                  description: string;
+                  handle: string;
+                };
               };
             };
           }
@@ -72,6 +76,10 @@ interface OrderModel {
           variant: {
             image: {
               url: string;
+            };
+            product: {
+              description: string;
+              handle: string;
             };
           };
         };

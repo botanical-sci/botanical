@@ -35,6 +35,10 @@ const getOrderByHandleQuery = (id: string) => {
                       image {
                         url
                       }
+                      product {
+                        description 
+                        handle
+                      }
                     }
                   }
                 }

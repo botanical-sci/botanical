@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 
 import { useOrderStore } from '@shopify/state';
 import { AccountLayout } from '@shopify/components';
+import Link from 'next/link';
 
 const OrderDetails: FC = () => {
   const router = useRouter();
@@ -43,11 +44,15 @@ const OrderDetails: FC = () => {
                 <div className="flex-auto flex flex-col">
                   <div>
                     <h4 className="font-medium text-gray-900">
-                      <a href="#">{item.node.title}</a>
+                      <Link
+                        href={`/product/${item.node.variant.product.handle}`}
+                      >
+                        <a>{item.node.title}</a>
+                      </Link>
                     </h4>
-                    {/* <p className="mt-2 text-sm text-gray-600">
-                      {product.description}
-                    </p> */}
+                    <p className="mt-2 text-sm text-gray-600">
+                      {item.node.variant?.product?.description}
+                    </p>
                   </div>
                   <div className="mt-6 flex-1 flex items-end">
                     <dl className="flex text-sm divide-x divide-gray-200 space-x-4 sm:space-x-6">
