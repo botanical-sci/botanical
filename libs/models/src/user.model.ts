@@ -8,6 +8,7 @@ export interface UserResponseModel {
       email: string;
       phone: string | null;
       defaultAddress: {
+        id: string;
         address1: string;
         address2: string;
         city: string;
@@ -88,6 +89,7 @@ interface UserModel {
   email: string;
   phone: string | null;
   defaultAddress: {
+    id: string;
     address1: string;
     address2: string;
     city: string;

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { XIcon } from '@heroicons/react/outline';
 import Image from 'next/future/image';
 import Link from 'next/link';
@@ -28,6 +28,20 @@ const Cart = () => {
     cartStore.changeQty(id, +qty);
   };
 
+  const shippingAddress = useMemo(() => {
+    if (userStore.user?.defaultAddress) {
+      const shippingAddress = { ...userStore.user?.defaultAddress };
+      delete shippingAddress.id;
+      return shippingAddress;
+    } else if (userStore.user?.addresses?.nodes?.length) {
+      const shippingAddress = { ...userStore.user?.addresses?.nodes[0] };
+      delete shippingAddress.id;
+      return shippingAddress;
+    } else {
+      return null;
+    }
+  }, [userStore.user]);
+
   const handleGoToCheckout = async () => {
     setLoading(true);
     const cartResponse = await storefront<CartResponseModel>(cartQuery, {
@@ -41,8 +55,8 @@ const Cart = () => {
           quantity: item.qty,
           variantId: item.variantId,
         })),
-        ...(userStore.user?.defaultAddress && {
-          shippingAddress: userStore.user?.defaultAddress,
+        ...(shippingAddress && {
+          shippingAddress: shippingAddress,
         }),
       },
     });

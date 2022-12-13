@@ -11,6 +11,7 @@ const getUserByHandleQuery = (token: string) => {
         email
         phone
         defaultAddress {
+          id
           address1
           address2
           city
