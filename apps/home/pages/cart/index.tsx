@@ -4,7 +4,7 @@ import Image from 'next/future/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
-import { useCartStore } from '@shopify/state';
+import { useCartStore, useUserStore } from '@shopify/state';
 import { storefront } from '@shopify/utilities';
 import { cartQuery } from '@shopify/graphql-queries';
 import { CartResponseModel } from '@shopify/models';
@@ -12,6 +12,7 @@ import { Spinner } from '@shopify/components';
 
 const Cart = () => {
   const cartStore = useCartStore();
+  const userStore = useUserStore();
   const router = useRouter();
   const [loading, setLoading] = useState<boolean>(false);
 
@@ -29,6 +30,7 @@ const Cart = () => {
     setLoading(true);
     const cartResponse = await storefront<CartResponseModel>(cartQuery, {
       input: {
+        ...(userStore.user?.email && { email: userStore.user?.email }),
         allowPartialAddresses: true,
         buyerIdentity: {
           countryCode: 'US',
@@ -37,6 +39,9 @@ const Cart = () => {
           quantity: item.qty,
           variantId: item.variantId,
         })),
+        ...(userStore.user?.defaultAddress && {
+          shippingAddress: userStore.user?.defaultAddress,
+        }),
       },
     });
     const redirectURL = cartResponse.data.checkoutCreate?.checkout.webUrl;

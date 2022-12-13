@@ -18,7 +18,6 @@ const getUserByHandleQuery = (token: string) => {
           country
           firstName
           lastName
-          id
           phone
           province
           zip 

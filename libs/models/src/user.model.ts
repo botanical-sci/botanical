@@ -15,7 +15,6 @@ export interface UserResponseModel {
         country: string;
         firstName: string;
         lastName: string;
-        id: string;
         phone: string;
         province: string;
         zip: string;
@@ -96,7 +95,6 @@ interface UserModel {
     country: string;
     firstName: string;
     lastName: string;
-    id: string;
     phone: string;
     province: string;
     zip: string;
