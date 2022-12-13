@@ -7,8 +7,14 @@ import { ExclamationIcon } from '@heroicons/react/outline';
 import { AccountLayout, Spinner } from '@shopify/components';
 import { useUserStore } from '@shopify/state';
 import { storefront } from '@shopify/utilities';
-import { deleteAddressQuery } from '@shopify/graphql-queries';
-import { DeleteAddressResponseModel } from '@shopify/models';
+import {
+  deleteAddressQuery,
+  updateCustomerDefaultAddressQuery,
+} from '@shopify/graphql-queries';
+import {
+  DeleteAddressResponseModel,
+  UpdateDefaultAddressResponseModel,
+} from '@shopify/models';
 
 const Addresses: FC = () => {
   const userStore = useUserStore();
@@ -16,6 +22,8 @@ const Addresses: FC = () => {
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const cancelButtonRef = useRef(null);
+
+  const defaultAddress = userStore.user?.defaultAddress;
 
   const [selectedAddressForDelete, setSelectedAddressForDelete] =
     useState<string>(null);
@@ -40,6 +48,24 @@ const Addresses: FC = () => {
     }
     setLoading(false);
     setIsModalOpen(false);
+  };
+
+  const handleSetDefaultAddress = async (addressID: string) => {
+    setLoading(true);
+    const token =
+      localStorage.getItem('token') || sessionStorage.getItem('token') || '';
+    const defaultAddressResponse =
+      await storefront<UpdateDefaultAddressResponseModel>(
+        updateCustomerDefaultAddressQuery,
+        {
+          addressId: addressID,
+          customerAccessToken: token,
+        }
+      );
+    if (defaultAddressResponse?.data?.customerDefaultAddressUpdate) {
+      toast.success('The default address has been set successfully!');
+      userStore.getUser();
+    }
   };
 
   return (
@@ -87,7 +113,7 @@ const Addresses: FC = () => {
                               scope="col"
                               className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                             >
-                              Zip
+                              Default address
                             </th>
                             <th scope="col" className="relative px-6 py-3">
                               <span className="sr-only">Edit</span>
@@ -112,7 +138,17 @@ const Addresses: FC = () => {
                                   {address.city}
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                  {address.zip}
+                                  <input
+                                    id="defaultAddress"
+                                    name="defaultAddress"
+                                    onClick={() =>
+                                      handleSetDefaultAddress(address.id)
+                                    }
+                                    checked={address.id === defaultAddress.id}
+                                    type="checkbox"
+                                    disabled={loading}
+                                    className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+                                  />
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                   <Link href={`/account/addresses/${href}`}>

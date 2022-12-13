@@ -7,6 +7,19 @@ export interface UserResponseModel {
       acceptsMarketing: boolean;
       email: string;
       phone: string | null;
+      defaultAddress: {
+        address1: string;
+        address2: string;
+        city: string;
+        company: string;
+        country: string;
+        firstName: string;
+        lastName: string;
+        id: string;
+        phone: string;
+        province: string;
+        zip: string;
+      };
       addresses: {
         nodes: [
           {
@@ -75,6 +88,19 @@ interface UserModel {
   acceptsMarketing: boolean;
   email: string;
   phone: string | null;
+  defaultAddress: {
+    address1: string;
+    address2: string;
+    city: string;
+    company: string;
+    country: string;
+    firstName: string;
+    lastName: string;
+    id: string;
+    phone: string;
+    province: string;
+    zip: string;
+  };
   addresses: {
     nodes: [
       {

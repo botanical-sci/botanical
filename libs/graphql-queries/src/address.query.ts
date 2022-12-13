@@ -75,4 +75,30 @@ const updateAddressQuery = gql`
   }
 `;
 
-export { createAddressQuery, deleteAddressQuery, updateAddressQuery };
+const updateCustomerDefaultAddressQuery = gql`
+  mutation customerDefaultAddressUpdate(
+    $addressId: ID!
+    $customerAccessToken: String!
+  ) {
+    customerDefaultAddressUpdate(
+      addressId: $addressId
+      customerAccessToken: $customerAccessToken
+    ) {
+      customer {
+        id
+      }
+      customerUserErrors {
+        code
+        field
+        message
+      }
+    }
+  }
+`;
+
+export {
+  createAddressQuery,
+  deleteAddressQuery,
+  updateAddressQuery,
+  updateCustomerDefaultAddressQuery,
+};

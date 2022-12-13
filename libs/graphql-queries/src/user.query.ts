@@ -10,6 +10,19 @@ const getUserByHandleQuery = (token: string) => {
         acceptsMarketing
         email
         phone
+        defaultAddress {
+          address1
+          address2
+          city
+          company
+          country
+          firstName
+          lastName
+          id
+          phone
+          province
+          zip 
+       }
         addresses(first:20) {
           nodes {
             address1
