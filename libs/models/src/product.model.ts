@@ -1,12 +1,19 @@
 export interface SingleProductImage {
-    node: {
-      altText: string;
-      height: number;
-      width: number;
-      url: string;
-    };
+  node: {
+    altText: string;
+    height: number;
+    width: number;
+    url: string;
+  };
 }
 export interface SingleProductModle {
+  variants: {
+    nodes: [
+      {
+        id: string;
+      }
+    ];
+  };
   id: string;
   title: string;
   handle: string;
@@ -31,7 +38,7 @@ export interface SingleProductModle {
     width: number;
     url: string;
   };
-  images: {edges: SingleProductImage[]};
+  images: { edges: SingleProductImage[] };
 }
 
 export interface SingleProductModel {

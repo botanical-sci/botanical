@@ -14,6 +14,13 @@ export interface ProductModel {
     url: string;
     id: string;
   };
+  variants: {
+    nodes: [
+      {
+        id: string;
+      }
+    ];
+  };
 }
 
 export interface ProductsModel {

@@ -15,6 +15,8 @@ const Cart = () => {
     cartStore.removeItem(id);
   };
 
+  console.log(cartStore.items);
+
   const handleChangeQty = (id: string, qty: string) => {
     cartStore.changeQty(id, +qty);
   };

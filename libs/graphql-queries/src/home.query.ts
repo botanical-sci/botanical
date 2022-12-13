@@ -26,6 +26,11 @@ const homeStructureQuery = gql`
       handle
       products(first: 4) {
         nodes {
+          variants(first: 1) {
+            nodes {
+              id
+            }
+          }
           handle
           id
           title

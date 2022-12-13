@@ -53,6 +53,7 @@ const ProductDetails: FC<Props> = ({ product: drivedProduct }: Props) => {
       price: product.priceRange.maxVariantPrice.amount,
       qty: 1,
       title: product.title,
+      variantId: product.variants.nodes[0].id,
     });
   };
 
@@ -93,22 +94,26 @@ const ProductDetails: FC<Props> = ({ product: drivedProduct }: Props) => {
           <div className="lg:row-end-1 lg:col-span-5">
             <div className="aspect-w-3 aspect-h-4 relative rounded-lg bg-gray-100 overflow-hidden">
               {imageIsLoading && (
-                <Spinner size='xl'  className="absolute top-0 bottom-0 left-0 right-0 m-auto z-30" />
-              )}
-          
-                <Image
-                  onLoadingComplete={() => setImageIsLoading(false)}
-                  className={'object-center object-cover'}
-                  width={400}
-                  height={800}
-                  src={featureImageSrc}
-                  alt={product.featuredImage.altText}
+                <Spinner
+                  size="xl"
+                  className="absolute top-0 bottom-0 left-0 right-0 m-auto z-30"
                 />
+              )}
+
+              <Image
+                onLoadingComplete={() => setImageIsLoading(false)}
+                className={'object-center object-cover'}
+                width={400}
+                height={800}
+                src={featureImageSrc}
+                alt={product.featuredImage.altText}
+              />
             </div>
 
             <ul className="grid grid-flow-col gap-5 mt-5">
               {product?.images.edges.map((image) => (
                 <li
+                  key={image.node.url}
                   className={classNames(
                     'aspect-w-3 aspect-h-4 rounded-lg bg-gray-100 border-4 border-transparent overflow-hidden',
                     featureImageSrc === image.node.url

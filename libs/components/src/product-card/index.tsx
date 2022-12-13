@@ -24,9 +24,10 @@ const ProductCard: FC<Props> = ({ product }) => {
       image: product.featuredImage.url,
       price: product.priceRange.maxVariantPrice.amount,
       qty: 1,
-      title: product.title
-    })
-  }
+      title: product.title,
+      variantId: product.variants.nodes[0].id,
+    });
+  };
 
   return (
     <div className="group relative rounded-md block">

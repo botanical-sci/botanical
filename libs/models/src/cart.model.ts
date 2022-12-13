@@ -5,6 +5,7 @@ export interface CartItemModel {
   image: string;
   price: string;
   qty: number;
+  variantId: string;
 }
 
 export interface CartStoreModel {
