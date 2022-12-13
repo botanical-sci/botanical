@@ -1,3 +1,18 @@
+export interface CartResponseModel {
+  data: {
+    checkoutCreate: {
+      checkout: {
+        webUrl: string;
+        ready: boolean;
+      };
+      checkoutUserErrors: {
+        field: string[];
+        message: string;
+      };
+    };
+  };
+}
+
 export interface CartItemModel {
   id: string;
   title: string;

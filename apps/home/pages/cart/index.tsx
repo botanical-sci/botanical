@@ -1,13 +1,19 @@
+import React, { useState } from 'react';
 import { XIcon } from '@heroicons/react/outline';
-import { useCartStore } from '@shopify/state';
 import Image from 'next/future/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import React from 'react';
+
+import { useCartStore } from '@shopify/state';
+import { storefront } from '@shopify/utilities';
+import { cartQuery } from '@shopify/graphql-queries';
+import { CartResponseModel } from '@shopify/models';
+import { Spinner } from '@shopify/components';
 
 const Cart = () => {
   const cartStore = useCartStore();
   const router = useRouter();
+  const [loading, setLoading] = useState<boolean>(false);
 
   const handleRemoveProduct = (e: any, id: string) => {
     e.preventDefault();
@@ -15,14 +21,29 @@ const Cart = () => {
     cartStore.removeItem(id);
   };
 
-  console.log(cartStore.items);
-
   const handleChangeQty = (id: string, qty: string) => {
     cartStore.changeQty(id, +qty);
   };
 
-  const handleGoToCheckout = () => {
-    router.push('/checkout');
+  const handleGoToCheckout = async () => {
+    setLoading(true);
+    const cartResponse = await storefront<CartResponseModel>(cartQuery, {
+      input: {
+        allowPartialAddresses: true,
+        buyerIdentity: {
+          countryCode: 'US',
+        },
+        lineItems: cartStore.items.map((item) => ({
+          quantity: item.qty,
+          variantId: item.variantId,
+        })),
+      },
+    });
+    const redirectURL = cartResponse.data.checkoutCreate?.checkout.webUrl;
+    if (redirectURL) {
+      router.push(redirectURL);
+    }
+    setLoading(false);
   };
 
   return (
@@ -132,8 +153,10 @@ const Cart = () => {
           <div className="mt-6">
             <button
               onClick={handleGoToCheckout}
+              disabled={loading}
               className="w-full bg-indigo-600 border border-transparent rounded-md shadow-sm py-3 px-4 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-indigo-500"
             >
+              {loading && <Spinner />}
               Checkout
             </button>
           </div>
