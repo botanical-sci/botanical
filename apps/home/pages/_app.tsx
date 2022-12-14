@@ -13,9 +13,12 @@ import { menuQuery } from '@shopify/graphql-queries';
 import { NextPage } from 'next';
 import { useUserStore } from '@shopify/state';
 
+import classNames from 'classnames';
+
 interface Props extends AppProps {
   menuData: MenuBasicModel;
 }
+
 
 const ShopifyApp: NextPage<Props> = ({
   Component,
@@ -32,7 +35,7 @@ const ShopifyApp: NextPage<Props> = ({
       <Head>
         <title>Botanical Skin Science</title>
       </Head>
-      <main className="app">
+      <main>
         <Header menu={menuData.menu.items} />
 
         <Component {...pageProps} />
@@ -40,7 +43,7 @@ const ShopifyApp: NextPage<Props> = ({
         <Toaster
           position="bottom-center"
           reverseOrder={false}
-          toastOptions={{ duration: 5000 }}
+          toastOptions={{ duration: 5000 , style: {fontSize: 14}}}
         />
       </main>
     </>
