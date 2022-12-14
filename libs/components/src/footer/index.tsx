@@ -72,32 +72,7 @@ const navigation = {
 const Footer = () => {
   return (
     <>
-      <section className="bg-dark">
-        <Container>
-          <div className=" text-white grid grid-cols-1 md:grid-cols-2 h-auto md:h-[550px] gap-20 p-3 md:p-0">
-            <div className="flex flex-col justify-center gap-6">
-              <h5 className="font-noto text-[#e5e8f0] text-52 font-light">
-                Healthy Skincare
-              </h5>
-              <p className="font-normal text-lg text-[#e5e8f0]">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam
-                pretium pellentesque nibh eget venenatis. Sed volutpat, purus eu
-                pellentesque lobortis, nulla erat fermentum ligula, non dictum
-                odio nisl eget velit.
-              </p>
-            </div>
-            <div className="flex flex-col justify-center mt-20 md:mt-0">
-              <Image
-                src="/images/footer-cover.jpeg"
-                className="rounded-xl -mt-[30%]"
-                width={640}
-                height={640}
-                alt="Botanical Skin Care"
-              />
-            </div>
-          </div>
-        </Container>
-      </section>
+
       <footer className="bg-white" aria-labelledby="footer-heading">
         <h2 id="footer-heading" className="sr-only">
           Footer
@@ -123,42 +98,10 @@ const Footer = () => {
                     ))}
                   </ul>
                 </div>
-                <div className="mt-12 md:mt-0">
-                  <h3 className="text-sm font-semibold text-gray-400 tracking-wider uppercase">
-                    Support
-                  </h3>
-                  <ul role="list" className="mt-4 space-y-4">
-                    {navigation.support.map((item) => (
-                      <li key={item.name}>
-                        <a
-                          href={item.href}
-                          className="text-base text-gray-500 hover:text-gray-900"
-                        >
-                          {item.name}
-                        </a>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+              
               </div>
               <div className="md:grid md:grid-cols-2 md:gap-8">
-                <div>
-                  <h3 className="text-sm font-semibold text-gray-400 tracking-wider uppercase">
-                    Company
-                  </h3>
-                  <ul role="list" className="mt-4 space-y-4">
-                    {navigation.company.map((item) => (
-                      <li key={item.name}>
-                        <a
-                          href={item.href}
-                          className="text-base text-gray-500 hover:text-gray-900"
-                        >
-                          {item.name}
-                        </a>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+               
                
               </div>
             </div>

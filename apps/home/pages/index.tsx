@@ -1,5 +1,5 @@
 import { FC } from 'react';
-
+import Image from 'next/future/image';
 import {
   Container,
   Header,
@@ -51,7 +51,34 @@ const Index: FC<HomeBasicModel> = ({ data }) => {
       </section>
 
       <section className="bg-neutral-100">
-          <Testimonials />
+        <Testimonials />
+      </section>
+
+      <section className="bg-dark">
+        <Container>
+          <div className=" text-white grid grid-cols-1 md:grid-cols-2 h-auto md:h-[550px] gap-20 p-3 md:p-0">
+            <div className="flex flex-col justify-center gap-6">
+              <h5 className="font-noto text-[#e5e8f0] text-52 font-light">
+                Healthy Skincare
+              </h5>
+              <p className="font-normal text-lg text-[#e5e8f0]">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam
+                pretium pellentesque nibh eget venenatis. Sed volutpat, purus eu
+                pellentesque lobortis, nulla erat fermentum ligula, non dictum
+                odio nisl eget velit.
+              </p>
+            </div>
+            <div className="flex flex-col justify-center mt-20 md:mt-0">
+              <Image
+                src="/images/footer-cover.jpeg"
+                className="rounded-xl -mt-[30%]"
+                width={640}
+                height={640}
+                alt="Botanical Skin Care"
+              />
+            </div>
+          </div>
+        </Container>
       </section>
     </>
   );
@@ -59,7 +86,7 @@ const Index: FC<HomeBasicModel> = ({ data }) => {
 
 export async function getStaticProps() {
   const { data } = await storefront<HomeBasicModel>(homeStructureQuery);
-
+  
   return {
     props: {
       data,
