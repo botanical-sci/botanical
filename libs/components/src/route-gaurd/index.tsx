@@ -47,7 +47,18 @@ const RouteGuard: FC<Props> = ({ children }: Props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  return authorized ? children : <div></div>;
+  return authorized ? (
+    children
+  ) : (
+    <div className="h-96">
+      <div className="flex animate-pulse flex-row items-center h-full justify-center space-x-5">
+        <div className="w-12 bg-gray-300 h-12 rounded-full "></div>
+        <div className="w-12 bg-gray-300 h-12 rounded-full "></div>
+        <div className="w-12 bg-gray-300 h-12 rounded-full "></div>
+        <div className="w-12 bg-gray-300 h-12 rounded-full "></div>
+      </div>
+    </div>
+  );
 };
 
 export default RouteGuard;
