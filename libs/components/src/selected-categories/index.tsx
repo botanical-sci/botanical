@@ -1,3 +1,4 @@
+import { IconChevronRight } from '@tabler/icons';
 import Image from 'next/future/image';
 import Link from 'next/link';
 
@@ -5,16 +6,16 @@ const SelectedCategories = () => {
   return (
     <section aria-labelledby="category-heading">
       <div className="max-w-2xl mx-auto py-8 px-4 sm:py-10 sm:px-6 lg:max-w-7xl lg:px-8 my-16">
-        <div className="sm:flex sm:items-baseline sm:justify-between">
-          <h2
-            id="category-heading"
-            className="text-2xl font-extrabold tracking-tight text-gray-900"
-          >
+        <div className="md:flex md:items-center md:justify-between md:flex-col">
+          <h2 className="text-52 font-light text-center font-noto -tracking-2 text-neutral">
             Shop by Category
           </h2>
           <Link href="/collections">
-            <a className="block text-sm font-semibold text-indigo-600 hover:text-indigo-500">
-              Browse all categories<span aria-hidden="true"> &rarr;</span>
+            <a className="hidden font-semibold text-18 text-highlight hover:text-indigo-500 md:flex items-center gap-1">
+              Browse all categories
+              <span aria-hidden="true">
+                <IconChevronRight size={20} />
+              </span>
             </a>
           </Link>
         </div>
@@ -30,7 +31,7 @@ const SelectedCategories = () => {
             />
             <div
               aria-hidden="true"
-              className="bg-gradient-to-b from-transparent to-black opacity-50"
+              className="bg-gradient-to-b from-transparent to-[#252358] opacity-50"
             />
             <div className="p-6 flex items-end">
               <div>
@@ -59,7 +60,7 @@ const SelectedCategories = () => {
             />
             <div
               aria-hidden="true"
-              className="bg-gradient-to-b from-transparent to-black opacity-50 sm:absolute sm:inset-0"
+              className="bg-gradient-to-b from-transparent to-[#252358] opacity-50 sm:absolute sm:inset-0"
             />
             <div className="p-6 flex items-end sm:absolute sm:inset-0">
               <div>
@@ -89,7 +90,7 @@ const SelectedCategories = () => {
             />
             <div
               aria-hidden="true"
-              className="bg-gradient-to-b from-transparent to-black opacity-50 sm:absolute sm:inset-0"
+              className="bg-gradient-to-b from-transparent to-[#252358] opacity-50 sm:absolute sm:inset-0"
             />
             <div className="p-6 flex items-end sm:absolute sm:inset-0">
               <div>

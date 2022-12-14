@@ -1,5 +1,7 @@
-const Container = ({ children, paddingOnDesktop }: any) => {
-  return <div className={`container mx-auto ${paddingOnDesktop ? 'md:px-4 lg:px-4' : 'px-4'}`}>{children}</div>;
+import classNames from "classnames";
+
+const Container = ({ children, className }: any) => {
+  return <div className={classNames(`max-w-2xl mx-auto lg:max-w-7xl`, className)}>{children}</div>;
 };
 
 export default Container;

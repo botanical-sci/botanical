@@ -4,42 +4,74 @@ import {
   IconTruckDelivery,
 } from '@tabler/icons';
 
+import Image from 'next/future/image';
+
 import Container from '../container';
 
 const perks = [
   {
-    name: '30 Day Money Back Guarantee',
-    Icon: <IconShieldChevron width={50} height={50} className='text-botanical' />,
+    name: '30 day guarantee',
+    Icon: (
+      <Image
+        width={50}
+        height={50}
+        src="/images/icons-gaurantee.svg"
+        alt="30 Day Money Back Guarantee"
+      />
+    ),
     description:
-      'Most effective treatment for all types of skin ailments. Guarantee you see results or your money back!',
+      'The most effective treatment for all types of skin ailments or your money back.',
   },
   {
-    name: 'Free Delivery',
-    Icon: <IconTruckDelivery width={50} height={50} className='text-botanical' />,
+    name: 'free delivery',
+    Icon: (
+      <Image
+        width={50}
+        height={50}
+        src="/images/icons-shipping.svg"
+        alt="Free Delivery"
+      />
+    ),
     description:
-      'Free shipping over 50$',
+      'All purchases over $50 will be shipped free to addesses within the United States.',
   },
   {
-    name: 'All year discount',
-    Icon: <IconShoppingCartPlus width={50} height={50} className='text-botanical' />,
+    name: 'all year discount',
+    Icon: (
+      <Image
+        width={50}
+        height={50}
+        src="/images/icons-discount.svg"
+        alt="All year discount"
+      />
+    ),
     description:
-      'Looking for a deal? You can use the code "ALLYEAR" at checkout and get money off all year round.',
+      'For amazing deals, use the code "ALLYEAR" at checkout year round.',
   },
   {
-    name: 'For the planet',
-    Icon: <IconShoppingCartPlus width={50} height={50} className='text-botanical' />,
+    name: 'for the planet',
+    Icon: (
+      <Image
+        width={50}
+        height={50}
+        src="/images/icons-planet.svg"
+        alt="For the planet"
+      />
+    ),
     description:
-      'We’ve pledged 1% of sales to the preservation and restoration of the natural environment.',
+      'We pledged 1% of sales to preserve and restore natural environments.',
   },
 ];
 
 const Perks = () => {
   return (
-    <section aria-labelledby="perks-heading" className='pt-16'>
+    <section aria-labelledby="perks-heading" className="mt-20">
       <Container>
-        <h2 className="text-2xl font-extrabold tracking-tight text-gray-900 text-center mb-10">
-          Why Botanical Skin Science
-        </h2>
+        <div className="md:flex md:items-center md:justify-between md:flex-col">
+          <h2 className="text-52 font-light text-center font-noto -tracking-2 text-neutral">
+            Why Botanical Skin Science
+          </h2>
+        </div>
       </Container>
 
       <div className="max-w-7xl mx-auto py-24 px-4 sm:px-6 sm:py-20 sm:pt-12 lg:px-8">
@@ -51,9 +83,7 @@ const Perks = () => {
                 className="text-center md:flex md:items-start md:text-left lg:block lg:text-center"
               >
                 <div className="md:flex-shrink-0 flex justify-center">
-                  <div className="flow-root">
-                    {perk.Icon}
-                  </div>
+                  <div className="flow-root">{perk.Icon}</div>
                 </div>
                 <div className="mt-6 md:mt-0 md:ml-4 lg:mt-6 lg:ml-0">
                   <h3 className="text-sm font-semibold tracking-wide uppercase text-gray-900">

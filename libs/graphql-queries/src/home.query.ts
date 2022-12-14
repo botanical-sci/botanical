@@ -32,6 +32,7 @@ const homeStructureQuery = gql`
             }
           }
           handle
+          description
           id
           title
           priceRange {
@@ -61,6 +62,7 @@ const homeStructureQuery = gql`
       products(first: 4) {
         nodes {
           handle
+          description
           id
           title
           priceRange {

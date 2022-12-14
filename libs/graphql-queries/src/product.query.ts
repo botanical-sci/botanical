@@ -11,6 +11,7 @@ const getProductByHandleQuery = (handle: string) => gql`
       title
       id
       handle
+      description
       availableForSale
       descriptionHtml
       ratingCount: metafield(namespace:"reviews", key:"rating_count"){

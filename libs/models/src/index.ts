@@ -8,3 +8,4 @@ export * from './auth.model';
 export * from './user.model';
 export * from './address.model';
 export * from './order.model';
+export * from './page.model'

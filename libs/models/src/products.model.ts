@@ -1,6 +1,7 @@
 export interface ProductModel {
   title: string;
   handle: string;
+  description: string;
   id: string;
   priceRange: {
     minVariantPrice: { amount: string; currencyCode: string };

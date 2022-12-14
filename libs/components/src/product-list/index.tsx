@@ -5,34 +5,38 @@ import Link from 'next/link';
 import { ProductsModel } from '@shopify/models';
 
 import ProductCard from '../product-card';
+import { IconChevronRight } from '@tabler/icons';
 
 interface Props {
   title: string;
   moreText: string;
   moreUrl: string;
   products: ProductsModel;
+  badge?: string
 }
 
-const ProductList: FC<Props> = ({ title, moreText, moreUrl, products }) => {
+const ProductList: FC<Props> = ({ title, moreText, moreUrl, products, badge }) => {
   return (
-    <div className="max-w-2xl mx-auto py-8 sm:py-10 sm:px-6 lg:max-w-7xl lg:px-86">
-      <div className="md:flex md:items-center md:justify-between">
-        <h2 className="text-2xl font-extrabold tracking-tight text-gray-900">
+    <>
+      <div className="md:flex md:items-center md:justify-between md:flex-col">
+        <h2 className="text-52 font-light text-center font-noto -tracking-2 text-neutral">
           {title}
         </h2>
         <Link href={moreUrl}>
           <a
-            className="hidden text-sm font-medium text-indigo-600 hover:text-indigo-500 md:block"
+            className="hidden font-semibold text-18 text-highlight hover:text-indigo-500 md:flex items-center gap-1"
           >
             {moreText}
-            <span aria-hidden="true"> &rarr;</span>
+            <span aria-hidden="true">
+              <IconChevronRight size={20} />
+            </span>
           </a>
         </Link>
       </div>
 
-      <div className="mt-6 grid grid-cols-2 gap-x-2 gap-y-2 xs:gap-y-1 sm:gap-x-6 md:grid-cols-4 md:gap-y-0 lg:gap-x-8">
+      <div className="mt-12 grid grid-cols-1 xs:gap-y-1  md:grid-cols-4 md:gap-y-0 lg:gap-x-8">
         {products.nodes.map((product: any) => (
-          <ProductCard key={product.id} product={product} />
+          <ProductCard key={product.id} product={product} badge={badge} />
         ))}
       </div>
 
@@ -44,7 +48,7 @@ const ProductList: FC<Props> = ({ title, moreText, moreUrl, products }) => {
           </a>
         </Link>
       </div>
-    </div>
+    </>
   );
 };
 

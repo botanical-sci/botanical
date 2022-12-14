@@ -3,24 +3,28 @@ import { FC, Fragment, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import Image from 'next/future/image';
 import Link from 'next/link';
-import { IconLogout, IconUserCircle } from '@tabler/icons';
+import {
+  IconKey,
+  IconLogin,
+  IconLogout,
+  IconMenu,
+  IconSearch,
+  IconShoppingCart,
+  IconShoppingCartPlus,
+  IconUser,
+  IconUserCircle,
+  IconX,
+} from '@tabler/icons';
 
 import { Dialog, Transition } from '@headlessui/react';
-import {
-  MenuIcon,
-  SearchIcon,
-  ShoppingBagIcon,
-  XIcon,
-} from '@heroicons/react/outline';
+
 import { MenuModel } from '@shopify/models';
 import { useCartStore, useUserStore } from '@shopify/state';
 
 import PopupCart from '../popup-cart';
 import { extractHandleFromUrl } from '@shopify/utilities';
-
-function classNames(...classes: any) {
-  return classes.filter(Boolean).join(' ');
-}
+import Container from '../container';
+import classNames from 'classnames';
 
 interface Props {
   menu: MenuModel[];
@@ -33,7 +37,23 @@ const Header: FC<Props> = ({ menu }: Props) => {
   const cartStore = useCartStore();
   const userStore = useUserStore();
 
-  const handleSignOut = () => {
+  const [onTop, setOnTop] = useState(false);
+
+  useEffect(() => {
+    const onScroll = (e: any) => {
+      setOnTop(window.scrollY < 200);
+    };
+
+    document.addEventListener('scroll', onScroll);
+
+    return () => {
+      document.removeEventListener('scroll', onScroll);
+    };
+  }, []);
+
+  const handleSignOut = (e: any) => {
+    e?.preventDefault();
+    e?.stopPropagation();
     localStorage.removeItem('token');
     sessionStorage.removeItem('token');
     userStore.initiate(null);
@@ -53,8 +73,52 @@ const Header: FC<Props> = ({ menu }: Props) => {
     }
   }, []);
 
+  const renderAuthenticatedUser = () => (
+    <>
+      <li className="hover:bg-highlight p-2 rounded-md hover:text-white transition-all duration-300 text-sm">
+        <Link href="/account">
+          <a className="flex gap-2 items-center">
+            <IconLogin size={18} />
+            <span>Profile</span>
+          </a>
+        </Link>
+      </li>
+      <li
+        onClick={handleSignOut}
+        className="hover:bg-highlight p-2 rounded-md hover:text-white transition-all duration-300 text-sm"
+      >
+        <Link href="#">
+          <a className="flex gap-2 items-center">
+            <IconLogin size={18} />
+            <span>Signout</span>
+          </a>
+        </Link>
+      </li>
+    </>
+  );
+  const renderAnonymouseUser = () => (
+    <>
+      <li className="hover:bg-highlight p-2 rounded-md hover:text-white transition-all duration-300 text-sm">
+        <Link href="/account/login">
+          <a className="flex gap-2 items-center">
+            <IconLogin size={18} />
+            <span>Login</span>
+          </a>
+        </Link>
+      </li>
+      <li className="hover:bg-highlight p-2 rounded-md hover:text-white transition-all duration-300 text-sm">
+        <Link href="/account/register">
+          <a className="flex gap-2 items-center">
+            <IconKey size={18} />
+            <span>Register</span>
+          </a>
+        </Link>
+      </li>
+    </>
+  );
+
   return (
-    <div className="bg-white sticky top-0 z-40">
+    <div className="sticky top-0 z-40 bg-opacity-90 backdrop-filter backdrop-blur-md">
       <PopupCart
         isOpen={cartOpen}
         onCartClose={() => {
@@ -63,7 +127,7 @@ const Header: FC<Props> = ({ menu }: Props) => {
       />
       {/* Mobile menu */}
       <Transition.Root show={open} as={Fragment}>
-        <Dialog as="div" className="fixed inset-0 flex z-50" onClose={setOpen}>
+        <Dialog as="div" className="fixed inset-0 flex z-50 " onClose={setOpen}>
           <Transition.Child
             as={Fragment}
             enter="transition-opacity ease-linear duration-200"
@@ -85,7 +149,7 @@ const Header: FC<Props> = ({ menu }: Props) => {
             leaveFrom="translate-x-0"
             leaveTo="-translate-x-full"
           >
-            <div className="relative max-w-xs w-full bg-white shadow-xl pb-12 flex flex-col overflow-y-auto">
+            <div className="relative max-w-xs w-full shadow-xl pb-12 flex flex-col overflow-y-auto bg-white">
               <div className="px-4 pt-5 pb-5 mb-5 border-stone-200 border-b flex justify-between">
                 <Link href="/">
                   <a>
@@ -95,7 +159,7 @@ const Header: FC<Props> = ({ menu }: Props) => {
                       height={40}
                       priority={true}
                       className="h-8 w-auto"
-                      src="/images/logo-top.png"
+                      src="/images/brand-logo-dark.svg"
                       alt="botanical skin science"
                     />
                   </a>
@@ -107,7 +171,7 @@ const Header: FC<Props> = ({ menu }: Props) => {
                     onClick={() => setOpen(false)}
                   >
                     <span className="sr-only">Close menu</span>
-                    <XIcon className="h-6 w-6" aria-hidden="true" />
+                    <IconX className="h-6 w-6" aria-hidden="true" />
                   </button>
                 </div>
               </div>
@@ -166,156 +230,159 @@ const Header: FC<Props> = ({ menu }: Props) => {
           </Transition.Child>
         </Dialog>
       </Transition.Root>
+      <Container>
+        <header className="relative">
+          {/* Top navigation */}
+          <nav
+            aria-label="Top"
+            className={classNames(
+              'relative z-20 border-b transition-all duration-300',
+              onTop ? 'py-5' : 'py-0 border-transparent'
+            )}
+          >
+            <div className="max-w-7xl mx-auto">
+              <div className="h-16 flex items-center">
+                <button
+                  type="button"
+                  className="bg-white rounded-md text-gray-400 lg:hidden"
+                  onClick={() => setOpen(true)}
+                >
+                  <span className="sr-only">Open menu</span>
+                  <IconMenu className="h-6 w-6" aria-hidden="true" />
+                </button>
 
-      <header className="relative">
-        {/* Top navigation */}
-        <nav
-          aria-label="Top"
-          className="relative z-20 bg-white shadow-sm bg-opacity-90 backdrop-filter backdrop-blur-xl"
-        >
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="h-16 flex items-center">
-              <button
-                type="button"
-                className="bg-white p-2 rounded-md text-gray-400 lg:hidden"
-                onClick={() => setOpen(true)}
-              >
-                <span className="sr-only">Open menu</span>
-                <MenuIcon className="h-6 w-6" aria-hidden="true" />
-              </button>
-
-              {/* Logo */}
-              <div className="ml-4 flex lg:ml-0">
-                <Link href="/">
-                  <a>
-                    <span className="sr-only">botanical skin science</span>
-                    <Image
-                      width={100}
-                      height={40}
-                      priority={true}
-                      className="h-8 w-auto"
-                      src="/images/logo-top.png"
-                      alt="botanical skin science"
-                    />
-                  </a>
-                </Link>
-              </div>
-
-              <ul className="hidden gap-5 ml-7 lg:flex md:flex">
-                {menu?.map((category) => (
-                  <li className="text-sm group relative cursor-pointer">
-                    {(!category.items || category.items.length === 0) && (
-                      <Link
-                        href={
-                          extractHandleFromUrl(category.url, category.type) ??
-                          ''
-                        }
-                      >
-                        <a>{category.title}</a>
-                      </Link>
-                    )}
-
-                    {category.items && category.items.length > 0 && (
-                      <>
-                        <span>{category.title}</span>
-                        <ul
-                          className="hidden group-hover:flex gap-3 flex-col absolute z-50 shadow-md bg-white p-3 rounded-md"
-                          style={{ minWidth: 250 }}
-                        >
-                          {category.items.map((i) => (
-                            <li>
-                              <Link
-                                href={extractHandleFromUrl(i.url, i.type) ?? ''}
-                                key={i.title}
-                              >
-                                <a className={classNames(' text-sm')}>
-                                  {i.title}
-                                </a>
-                              </Link>
-                            </li>
-                          ))}
-                        </ul>
-                      </>
-                    )}
-                  </li>
-                ))}
-              </ul>
-
-              <div className="ml-auto flex items-center">
-                {userStore.user ? (
-                  <div className="hidden lg:flex lg:flex-col lg:flex-1 lg:items-center lg:justify-end lg:space-y-1">
-                    <span className="text-sm font-medium text-gray-700">
-                      {userStore.user?.email}
-                    </span>
-                    <span
-                      className="w-full w-px bg-gray-200"
-                      aria-hidden="true"
-                    />
-                    <div className="mx-auto flex items-center space-x-5">
-                      <Link href="/account">
-                        <a className="text-sm font-medium text-gray-700 hover:text-gray-800 flex items-center space-x-1">
-                          <IconUserCircle size="20px" />
-                          <span>Profile</span>
-                        </a>
-                      </Link>
-
-                      <span
-                        className="text-sm font-medium text-gray-700 hover:text-gray-800 cursor-pointer flex items-center space-x-1"
-                        onClick={handleSignOut}
-                      >
-                        <IconLogout size="20px" />
-                        <span>Sign out</span>
-                      </span>
-                    </div>
-                  </div>
-                ) : (
-                  <div className="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
-                    <Link href="/account/login">
-                      <a className="text-sm font-medium text-gray-700 hover:text-gray-800">
-                        Sign in
-                      </a>
-                    </Link>
-                    <span className="h-6 w-px bg-gray-200" aria-hidden="true" />
-                    <Link href="/account/register">
-                      <a className="text-sm font-medium text-gray-700 hover:text-gray-800">
-                        Create account
-                      </a>
-                    </Link>
-                  </div>
-                )}
-
-                {/* Search */}
-                <div className="flex lg:ml-6">
-                  <Link href="/search">
-                    <a className="p-2 text-gray-400 hover:text-gray-500">
-                      <span className="sr-only">Search</span>
-                      <SearchIcon className="w-6 h-6" aria-hidden="true" />
+                {/* Logo */}
+                <div className="flex lg:ml-0">
+                  <Link href="/">
+                    <a>
+                      <span className="sr-only">botanical skin science</span>
+                      <Image
+                        width={184}
+                        height={54}
+                        priority={true}
+                        className="h-8 w-auto"
+                        src="/images/brand-logo-dark.svg"
+                        alt="botanical skin science"
+                      />
                     </a>
                   </Link>
                 </div>
 
-                {/* Cart */}
-                <div className="ml-4 flow-root lg:ml-6">
-                  <a
-                    href="#"
-                    className="group -m-2 p-2 flex items-center"
-                    onClick={handleDisplayCart}
-                  >
-                    <ShoppingBagIcon
-                      className="flex-shrink-0 h-6 w-6 text-gray-400 group-hover:text-gray-500"
-                      aria-hidden="true"
-                    />
-                    <span className="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">
-                      {cartStore.items.length}
-                    </span>
-                    <span className="sr-only">items in cart, view bag</span>
-                  </a>
+                <div className="ml-auto flex items-center">
+                  <ul className="hidden gap-5 ml-7 lg:flex md:flex mr-6">
+                    {menu?.map((category) => (
+                      <li
+                        key={category.resourceId}
+                        className="text-sm group relative cursor-pointer"
+                      >
+                        {(!category.items || category.items.length === 0) && (
+                          <Link
+                            href={
+                              extractHandleFromUrl(
+                                category.url,
+                                category.type
+                              ) ?? ''
+                            }
+                          >
+                            <a>{category.title}</a>
+                          </Link>
+                        )}
+
+                        {category.items && category.items.length > 0 && (
+                          <>
+                            <span>{category.title}</span>
+                            <ul
+                              className="hidden group-hover:flex gap-3 flex-col absolute z-50 shadow-md bg-white p-3 rounded-md"
+                              style={{ minWidth: 250 }}
+                            >
+                              {category.items.map((i) => (
+                                <li
+                                  key={i.resourceId}
+                                  className="hover:bg-highlight p-2 rounded-md hover:text-white transition-all duration-300"
+                                >
+                                  <Link
+                                    href={
+                                      extractHandleFromUrl(i.url, i.type) ?? ''
+                                    }
+                                  >
+                                    <a className={classNames('text-sm')}>
+                                      {i.title}
+                                    </a>
+                                  </Link>
+                                </li>
+                              ))}
+                            </ul>
+                          </>
+                        )}
+                      </li>
+                    ))}
+                  </ul>
+
+                  {/* Search */}
+                  <div className="flex">
+                    <a
+                      href="#"
+                      className="p-2 text-gray-400 hover:text-gray-500"
+                    >
+                      <Image
+                        src="/images/icons-search.svg"
+                        width={30}
+                        height={30}
+                        alt="Search Icon"
+                      />
+                    </a>
+                  </div>
+
+                  {/* User */}
+                  <div className="flex">
+                    <a
+                      href="#"
+                      className="p-2 text-gray-400 hover:text-gray-500 group relative cursor-pointer"
+                    >
+                      <Image
+                        src="/images/icons-account.svg"
+                        width={30}
+                        height={30}
+                        alt="Search Icon"
+                      />
+
+                      <ul
+                        className="hidden group-hover:flex gap-3 flex-col absolute z-50 shadow-md right-0 -left-32 bg-white p-3 rounded-md"
+                        style={{ minWidth: 250 }}
+                      >
+                        {userStore.user
+                          ? renderAuthenticatedUser()
+                          : renderAnonymouseUser()}
+                      </ul>
+                    </a>
+                  </div>
+
+                  {/* Cart */}
+                  <div className="ml-4 flow-root">
+                    <a
+                      href="#"
+                      className="group -m-2 p-2 flex items-center bg-dark rounded-full relative hover:bg-cool"
+                      onClick={handleDisplayCart}
+                    >
+                      <span className="text-sm  absolute -top-1 -right-2 bg-highlight rounded-full text-white w-6 h-6 flex justify-center items-center">
+                        {cartStore.items.length > 9
+                          ? '+9'
+                          : cartStore.items.length}
+                      </span>
+                      <Image
+                        src="/images/icon-basket.svg"
+                        width={30}
+                        height={30}
+                        alt="Basket Icon"
+                      />
+                    </a>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        </nav>
-      </header>
+          </nav>
+        </header>
+      </Container>
     </div>
   );
 };
