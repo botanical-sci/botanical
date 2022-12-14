@@ -286,10 +286,12 @@ const Header: FC<Props> = ({ menu }: Props) => {
 
                 {/* Search */}
                 <div className="flex lg:ml-6">
-                  <a href="#" className="p-2 text-gray-400 hover:text-gray-500">
-                    <span className="sr-only">Search</span>
-                    <SearchIcon className="w-6 h-6" aria-hidden="true" />
-                  </a>
+                  <Link href="/search">
+                    <a className="p-2 text-gray-400 hover:text-gray-500">
+                      <span className="sr-only">Search</span>
+                      <SearchIcon className="w-6 h-6" aria-hidden="true" />
+                    </a>
+                  </Link>
                 </div>
 
                 {/* Cart */}

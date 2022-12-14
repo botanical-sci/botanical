@@ -31,5 +31,58 @@ const getTrendingProducts = gql`
     }
   }
 `;
+const getSearchedProducts = gql`
+  query getSearchedProducts($input: String!) {
+    products(first: 10, query: $input) {
+      edges {
+        node {
+          variants(first: 1) {
+            nodes {
+              id
+            }
+          }
+          title
+          id
+          handle
+          availableForSale
+          descriptionHtml
+          ratingCount: metafield(namespace: "reviews", key: "rating_count") {
+            type
+            value
+          }
+          priceRange {
+            maxVariantPrice {
+              amount
+            }
+            minVariantPrice {
+              amount
+            }
+          }
+          productType
+          seo {
+            description
+            title
+          }
+          featuredImage {
+            url
+            height
+            width
+            altText
+          }
+          images(first: 10) {
+            edges {
+              node {
+                altText
+                height
+                url
+                width
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+`;
 
-export { getTrendingProducts };
+export { getTrendingProducts, getSearchedProducts };

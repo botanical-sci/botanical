@@ -26,3 +26,11 @@ export interface ProductModel {
 export interface ProductsModel {
   nodes: ProductModel[];
 }
+
+export interface getSearchedproductsResponseModel {
+  data: {
+    products: {
+      edges: [ProductsModel];
+    };
+  };
+}
