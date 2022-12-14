@@ -26,6 +26,7 @@ const ProductCard: FC<Props> = ({ product, badge }) => {
       price: product.priceRange.maxVariantPrice.amount,
       qty: 1,
       title: product.title,
+      variantId: product.variants.nodes[0].id,
     });
   };
 
@@ -41,7 +42,7 @@ const ProductCard: FC<Props> = ({ product, badge }) => {
               width={278}
               height={333}
               src={product.featuredImage.url}
-              alt={product.featuredImage.altText}
+              alt={product.featuredImage.altText ? product.featuredImage.altText : product.featuredImage.id}
               className="w-full h-full object-center object-cover rounded-2xl rounded-b-none"
             />
           </div>

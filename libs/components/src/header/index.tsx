@@ -271,7 +271,10 @@ const Header: FC<Props> = ({ menu }: Props) => {
                 <div className="ml-auto flex items-center">
                   <ul className="hidden gap-5 ml-7 lg:flex md:flex mr-6">
                     {menu?.map((category) => (
-                      <li className="text-sm group relative cursor-pointer">
+                      <li
+                        key={category.resourceId}
+                        className="text-sm group relative cursor-pointer"
+                      >
                         {(!category.items || category.items.length === 0) && (
                           <Link
                             href={
@@ -293,14 +296,16 @@ const Header: FC<Props> = ({ menu }: Props) => {
                               style={{ minWidth: 250 }}
                             >
                               {category.items.map((i) => (
-                                <li className="hover:bg-highlight p-2 rounded-md hover:text-white transition-all duration-300">
+                                <li
+                                  key={i.resourceId}
+                                  className="hover:bg-highlight p-2 rounded-md hover:text-white transition-all duration-300"
+                                >
                                   <Link
                                     href={
                                       extractHandleFromUrl(i.url, i.type) ?? ''
                                     }
-                                    key={i.title}
                                   >
-                                    <a className={classNames(' text-sm')}>
+                                    <a className={classNames('text-sm')}>
                                       {i.title}
                                     </a>
                                   </Link>
@@ -345,8 +350,9 @@ const Header: FC<Props> = ({ menu }: Props) => {
                         className="hidden group-hover:flex gap-3 flex-col absolute z-50 shadow-md right-0 -left-32 bg-white p-3 rounded-md"
                         style={{ minWidth: 250 }}
                       >
-                        {userStore.user && renderAuthenticatedUser()}
-                        {!userStore.user && renderAnonymouseUser()}
+                        {userStore.user
+                          ? renderAuthenticatedUser()
+                          : renderAnonymouseUser()}
                       </ul>
                     </a>
                   </div>

@@ -4,7 +4,7 @@ import toast from 'react-hot-toast';
 
 import { AccountLayout, Spinner } from '@shopify/components';
 import { storefront } from '@shopify/utilities';
-import { createAddressQuery } from '@shopify/graphql-queries';
+import { updateAddressQuery } from '@shopify/graphql-queries';
 import { UpdateAddressResponseModel } from '@shopify/models';
 import { useUserStore } from '@shopify/state';
 
@@ -89,7 +89,7 @@ type FormValuesType = {
 
 const Address: FC = () => {
   const router = useRouter();
-  const addressID = `gid://shopify/MailingAddress/${router.query.id}?model_name=${router.query.model_name}&customer_access_token=${router.query.customer_access_token}`;
+  const addressID = `gid://shopify/MailingAddress/${router.query.id}?model_name=${router.query.model_name}`;
   const userStore = useUserStore();
   const [loading, setLoading] = useState<boolean>(false);
   const [errors, setErrors] = useState<InputErrors>({});
@@ -116,7 +116,7 @@ const Address: FC = () => {
     setErrors({});
     setLoading(true);
     const createAddressResponse = await storefront<UpdateAddressResponseModel>(
-      createAddressQuery,
+      updateAddressQuery,
       {
         address: {
           firstName: event.target.firstName.value,
@@ -164,12 +164,9 @@ const Address: FC = () => {
 
   useEffect(() => {
     if (userStore.user) {
-      const foundedAddress = userStore.user?.addresses?.nodes?.find(
-        (address) => address.id === addressID
+      const foundedAddress = userStore.user?.addresses?.nodes?.find((address) =>
+        address.id.includes(addressID)
       );
-      console.log(userStore.user?.addresses?.nodes[0].id);
-      console.log(addressID);
-      console.log(userStore.user?.addresses?.nodes[0].id === addressID);
       setFormValues({
         firstName: foundedAddress?.firstName,
         lastName: foundedAddress?.lastName,

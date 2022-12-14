@@ -58,3 +58,15 @@ export interface UpdateAddressResponseModel {
     };
   };
 }
+export interface UpdateDefaultAddressResponseModel {
+  data: {
+    customerDefaultAddressUpdate: {
+      customerUserErrors: [
+        {
+          field: string[];
+          message: string;
+        }
+      ];
+    };
+  };
+}

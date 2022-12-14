@@ -10,17 +10,31 @@ export interface OrderResponseModel {
       currentTotalPrice: {
         amount: string;
       };
+      shippingAddress: {
+        address1: string;
+      };
+      currentSubtotalPrice: {
+        amount: string;
+      };
+      totalTaxV2: {
+        amount: string;
+      };
       lineItems: {
         edges: [
           {
             node: {
+              currentQuantity: number;
               title: string;
-              originalTotalPrice: {
+              discountedTotalPrice: {
                 amount: string;
               };
               variant: {
                 image: {
                   url: string;
+                };
+                product: {
+                  description: string;
+                  handle: string;
                 };
               };
             };
@@ -41,17 +55,31 @@ interface OrderModel {
   currentTotalPrice: {
     amount: string;
   };
+  shippingAddress: {
+    address1: string;
+  };
+  currentSubtotalPrice: {
+    amount: string;
+  };
+  totalTaxV2: {
+    amount: string;
+  };
   lineItems: {
     edges: [
       {
         node: {
+          currentQuantity: number;
           title: string;
-          originalTotalPrice: {
+          discountedTotalPrice: {
             amount: string;
           };
           variant: {
             image: {
               url: string;
+            };
+            product: {
+              description: string;
+              handle: string;
             };
           };
         };

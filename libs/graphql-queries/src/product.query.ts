@@ -3,6 +3,11 @@ const gql = String.raw;
 const getProductByHandleQuery = (handle: string) => gql`
   query getProduct {
     product(handle: "${handle}") {
+      variants(first:1) {
+        nodes {
+          id
+        }
+      }
       title
       id
       handle

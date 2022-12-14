@@ -15,8 +15,23 @@ export interface ProductModel {
     url: string;
     id: string;
   };
+  variants: {
+    nodes: [
+      {
+        id: string;
+      }
+    ];
+  };
 }
 
 export interface ProductsModel {
   nodes: ProductModel[];
+}
+
+export interface getSearchedproductsResponseModel {
+  data: {
+    products: {
+      edges: [ProductsModel];
+    };
+  };
 }
