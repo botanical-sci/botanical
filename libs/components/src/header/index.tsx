@@ -386,8 +386,8 @@ const Header: FC<Props> = ({ menu }: Props) => {
                     >
                       <Image
                         src="/images/icons-search.svg"
-                        width={30}
-                        height={30}
+                        width={40}
+                        height={40}
                         alt="Search Icon"
                       />
                     </a>
@@ -401,8 +401,8 @@ const Header: FC<Props> = ({ menu }: Props) => {
                     >
                       <Image
                         src="/images/icons-account.svg"
-                        width={30}
-                        height={30}
+                        width={40}
+                        height={40}
                         alt="Search Icon"
                       />
 
@@ -431,8 +431,8 @@ const Header: FC<Props> = ({ menu }: Props) => {
                       </span>
                       <Image
                         src="/images/icon-basket.svg"
-                        width={30}
-                        height={30}
+                        width={40}
+                        height={40}
                         alt="Basket Icon"
                       />
                     </a>
