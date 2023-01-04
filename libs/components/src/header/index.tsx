@@ -297,10 +297,10 @@ const Header: FC<Props> = ({ menu }: Props) => {
             aria-label="Top"
             className={classNames(
               'relative z-20 border-b transition-all duration-300 lg:px-0 px-6',
-              onTop ? 'py-5' : 'py-0 border-transparent'
+              onTop ? 'py-12' : 'py-2 border-transparent'
             )}
           >
-            <div className="max-w-7xl mx-auto">
+            <div className="max-w-[1432px] mx-auto">
               <div className="h-16 flex items-center">
                 <button
                   type="button"
@@ -329,7 +329,7 @@ const Header: FC<Props> = ({ menu }: Props) => {
                 </div>
 
                 <div className="ml-auto flex items-center mr-2">
-                  <ul className="hidden gap-5 ml-7 lg:flex mr-6">
+                  <ul className="hidden gap-5 ml-7 lg:flex mr-12">
                     {menu?.map((category) => (
                       <li
                         key={category.resourceId}
@@ -391,9 +391,9 @@ const Header: FC<Props> = ({ menu }: Props) => {
                   </ul>
 
                   {/* Search */}
-                  <div className="flex">
+                  <div className="flex mr-10">
                     <Link href="/search">
-                      <a className="p-2 text-gray-400 hover:text-gray-500">
+                      <a className=" text-gray-400 hover:text-gray-500">
                         <Image
                           src="/images/icons-search.svg"
                           width={40}
@@ -405,10 +405,10 @@ const Header: FC<Props> = ({ menu }: Props) => {
                   </div>
 
                   {/* User */}
-                  <div className="flex">
+                  <div className="flex mr-10">
                     <a
                       href="#"
-                      className="p-2 text-gray-400 hover:text-gray-500 group relative cursor-pointer"
+                      className=" text-gray-400 hover:text-gray-500 group relative cursor-pointer"
                     >
                       <Image
                         src="/images/icons-account.svg"

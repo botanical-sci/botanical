@@ -77,7 +77,7 @@ const Search: FC = () => {
       ) : (
         <section className="bg-neutral-100 mt-12">
           <Container paddingOnDesktop={false}>
-            <div className="max-w-2xl mx-auto py-8 sm:py-10 sm:px-6 lg:max-w-7xl lg:px-86">
+            <div className="max-w-2xl mx-auto py-8 sm:py-10 sm:px-6 lg:max-w-[1432px] lg:px-86">
               <div className="mt-6 grid grid-cols-2 gap-x-2 gap-y-2 xs:gap-y-1 sm:gap-x-6 md:grid-cols-4 md:gap-y-0 lg:gap-x-8">
                 {products?.map((item: any) => {
                   const product = item.node;

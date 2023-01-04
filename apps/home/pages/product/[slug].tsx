@@ -77,7 +77,7 @@ const ProductDetails: FC<Props> = ({ product: drivedProduct }: Props) => {
       <Head>
         <title>{product.title} | Botanical Skin Science</title>
       </Head>
-      <div className="mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8">
+      <div className="mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:max-w-[1432px] lg:px-8">
         <Breadcrumb
           extraClassName="mb-6"
           list={[

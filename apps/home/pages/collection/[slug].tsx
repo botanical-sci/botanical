@@ -174,18 +174,16 @@ const Collection: FC<Props> = ({
       <Head>
         <title>{collection.title} | Botanical Skin Science</title>
       </Head>
-      <div className="mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8">
+      <div className="mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:max-w-[1432px] lg:px-8">
         <h1 className="text-3xl">{collection.title}</h1>
         <Breadcrumb list={breadcrumbList} />
 
         <hr className="mt-10 mb-10" />
 
         <div className="md:grid md:grid-cols-12 md:gap-5">
-            <div className="col-span-3 hidden md:block lg:block">
-          <BrowserView>
-              {renderFilterBox()}
-          </BrowserView>
-            </div>
+          <div className="col-span-3 hidden md:block lg:block">
+            <BrowserView>{renderFilterBox()}</BrowserView>
+          </div>
           <MobileView>
             <div className="col-span-3 md:hidden lg:hidden mb-5">
               <div

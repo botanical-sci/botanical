@@ -23,7 +23,7 @@ const Blogs: FC<Props> = ({ blogs }: Props) => {
   const router = useRouter();
 
   return (
-    <div className="max-w-7xl mx-auto py-12">
+    <div className="max-w-[1432px] mx-auto py-12">
       <h2 className="text-3xl tracking-tight font-extrabold text-gray-900 sm:text-4xl text-center">
         Blogs
       </h2>

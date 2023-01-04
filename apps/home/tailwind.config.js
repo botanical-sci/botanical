@@ -13,7 +13,6 @@ module.exports = {
     ...createGlobPatternsForDependencies(__dirname),
   ],
   theme: {
-    
     extend: {
       spacing: {
         460: '460px',
@@ -45,6 +44,7 @@ module.exports = {
         midway: '#2e2929',
         neutral: '#827979',
         lighter: '#F6F6F6',
+        lightest: '#FCFCFC',
         botanical: '#1d2349',
       },
     },

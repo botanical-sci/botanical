@@ -1,17 +1,10 @@
-import React, {
-  FC,
-  useState,
-} from 'react';
+import React, { FC, useState } from 'react';
 
 import { useKeenSlider } from 'keen-slider/react';
 import Image from 'next/future/image';
 import Link from 'next/link';
 
-import {
-  IconChevronLeft,
-  IconChevronRight,
-  IconCircle,
-} from '@tabler/icons';
+import { IconChevronLeft, IconChevronRight, IconCircle } from '@tabler/icons';
 
 interface Slide {
   id: number;
@@ -148,7 +141,7 @@ const ImageSlider: FC = () => {
   );
 
   return (
-    <div className="mx-auto my-0 lg:my-10 md:my-10 lg:max-w-7xl relative rounded-none md:rounded-md lg:rounded-md">
+    <div className="mx-auto my-0 lg:my-10 md:my-10 lg:max-w-[1432px] relative rounded-none md:rounded-md lg:rounded-md">
       <div ref={sliderRef} className="keen-slider">
         {data.map((img) => renderSlide(img))}
       </div>

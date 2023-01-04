@@ -46,11 +46,11 @@ const navigation = {
 
 const Footer = () => {
   return (
-    <footer className="bg-white" aria-labelledby="footer-heading">
+    <footer className="bg-white px-6" aria-labelledby="footer-heading">
       <h2 id="footer-heading" className="sr-only">
         Footer
       </h2>
-      <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-0">
+      <div className="max-w-[1432px] mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-0">
         <div className="flex flex-col xl:flex-row xl:justify-between">
           <div className="md:grid md:grid-cols-3 md:gap-16 space-y-8 md:space-y-0">
             <div>

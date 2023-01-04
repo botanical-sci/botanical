@@ -5,7 +5,7 @@ import Link from 'next/link';
 const SelectedCategories = () => {
   return (
     <section aria-labelledby="category-heading">
-      <div className="max-w-2xl mx-auto py-8 px-4 sm:py-10 sm:px-6 lg:max-w-7xl lg:px-8 my-16">
+      <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:max-w-[1432px] lg:px-8">
         <div className="md:flex md:items-center md:justify-between md:flex-col">
           <h2 className="text-52 font-light text-center font-noto -tracking-2 text-neutral">
             Shop by Category
@@ -37,9 +37,9 @@ const SelectedCategories = () => {
               <div>
                 <h3 className="font-semibold text-white">
                   <Link href="/collection/cbd-face-body-care">
-                    <a target="_blank">
-                      <span className="absolute inset-0" />
+                    <a target="_blank" className="flex items-center">
                       CBD Skincare
+                      <IconChevronRight />
                     </a>
                   </Link>
                 </h3>
@@ -66,9 +66,9 @@ const SelectedCategories = () => {
               <div>
                 <h3 className="font-semibold text-white">
                   <Link href="/collection/hand-body-self-care">
-                    <a target="_blank">
-                      <span className="absolute inset-0" />
+                    <a target="_blank" className="flex items-center">
                       Bath & Body Care
+                      <IconChevronRight />
                     </a>
                   </Link>
                 </h3>
@@ -96,9 +96,9 @@ const SelectedCategories = () => {
               <div>
                 <h3 className="font-semibold text-white">
                   <Link href="/collection/hair-care">
-                    <a target="_blank">
-                      <span className="absolute inset-0" />
+                    <a target="_blank" className="flex items-center">
                       Hair Care
+                      <IconChevronRight />
                     </a>
                   </Link>
                 </h3>

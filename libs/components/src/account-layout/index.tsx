@@ -31,7 +31,7 @@ const AccountLayout: FC<Props> = ({ children, page }: Props) => {
   return (
     <RouteGuard>
       <div className="h-full">
-        <main className="max-w-7xl mx-auto pb-10 lg:py-12 lg:px-8">
+        <main className="max-w-[1432px] mx-auto pb-10 lg:py-12 lg:px-8">
           <div className="lg:grid lg:grid-cols-12 lg:gap-x-5">
             <aside className="py-6 px-2 sm:px-6 lg:py-0 lg:px-0 lg:col-span-3">
               <nav className="space-y-1">

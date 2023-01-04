@@ -65,7 +65,7 @@ const perks = [
 
 const Perks = () => {
   return (
-    <section aria-labelledby="perks-heading" className="mt-20">
+    <section aria-labelledby="perks-heading">
       <Container>
         <div className="md:flex md:items-center md:justify-between md:flex-col">
           <h2 className="text-52 font-light text-center font-noto -tracking-2 text-neutral">
@@ -74,7 +74,7 @@ const Perks = () => {
         </div>
       </Container>
 
-      <div className="max-w-7xl mx-auto py-24 px-4 sm:px-6 sm:py-20 sm:pt-12 lg:px-8">
+      <div className="max-w-[1432px] mx-auto pt-24 px-4 sm:px-6  sm:pt-16 lg:px-8">
         <div className="grid grid-cols-1 gap-y-12 sm:grid-cols-2 sm:gap-x-6 lg:grid-cols-4 lg:gap-x-8 lg:gap-y-0">
           {perks.map((perk) => {
             return (
