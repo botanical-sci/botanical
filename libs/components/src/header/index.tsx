@@ -329,7 +329,7 @@ const Header: FC<Props> = ({ menu }: Props) => {
                 </div>
 
                 <div className="ml-auto flex items-center mr-4">
-                  <ul className="hidden gap-5 ml-7 lg:flex md:flex mr-6">
+                  <ul className="hidden gap-5 ml-7 lg:flex mr-6">
                     {menu?.map((category) => (
                       <li
                         key={category.resourceId}
