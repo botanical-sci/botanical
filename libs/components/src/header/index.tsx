@@ -350,7 +350,19 @@ const Header: FC<Props> = ({ menu }: Props) => {
 
                         {category.items && category.items.length > 0 && (
                           <>
-                            <span>{category.title}</span>
+                            <div className="flex items-center">
+                              <span>{category.title}</span>
+                              <svg
+                                className="flex-shrink-0 h-5 w-5 rotate-90 group-hover:text-gray-400 text-gray-400"
+                                viewBox="0 0 20 20"
+                                aria-hidden="true"
+                              >
+                                <path
+                                  d="M6 6L14 10L6 14V6Z"
+                                  fill="currentColor"
+                                />
+                              </svg>
+                            </div>
                             <ul
                               className="hidden group-hover:flex gap-3 flex-col absolute z-50 shadow-md bg-white p-3 rounded-md"
                               style={{ minWidth: 250 }}
@@ -380,17 +392,16 @@ const Header: FC<Props> = ({ menu }: Props) => {
 
                   {/* Search */}
                   <div className="flex">
-                    <a
-                      href="#"
-                      className="p-2 text-gray-400 hover:text-gray-500"
-                    >
-                      <Image
-                        src="/images/icons-search.svg"
-                        width={40}
-                        height={40}
-                        alt="Search Icon"
-                      />
-                    </a>
+                    <Link href="/search">
+                      <a className="p-2 text-gray-400 hover:text-gray-500">
+                        <Image
+                          src="/images/icons-search.svg"
+                          width={40}
+                          height={40}
+                          alt="Search Icon"
+                        />
+                      </a>
+                    </Link>
                   </div>
 
                   {/* User */}
