@@ -296,7 +296,7 @@ const Header: FC<Props> = ({ menu }: Props) => {
           <nav
             aria-label="Top"
             className={classNames(
-              'relative z-20 border-b transition-all duration-300',
+              'relative z-20 border-b transition-all duration-300 lg:px-0 px-6',
               onTop ? 'py-5' : 'py-0 border-transparent'
             )}
           >
@@ -304,7 +304,7 @@ const Header: FC<Props> = ({ menu }: Props) => {
               <div className="h-16 flex items-center">
                 <button
                   type="button"
-                  className="bg-white rounded-md text-gray-400 lg:hidden"
+                  className="bg-gray-200 rounded-md text-gray-400 lg:hidden p-2 mr-4"
                   onClick={() => setOpen(true)}
                 >
                   <span className="sr-only">Open menu</span>
@@ -312,7 +312,7 @@ const Header: FC<Props> = ({ menu }: Props) => {
                 </button>
 
                 {/* Logo */}
-                <div className="flex lg:ml-0">
+                <div className="lg:flex lg:ml-0 hidden">
                   <Link href="/">
                     <a>
                       <span className="sr-only">botanical skin science</span>
