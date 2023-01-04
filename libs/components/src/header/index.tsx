@@ -328,7 +328,7 @@ const Header: FC<Props> = ({ menu }: Props) => {
                   </Link>
                 </div>
 
-                <div className="ml-auto flex items-center mr-4">
+                <div className="ml-auto flex items-center mr-2">
                   <ul className="hidden gap-5 ml-7 lg:flex mr-6">
                     {menu?.map((category) => (
                       <li
@@ -432,7 +432,7 @@ const Header: FC<Props> = ({ menu }: Props) => {
                   <div className="ml-4 flow-root">
                     <a
                       href="#"
-                      className="group -m-2 p-2 flex items-center bg-dark rounded-full relative hover:bg-cool"
+                      className="group w-16 h-16 flex items-center justify-center bg-dark rounded-full relative hover:bg-cool"
                       onClick={handleDisplayCart}
                     >
                       <span className="text-sm  absolute -top-1 -right-2 bg-highlight rounded-full text-white w-6 h-6 flex justify-center items-center">
