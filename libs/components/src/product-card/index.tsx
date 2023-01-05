@@ -35,9 +35,11 @@ const ProductCard: FC<Props> = ({ product, badge }) => {
       <Link href={`/product/${product.handle}`}>
         <a className="relative">
           <div className="w-full overflow-hidden relative lg:h-80 xl:h-80 ">
-            <span className="absolute left-2 top-2 rounded-3xl pl-2 pr-2 font-semibold border border-dark text-xs">
-              {badge}
-            </span>
+            {badge && (
+              <span className="absolute left-2 top-2 rounded-3xl pl-2 pr-2 font-semibold border border-dark text-xs">
+                {badge}
+              </span>
+            )}
             <Image
               width={278}
               height={333}
