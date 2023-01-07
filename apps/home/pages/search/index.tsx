@@ -37,11 +37,11 @@ const Search: FC = () => {
       <div className="min-h-full flex flex-col justify-center px-6 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-md">
           <h2 className="text-center text-3xl font-extrabold text-gray-900">
-            Searched Results
+            Search Results
           </h2>
           <div className="mt-4 relative flex items-center">
             <input
-              type="text"
+              type="search"
               name="search"
               id="search"
               value={search}
@@ -78,7 +78,7 @@ const Search: FC = () => {
         <section className="bg-neutral-100 mt-12">
           <Container paddingOnDesktop={false}>
             <div className="max-w-2xl mx-auto py-8 sm:py-10 sm:px-6 lg:max-w-[1432px] lg:px-86">
-              <div className="mt-6 grid grid-cols-2 gap-x-2 gap-y-2 xs:gap-y-1 sm:gap-x-6 md:grid-cols-4 md:gap-y-0 lg:gap-x-8">
+              <div className="mt-6 grid grid-cols-1 gap-x-2 gap-y-2 xs:gap-y-1 sm:gap-x-6 md:grid-cols-4 md:gap-y-8 lg:gap-x-8">
                 {products?.map((item: any) => {
                   const product = item.node;
                   return <ProductCard key={product.id} product={product} />;

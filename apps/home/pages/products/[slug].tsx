@@ -116,12 +116,12 @@ const ProductDetails: FC<Props> = ({ product: drivedProduct }: Props) => {
               />
             </div>
 
-            <ul className="grid grid-flow-col gap-5 mt-5">
+            <ul className="flex flex-wrap gap-5 mt-5">
               {product?.images.edges.map((image) => (
                 <li
                   key={image.node.url}
                   className={classNames(
-                    'aspect-w-3 aspect-h-4 rounded-lg bg-gray-100 border-4 border-transparent overflow-hidden',
+                    'rounded-lg max-h-36 bg-gray-100 border-4 border-transparent overflow-hidden',
                     featureImageSrc === image.node.url
                       ? 'border-4 border-indigo-500'
                       : ''
@@ -132,6 +132,7 @@ const ProductDetails: FC<Props> = ({ product: drivedProduct }: Props) => {
                   }}
                 >
                   <Image
+                  className='h-full w-full object-cover'
                     src={image.node.url}
                     alt={image.node.altText}
                     width={100}
