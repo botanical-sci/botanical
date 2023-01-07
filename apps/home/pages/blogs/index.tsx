@@ -5,6 +5,7 @@ import { useRouter } from 'next/router';
 import { blogsQuery } from '@shopify/graphql-queries';
 import { BlogsResponseModel } from '@shopify/models';
 import { storefront } from '@shopify/utilities';
+import Link from 'next/link';
 
 type BlogType = {
   node: {
@@ -31,13 +32,11 @@ const Blogs: FC<Props> = ({ blogs }: Props) => {
         {blogs.map((item: BlogType) => {
           const blog = item.node;
           return (
-            <div
-              onClick={() => router.push(`/blogs/${blog.handle}`)}
-              key={blog.title}
-              className="rounded-lg shadow-lg overflow-hidden bg-white p-5 text-xl font-semibold text-gray-900 cursor-pointer"
-            >
-              <span>{blog.title}</span>
-            </div>
+            <Link href={`/blogs/${blog.handle}`} key={blog.title}>
+              <a className="rounded-lg block shadow-lg overflow-hidden bg-white p-5 text-xl font-semibold text-gray-900 cursor-pointer">
+                <span>{blog.title}</span>
+              </a>
+            </Link>
           );
         })}
       </div>

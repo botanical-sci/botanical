@@ -13,6 +13,7 @@ export const extractHandleFromUrl = (
   const collectionRegex = /.*collections\/(.*)/gm;
   const pageRegex = /.*pages\/(.*)/gm;
   const policyRegex = /.*policies\/(.*)/gm;
+  const blogRegex = /.*blogs\/(.*)/gm;
 
   switch (type) {
     case 'COLLECTION':
@@ -21,10 +22,16 @@ export const extractHandleFromUrl = (
 
     case 'PAGE':
       const pageSlug = pageRegex.exec(link)?.[1];
-      return `/page/${pageSlug}`;
+      return `/pages/${pageSlug}`;
 
     case 'SHOP_POLICY':
       const policySlug = policyRegex.exec(link)?.[1];
       return `/policies/${policySlug}`;
+
+      case "ARTICLE":
+      case 'BLOG':
+        console.log(link)
+        const blugSlug = blogRegex.exec(link)?.[1];
+        return `/blogs/${blugSlug}`;
   }
 };

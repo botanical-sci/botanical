@@ -5,6 +5,7 @@ import { useRouter } from 'next/router';
 import { getBlogArticlesByHandleQuery } from '@shopify/graphql-queries';
 import { storefront } from '@shopify/utilities';
 import { BlogArticlesResponseModel } from '@shopify/models';
+import Link from 'next/link';
 
 type ArticleType = {
   node: {
@@ -43,32 +44,30 @@ const BlogArticles: FC<Props> = ({ articles }: Props) => {
           const date = new Date(article.publishedAt);
           const generatedDate = `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`;
           return (
-            <div
-              onClick={() => router.push(`/blogs/${handle}/${article.handle}`)}
-              key={article.id}
-              className="flex flex-col rounded-lg shadow-lg overflow-hidden cursor-pointer"
-            >
-              <div className="flex-shrink-0">
-                <img
-                  className="h-48 w-full object-cover"
-                  src={article.image.url}
-                  alt={article.image.altText}
-                />
-              </div>
-              <div className="flex-1 bg-white p-6 flex flex-col justify-between">
-                <span className="text-xl font-semibold text-gray-900 mt-2">
-                  {article.title}
-                </span>
-                <div className="mt-6">
-                  <span className="text-sm font-medium text-gray-900">
-                    {article.authorV2.name}
+            <Link href={`/blogs/${handle}/${article.handle}`} key={article.id}>
+              <a className="flex flex-col rounded-lg border border-stone-200 overflow-hidden cursor-pointer">
+                <div className="flex-shrink-0">
+                  <img
+                    className="h-48 w-full object-cover"
+                    src={article.image.url}
+                    alt={article.image.altText}
+                  />
+                </div>
+                <div className="flex-1 bg-white p-6 flex flex-col justify-between">
+                  <span className="text-xl font-semibold text-gray-900 mt-2">
+                    {article.title}
                   </span>
-                  <div className="flex space-x-1 text-sm text-gray-500">
-                    {generatedDate}
+                  <div className="mt-6">
+                    <span className="text-sm font-medium text-gray-900">
+                      {article.authorV2.name}
+                    </span>
+                    <div className="flex space-x-1 text-sm text-gray-500">
+                      {generatedDate}
+                    </div>
                   </div>
                 </div>
-              </div>
-            </div>
+              </a>
+            </Link>
           );
         })}
       </div>

@@ -41,7 +41,7 @@ const Header: FC<Props> = ({ menu }: Props) => {
 
   useEffect(() => {
     const onScroll = (e: any) => {
-      setOnTop(window.scrollY < 200);
+      setOnTop(window.scrollY < 50);
     };
 
     document.addEventListener('scroll', onScroll);
