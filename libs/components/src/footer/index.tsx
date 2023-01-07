@@ -140,7 +140,7 @@ const Footer = () => {
               width={184}
               height={54}
               priority={true}
-              src="/images/brand-logo-dark.svg"
+              src="/images/bosci_logo.svg"
               alt="botanical skin science"
             />
           </div>

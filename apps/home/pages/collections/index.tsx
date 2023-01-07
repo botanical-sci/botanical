@@ -1,6 +1,6 @@
 import { getCollections } from '@shopify/graphql-queries';
 import { CollectionsListModel, CollectionsModel } from '@shopify/models';
-import { storefront } from '@shopify/utilities';
+import { storefront, truncateString } from '@shopify/utilities';
 import Link from 'next/link';
 import React, { FC } from 'react';
 import Image from 'next/future/image';
@@ -28,7 +28,10 @@ const Collections: FC<Props> = ({ collections }) => {
 
           <div className="mt-6 space-y-12 lg:space-y-0 lg:grid lg:grid-cols-3 lg:gap-8">
             {collections.map((c) => (
-              <div key={c.handle} className="relative bg-white rounded-xl shadow-card hover:shadow-cardHover  transition-all duration-300">
+              <div
+                key={c.handle}
+                className="relative bg-white rounded-xl shadow-card hover:shadow-cardHover  transition-all duration-300"
+              >
                 <div className="relative w-full h-80 bg-white rounded-lg rounded-b-none overflow-hidden">
                   {c.image && (
                     <Image
@@ -40,7 +43,7 @@ const Collections: FC<Props> = ({ collections }) => {
                     />
                   )}
                 </div>
-                <div className='p-6 pt-0'>
+                <div className="p-6 pt-0">
                   <h3 className="mt-6 font-semibold text-gray-900 mb-2">
                     <Link href={`/collections/${c.handle}`}>
                       <a>
@@ -51,7 +54,9 @@ const Collections: FC<Props> = ({ collections }) => {
                   </h3>
                   <div
                     className="text-based text-justify text-sm text-gray-500"
-                    dangerouslySetInnerHTML={{ __html: c.descriptionHtml }}
+                    dangerouslySetInnerHTML={{
+                      __html: truncateString(c.descriptionHtml, 180),
+                    }}
                   ></div>
                 </div>
               </div>
