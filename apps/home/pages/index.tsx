@@ -25,7 +25,7 @@ const Index: FC<HomeBasicModel> = ({ data }) => {
         <ProductList
           title={data.trendingProducts.title}
           moreText="Shop the collection"
-          moreUrl={`/collection/${data.trendingProducts.handle}`}
+          moreUrl={`/collections/${data.trendingProducts.handle}`}
           products={data.trendingProducts.products}
           badge="TRENDING"
         />
@@ -37,7 +37,7 @@ const Index: FC<HomeBasicModel> = ({ data }) => {
         <ProductList
           title={data.bestSellersProducts.title}
           moreText="Shop the collection"
-          moreUrl={`/collection/${data.bestSellersProducts.handle}`}
+          moreUrl={`/collections/${data.bestSellersProducts.handle}`}
           products={data.bestSellersProducts.products}
           badge="BEST SELLER"
         />

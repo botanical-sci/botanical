@@ -36,7 +36,7 @@ const SelectedCategories = () => {
             <div className="p-6 flex items-end">
               <div>
                 <h3 className="font-semibold text-white">
-                  <Link href="/collection/cbd-face-body-care">
+                  <Link href="/collections/cbd-face-body-care">
                     <a target="_blank" className="flex items-center">
                       CBD Skincare
                       <IconChevronRight />
@@ -65,7 +65,7 @@ const SelectedCategories = () => {
             <div className="p-6 flex items-end sm:absolute sm:inset-0">
               <div>
                 <h3 className="font-semibold text-white">
-                  <Link href="/collection/hand-body-self-care">
+                  <Link href="/collections/hand-body-self-care">
                     <a target="_blank" className="flex items-center">
                       Bath & Body Care
                       <IconChevronRight />
@@ -95,7 +95,7 @@ const SelectedCategories = () => {
             <div className="p-6 flex items-end sm:absolute sm:inset-0">
               <div>
                 <h3 className="font-semibold text-white">
-                  <Link href="/collection/hair-care">
+                  <Link href="/collections/hair-care">
                     <a target="_blank" className="flex items-center">
                       Hair Care
                       <IconChevronRight />
