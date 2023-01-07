@@ -33,14 +33,12 @@ const RouteGuard: FC<Props> = ({ children }: Props) => {
 
     // on route change start - hide page content by setting authorized to false
     const hideContent = () => setAuthorized(false);
-    router.events.on('routeChangeStart', hideContent);
 
     // on route change complete - run auth check
     router.events.on('routeChangeComplete', authCheck);
 
     // unsubscribe from events in useEffect return function
     return () => {
-      router.events.off('routeChangeStart', hideContent);
       router.events.off('routeChangeComplete', authCheck);
     };
 

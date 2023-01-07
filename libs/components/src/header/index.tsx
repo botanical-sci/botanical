@@ -335,7 +335,7 @@ const Header: FC<Props> = ({ menu }: Props) => {
                     <a>
                       <span className="sr-only">botanical skin science</span>
                       <Image
-                        width={184}
+                        width={186}
                         height={56}
                         priority={true}
                         className="w-auto h-14"

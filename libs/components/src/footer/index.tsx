@@ -1,23 +1,25 @@
 import Image from 'next/future/image';
 import Link from 'next/link';
-import { IconBrandFacebook, IconBrandInstagram, IconMail } from '@tabler/icons';
+import { IconBrandFacebook, IconBrandInstagram, IconBrandPinterest, IconBrandTiktok, IconBrandYoutube, IconMail } from '@tabler/icons';
 
 const navigation = {
   products: [
-    { name: 'Face Care', href: '/collection/face-care' },
-    { name: 'Bath & Body Care', href: '/collection/hand-body-self-care' },
-    { name: 'DBC Skincare', href: '/collection/cbd-face-body-care' },
+    { name: 'DBC Skincare', href: '/collections/cbd-face-body-care' },
+    { name: 'Face Care', href: '/collections/face-care' },
+    { name: 'Bath and Body Care', href: '/collections/hand-body-self-care' },
   ],
   company: [
-    { name: 'Our Mission', href: '#' },
-    { name: 'About US', href: '/page/about' },
-    { name: 'Contact Us', href: '/page/contact' },
+    { name: 'Contact Us', href: '/pages/contact' },
+    { name: 'Our Story', href: '/pages/about' },
+    { name: 'Privacy Policy', href: '/pages/privacy-policy' },
+    { name: 'Refund policy', href: '/pages/refund-policy' },
+    { name: 'Terms And Conditions', href: '/pages/terms-and-conditions' },
   ],
-  support: [
-    { name: 'Pricing', href: '#' },
-    { name: 'Documentation', href: '#' },
-    { name: 'Guides', href: '#' },
-    { name: 'API Status', href: '#' },
+  account: [
+    { name: 'Login', href: '/account/login' },
+    { name: 'Register', href: '/account/register' },
+    { name: 'My Account', href: '/account' },
+    { name: 'My Orders', href: '/account/orders' },
   ],
   legal: [
     { name: 'Claim', href: '#' },
@@ -26,20 +28,29 @@ const navigation = {
   ],
   social: [
     {
-      name: 'Facebook',
-      href: 'https://www.facebook.com/botanicalskinscience',
-      icon: (props: any) => <IconBrandFacebook />,
+      name: 'Tiktop',
+      href: 'https://www.tiktok.com/@botanicalskinscience',
+      icon: (props: any) => <IconBrandTiktok />,
     },
     {
       name: 'Instagram',
-      href: 'https://instagram.com/botanicalskinscience',
+      href: 'https://www.instagram.com/botanicalskinscience/',
       icon: (props: any) => <IconBrandInstagram />,
     },
-
     {
-      name: 'Email',
-      href: 'hello@botanicalskinscience.com',
-      icon: (props: any) => <IconMail />,
+      name: 'Facebook',
+      href: 'https://www.facebook.com/botanicalskinscience/',
+      icon: (props: any) => <IconBrandFacebook />,
+    },
+    {
+      name: 'Pinterest',
+      href: 'https://www.pinterest.com/botanicalskinscience/',
+      icon: (props: any) => <IconBrandPinterest />,
+    },
+    {
+      name: 'Youtube',
+      href: 'https://www.youtube.com/@botanicalskinscience',
+      icon: (props: any) => <IconBrandYoutube />,
     },
   ],
 };
@@ -52,7 +63,7 @@ const Footer = () => {
       </h2>
       <div className="max-w-[1432px] mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-0">
         <div className="flex flex-col xl:flex-row xl:justify-between">
-          <div className="md:grid md:grid-cols-3 md:gap-16 space-y-8 md:space-y-0">
+          <div className="md:grid md:grid-cols-4 md:gap-16 space-y-8 md:space-y-0">
             <div>
               <h3 className="text-sm font-semibold text-dark tracking-wider uppercase">
                 Products
@@ -87,18 +98,35 @@ const Footer = () => {
             </div>
             <div>
               <h3 className="text-sm font-semibold text-dark tracking-wider uppercase">
-                Follow us
+                Account
               </h3>
-              <ul className="flex items-center mt-4">
-                {navigation.social.map((item) => (
-                  <li key={item.name} className="mr-2">
-                    <Link href={item.href} className="flex">
-                      <item.icon />
+              <ul className="mt-4 space-y-4">
+                {navigation.account.map((item) => (
+                  <li key={item.name}>
+                    <Link href={item.href}>
+                      <a className="text-base text-gray-500 hover:text-gray-900">
+                        {item.name}
+                      </a>
                     </Link>
                   </li>
                 ))}
               </ul>
             </div>
+            <div>
+              <h3 className="text-sm font-semibold text-dark tracking-wider uppercase">
+                Follow us
+              </h3>
+              <ul className="flex items-center mt-4">
+                {navigation.social.map((item) => (
+                  <li key={item.name} className="mr-2">
+                    <a href={item.href} target="_blank" className="flex">
+                      <item.icon />
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            
           </div>
           <div className="mt-12 xl:mt-0 max-w-sm">
             <h3 className="text-sm font-semibold text-dark tracking-wider uppercase">
