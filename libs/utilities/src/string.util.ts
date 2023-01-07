@@ -18,7 +18,7 @@ export const extractHandleFromUrl = (
   switch (type) {
     case 'COLLECTION':
       const collectionSlug = collectionRegex.exec(link)?.[1];
-      return `/collection/${collectionSlug}`;
+      return `/collections/${collectionSlug}`;
 
     case 'PAGE':
       const pageSlug = pageRegex.exec(link)?.[1];

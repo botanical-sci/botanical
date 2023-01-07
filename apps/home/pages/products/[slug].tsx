@@ -3,7 +3,7 @@ import { FC, Fragment, useState } from 'react';
 import { Tab } from '@headlessui/react';
 import { StarIcon } from '@heroicons/react/solid';
 import { GetServerSideProps } from 'next';
-import { storefront } from '@shopify/utilities';
+import { extractHandleFromUrl, storefront } from '@shopify/utilities';
 import { getProductByHandleQuery } from '@shopify/graphql-queries';
 import { SingleProductModel } from '@shopify/models';
 import Image from 'next/future/image';
@@ -82,6 +82,11 @@ const ProductDetails: FC<Props> = ({ product: drivedProduct }: Props) => {
         <Breadcrumb
           extraClassName="mb-6"
           list={[
+            {
+              current: false,
+              href: `/collections/${product.collections?.edges[0]?.node?.handle}`,
+              name: product.collections?.edges[0]?.node?.title,
+            },
             {
               current: true,
               href: `/product/${product.handle}`,

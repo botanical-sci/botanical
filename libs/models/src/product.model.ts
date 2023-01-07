@@ -19,6 +19,9 @@ export interface SingleProductModle {
   handle: string;
   availableForSale: true;
   descriptionHtml: string;
+  collections: {
+    edges: { node: { title: string; handle: string } }[];
+  };
   ratingCount: {
     type: 'string';
     value: number;
