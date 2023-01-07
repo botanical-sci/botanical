@@ -11,6 +11,7 @@ import { useCartStore } from '@shopify/state';
 import Head from 'next/head';
 import { Breadcrumb } from '@shopify/components';
 import { Spinner } from 'flowbite-react';
+import styles from './products.module.css';
 
 const customSpecifications = [
   {
@@ -184,11 +185,12 @@ const ProductDetails: FC<Props> = ({ product: drivedProduct }: Props) => {
               </button>
             </div>
 
-            <div
-              className="text-gray-500 mt-6 font-thin"
-              dangerouslySetInnerHTML={{ __html: product.descriptionHtml }}
-            ></div>
-
+            <div className={styles.ContentContainer}>
+              <div
+                className="text-gray-500 mt-6 font-thin list-disc list-inside"
+                dangerouslySetInnerHTML={{ __html: product.descriptionHtml }}
+              ></div>
+            </div>
             <ul className="grid grid-cols-3 mt-10 gap-5">
               {renderCustomSpecifications()}
             </ul>

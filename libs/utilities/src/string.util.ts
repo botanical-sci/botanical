@@ -30,7 +30,6 @@ export const extractHandleFromUrl = (
 
       case "ARTICLE":
       case 'BLOG':
-        console.log(link)
         const blugSlug = blogRegex.exec(link)?.[1];
         return `/blogs/${blugSlug}`;
   }
