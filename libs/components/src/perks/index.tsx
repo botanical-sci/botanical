@@ -74,7 +74,7 @@ const Perks = () => {
         </div>
       </Container>
 
-      <div className="max-w-[1432px] mx-auto pt-24 px-4 sm:px-6  sm:pt-16 lg:px-8">
+      <div className="max-w-1432 mx-auto pt-24 px-4 sm:px-6  sm:pt-16 lg:px-8">
         <div className="grid grid-cols-1 gap-y-12 sm:grid-cols-2 sm:gap-x-6 lg:grid-cols-4 lg:gap-x-8 lg:gap-y-0">
           {perks.map((perk) => {
             return (

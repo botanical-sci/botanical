@@ -31,7 +31,7 @@ const Checkout: FC<Props> = () => {
   const router = useRouter();
 
   return (
-    <main className="max-w-2xl mx-auto pt-16 pb-24 px-4 sm:px-6 lg:max-w-[1432px] lg:px-8">
+    <main className="max-w-2xl mx-auto pt-16 pb-24 px-4 sm:px-6 md:max-w-1432 lg:px-8">
       <h1>Checkout</h1>
 
       {/* Mobile order summary */}

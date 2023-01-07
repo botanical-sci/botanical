@@ -21,7 +21,7 @@ const Index: FC<HomeBasicModel> = ({ data }) => {
         </h2>
       </Container>
 
-      <Container className="py-24">
+      <Container className="py-24 md:px-10">
         <ProductList
           title={data.trendingProducts.title}
           moreText="Shop the collection"
@@ -30,10 +30,10 @@ const Index: FC<HomeBasicModel> = ({ data }) => {
           badge="TRENDING"
         />
       </Container>
-      <section className="bg-lightest py-24">
+      <section className="bg-lightest py-24 md:px-10">
         <Perks />
       </section>
-      <Container className="py-24">
+      <Container className="py-24 md:px-10">
         <ProductList
           title={data.bestSellersProducts.title}
           moreText="Shop the collection"
@@ -43,7 +43,7 @@ const Index: FC<HomeBasicModel> = ({ data }) => {
         />
       </Container>
 
-      <div className="bg-lightest py-20">
+      <div className="bg-lightest py-20 md:px-10">
         <SelectedCategories />
       </div>
 
@@ -53,7 +53,7 @@ const Index: FC<HomeBasicModel> = ({ data }) => {
 
       <div className="bg-dark">
         <Container>
-          <div className=" text-white grid grid-cols-1 md:grid-cols-2 h-auto md:h-[672px] gap-20 p-3 md:p-0">
+          <div className=" text-white grid grid-cols-1 md:grid-cols-2 h-auto md:h-[672px] gap-20 p-3 md:p-0 md:px-10">
             <div className="flex flex-col justify-center gap-6">
               <h5 className="font-noto text-[#e5e8f0] text-52 font-light">
                 Healthy Skincare

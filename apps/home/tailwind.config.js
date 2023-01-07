@@ -22,6 +22,9 @@ module.exports = {
         card: '0 2px 40px 0 rgba(0, 0, 0, 0.08)',
         cardHover: '0 2px 40px 0 rgba(13, 0, 255, 0.2)',
       },
+      maxWidth: {
+        1432: '1432px',
+      },
       fontFamily: {
         sans: ['sans-serif'],
         poppins: ['Poppins'],

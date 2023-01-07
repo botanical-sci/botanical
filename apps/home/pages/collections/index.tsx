@@ -13,7 +13,7 @@ interface Props {
 const Collections: FC<Props> = ({ collections }) => {
   return (
     <div>
-      <div className="max-w-[1432px] mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-1432 mx-auto px-4 sm:px-6 lg:px-8">
         <div className="max-w-2xl mx-auto py-16 sm:py-24 lg:py-32 lg:max-w-none">
           <h2 className="text-2xl font-extrabold text-gray-900">Collections</h2>
           <Breadcrumb

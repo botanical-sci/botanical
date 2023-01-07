@@ -4,7 +4,7 @@ const Container = ({ children, className }: any) => {
   return (
     <div
       className={classNames(
-        `max-w-2xl mx-auto lg:max-w-[1432px] px-6`,
+        `max-w-2xl mx-auto md:max-w-1432`,
         className
       )}
     >

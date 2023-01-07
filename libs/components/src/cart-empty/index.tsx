@@ -1,7 +1,7 @@
 function ShoppingCartEmptyState() {
   return (
     <div className="bg-white rounded">
-      <div className="max-w-[1432px] mx-auto px-4 py-16 sm:py-24 sm:px-6 lg:px-8">
+      <div className="max-w-1432 mx-auto px-4 py-16 sm:py-24 sm:px-6 lg:px-8">
         <div className="text-center">
           <h2 className="text-1xl sm:text-3xl font-semibold text-indigo-600 tracking-wide uppercase">
             Shopping Cart

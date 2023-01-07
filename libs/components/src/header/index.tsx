@@ -318,7 +318,7 @@ const Header: FC<Props> = ({ menu }: Props) => {
               onTop ? 'py-12' : 'py-2 border-transparent'
             )}
           >
-            <div className="max-w-[1432px] mx-auto">
+            <div className="max-w-1432 mx-auto">
               <div className="h-16 flex items-center">
                 <button
                   type="button"

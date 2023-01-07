@@ -5,7 +5,7 @@ import Link from 'next/link';
 const SelectedCategories = () => {
   return (
     <section aria-labelledby="category-heading">
-      <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:max-w-[1432px] lg:px-8">
+      <div className="max-w-2xl mx-auto px-4 sm:px-6 md:max-w-1432 lg:px-8">
         <div className="md:flex md:items-center md:justify-between md:flex-col">
           <h2 className="text-52 font-light text-center font-noto -tracking-2 text-neutral">
             Shop by Category

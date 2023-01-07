@@ -24,12 +24,12 @@ const ProductList: FC<Props> = ({
 }) => {
   return (
     <>
-      <div className="md:flex md:items-center md:justify-between md:flex-col">
-        <h2 className="text-52 font-light text-center font-noto -tracking-2 text-neutral">
+      <div className="flex items-center justify-between flex-col">
+        <h2 className="text-4xl md:text-52 font-light text-center font-noto -tracking-2 text-neutral">
           {title}
         </h2>
         <Link href={moreUrl}>
-          <a className="hidden font-semibold text-18 text-highlight hover:text-indigo-500 md:flex items-center gap-1 mt-1">
+          <a className="font-semibold text-sm md:text-18 text-highlight hover:text-indigo-500 md:flex items-center gap-1 mt-1 flex">
             {moreText}
             <span aria-hidden="true">
               <IconChevronRight size={20} />
@@ -42,15 +42,6 @@ const ProductList: FC<Props> = ({
         {products.nodes.map((product: any) => (
           <ProductCard key={product.id} product={product} badge={badge} />
         ))}
-      </div>
-
-      <div className="mt-8 text-sm md:hidden">
-        <Link href={moreUrl}>
-          <a className="font-medium text-indigo-600 hover:text-indigo-500">
-            {moreText}
-            <span aria-hidden="true"> &rarr;</span>
-          </a>
-        </Link>
       </div>
     </>
   );

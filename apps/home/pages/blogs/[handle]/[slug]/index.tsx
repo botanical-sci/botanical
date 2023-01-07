@@ -33,7 +33,7 @@ const Article: FC<Props> = ({ article }: Props) => {
 
   return (
     <div className="relative">
-      <div className="max-w-[1432px] mx-auto lg:px-8 lg:grid lg:grid-cols-2 lg:gap-24 lg:items-start">
+      <div className="max-w-1432 mx-auto lg:px-8 lg:grid lg:grid-cols-2 lg:gap-24 lg:items-start">
         <div className="relative sm:py-16 lg:py-0">
           <div
             aria-hidden="true"
@@ -100,7 +100,7 @@ const Article: FC<Props> = ({ article }: Props) => {
           </div>
         </div>
       </div>
-      <div className="max-w-[1432px] mx-auto px-4 sm:px-6 lg:px-8 mb-10">
+      <div className="max-w-1432 mx-auto px-4 sm:px-6 lg:px-8 mb-10">
         <div className="mt-6 text-gray-500 space-y-6 leading-9 text-justify">
           {article?.content}
         </div>

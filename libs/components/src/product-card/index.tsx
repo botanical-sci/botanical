@@ -31,7 +31,7 @@ const ProductCard: FC<Props> = ({ product, badge }) => {
   };
 
   return (
-    <div className="group w-full xl:w-80 relative block shadow-card hover:shadow-cardHover bg-[#ffffff] rounded-2xl transition-all duration-300 m-3 md:m-0">
+    <div className="group xl:w-80 relative block shadow-card hover:shadow-cardHover bg-[#ffffff] rounded-2xl transition-all duration-300 m-3 md:m-0">
       <Link href={`/products/${product.handle}`}>
         <a className="relative">
           <div className="w-full overflow-hidden relative lg:h-80 xl:h-80 ">
