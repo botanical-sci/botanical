@@ -41,7 +41,25 @@ const Header: FC<Props> = ({ menu }: Props) => {
 
   useEffect(() => {
     const onScroll = (e: any) => {
-      setOnTop(window.scrollY < 50);
+      setOnTop((isShrunk) => {
+        if (
+          isShrunk &&
+          (document.body.scrollTop > 250 ||
+            document.documentElement.scrollTop > 250)
+        ) {
+          return false;
+        }
+
+        if (
+          !isShrunk &&
+          document.body.scrollTop < 150 &&
+          document.documentElement.scrollTop < 150
+        ) {
+          return true;
+        }
+
+        return isShrunk;
+      });
     };
 
     document.addEventListener('scroll', onScroll);
