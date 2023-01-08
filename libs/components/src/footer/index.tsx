@@ -65,7 +65,7 @@ const Footer = () => {
         <div className="flex flex-col xl:flex-row xl:justify-between">
           <div className="md:grid md:grid-cols-4 md:gap-16 space-y-8 md:space-y-0">
             <div>
-              <h3 className="text-sm font-semibold text-dark tracking-wider uppercase">
+              <h3 className="text-xs font-semibold text-dark tracking-wider uppercase">
                 Products
               </h3>
               <ul className="mt-4 space-y-4">
@@ -81,7 +81,7 @@ const Footer = () => {
               </ul>
             </div>
             <div>
-              <h3 className="text-sm font-semibold text-dark tracking-wider uppercase">
+              <h3 className="text-xs font-semibold text-dark tracking-wider uppercase">
                 Company
               </h3>
               <ul className="mt-4 space-y-4">
@@ -97,7 +97,7 @@ const Footer = () => {
               </ul>
             </div>
             <div>
-              <h3 className="text-sm font-semibold text-dark tracking-wider uppercase">
+              <h3 className="text-xs font-bold text-dark tracking-wider uppercase">
                 Account
               </h3>
               <ul className="mt-4 space-y-4">
@@ -113,7 +113,7 @@ const Footer = () => {
               </ul>
             </div>
             <div>
-              <h3 className="text-sm font-semibold text-dark tracking-wider uppercase">
+              <h3 className="text-xs font-bold text-dark tracking-wider uppercase">
                 Follow us
               </h3>
               <ul className="flex items-center mt-4">
@@ -129,7 +129,7 @@ const Footer = () => {
             
           </div>
           <div className="mt-12 xl:mt-0 max-w-sm">
-            <h3 className="text-sm font-semibold text-dark tracking-wider uppercase">
+            <h3 className="text-xs font-bold text-dark tracking-wider uppercase">
               Newsletter
             </h3>
             <p className="mt-4 text-base text-[#8e8e8e]">
@@ -168,7 +168,7 @@ const Footer = () => {
               width={184}
               height={54}
               priority={true}
-              src="/images/bosci_logo.svg"
+              src="/images/bosci_logo_off.svg"
               alt="botanical skin science"
             />
           </div>

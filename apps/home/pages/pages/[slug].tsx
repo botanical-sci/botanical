@@ -14,7 +14,7 @@ const Page: FC<Props> = ({ page: drivedPage }) => {
   const page = drivedPage.data.page;
   return (
     <Container className="min-h-[30vh] m-16 text-center">
-      <h2 className="text-center text-5xl font-semibold font-noto mb-3">
+      <h2 className="text-center text-5xl font-semibold font-raleway mb-3">
         {page.title}
       </h2>
       <Breadcrumb

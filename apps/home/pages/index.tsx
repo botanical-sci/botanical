@@ -16,7 +16,7 @@ const Index: FC<HomeBasicModel> = ({ data }) => {
   return (
     <>
       <Container className="pt-28">
-        <h2 className="font-medium -tracking-5 font-noto text-center pr-[45px] pl-[45px] text-52 md:text-150 text-dark">
+        <h2 className="font-medium -tracking-5 text-center pr-[45px] pl-[45px] leading-tight text-52 md:text-150 text-dark">
           Enjoy the Science behind Nature
         </h2>
       </Container>
@@ -55,7 +55,7 @@ const Index: FC<HomeBasicModel> = ({ data }) => {
         <Container>
           <div className=" text-white grid grid-cols-1 md:grid-cols-2 h-auto md:h-[672px] gap-20 p-3 md:p-0 md:px-10">
             <div className="flex flex-col justify-center gap-6">
-              <h5 className="font-noto text-[#e5e8f0] text-52 font-light">
+              <h5 className=" text-[#e5e8f0] text-52 font-light">
                 Healthy Skincare
               </h5>
               <p className="font-normal text-lg text-[#e5e8f0]">

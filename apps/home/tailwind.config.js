@@ -28,7 +28,7 @@ module.exports = {
       fontFamily: {
         sans: ['sans-serif'],
         poppins: ['Poppins'],
-        noto: ['Noto Serif Devanagari'],
+        raleway: ['Raleway'],
       },
       letterSpacing: {
         2: '2px',
