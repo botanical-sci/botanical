@@ -195,7 +195,7 @@ const Header: FC<Props> = ({ menu }: Props) => {
               </div>
 
               <div className="flex flex-col space-y-2 p-2">
-                {menu.map((category) =>
+                {menu?.map((category) =>
                   !category.items || !category.items?.length ? (
                     <Link
                       key={category.title}

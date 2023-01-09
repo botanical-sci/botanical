@@ -58,7 +58,7 @@ const ShopifyApp: NextPage<Props> = ({
           </div>
         )}
 
-        <Header menu={menuData.menu.items} />
+        <Header menu={menuData.menu?.items} />
 
         <Component {...pageProps} />
         <Footer />
