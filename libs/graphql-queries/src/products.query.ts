@@ -2,7 +2,7 @@ const gql = String.raw;
 
 const getTrendingProducts = gql`
   query trendingProducts {
-    collection(handle: "trending") {
+    collection(handle: "trending-products") {
       title
       products(first: 4) {
         nodes {

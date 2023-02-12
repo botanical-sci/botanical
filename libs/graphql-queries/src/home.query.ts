@@ -2,7 +2,7 @@ const gql = String.raw;
 
 const menuQuery = gql`
   {
-    menu(handle: "new-main-menu") {
+    menu(handle: "main-menu") {
       items {
         title
         type
@@ -21,7 +21,7 @@ const menuQuery = gql`
 
 const homeStructureQuery = gql`
   {
-    trendingProducts: collection(handle: "trending") {
+    trendingProducts: collection(handle: "trending-products") {
       title
       handle
       products(first: 4) {
