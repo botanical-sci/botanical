@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 
 import { EditingMode, ITableProps, kaReducer, Table } from 'ka-table';
 import { Column } from 'ka-table/models';
@@ -105,7 +105,18 @@ const GroupedColumnsDemo: React.FC = () => {
     changeTableProps((prevState: ITableProps) => kaReducer(prevState, action));
   };
 
-  console.log(tableProps?.data);
+  const totalA = useMemo(() => {
+    return tableProps?.data.reduce(
+      (partialSum, { column7 }) => partialSum + +column7,
+      0
+    );
+  }, [tableProps?.data]);
+  const totalB = useMemo(() => {
+    return tableProps?.data.reduce(
+      (partialSum, { column8 }) => partialSum + +column8,
+      0
+    );
+  }, [tableProps?.data]);
 
   return (
     <div className="py-12">
@@ -149,7 +160,7 @@ const GroupedColumnsDemo: React.FC = () => {
         </div>
         <div className="bg-white">
           <div className="flex items-center justify-end p-3">
-            Total Load: 123123
+            Total Load: {totalA + totalB}
           </div>
         </div>
       </div>
