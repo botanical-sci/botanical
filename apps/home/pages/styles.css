@@ -13,3 +13,15 @@
     overflow-x: hidden;
   }
 }
+
+.group-header-column-demo .ka-thead-grouped-cell {
+  box-shadow: inset 0px 0px 0px 1px #f9fbfc;
+}
+
+.group-header-column-demo .ka-cell {
+  border: 1px solid #f9fbfc;
+}
+
+.group-header-column-demo .ka-thead-cell-content {
+  text-align: center;
+}

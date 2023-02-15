@@ -424,10 +424,7 @@ const Header: FC<Props> = ({ menu }: Props) => {
 
                   {/* User */}
                   <div className="flex mr-10">
-                    <a
-                      href="#"
-                      className=" text-gray-400 hover:text-gray-500 group relative cursor-pointer"
-                    >
+                    <div className=" text-gray-400 hover:text-gray-500 group relative cursor-pointer">
                       <Image
                         src="/images/icons-account.svg"
                         width={40}
@@ -443,7 +440,7 @@ const Header: FC<Props> = ({ menu }: Props) => {
                           ? renderAuthenticatedUser()
                           : renderAnonymouseUser()}
                       </ul>
-                    </a>
+                    </div>
                   </div>
 
                   {/* Cart */}

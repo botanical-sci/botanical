@@ -1,4 +1,5 @@
 import 'keen-slider/keen-slider.min.css';
+import 'ka-table/style.css';
 import './styles.css';
 
 import { useEffect, useState } from 'react';
