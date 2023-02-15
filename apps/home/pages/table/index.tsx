@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-import { EditingMode, Table, useTable } from 'ka-table';
+import { EditingMode, ITableProps, kaReducer, Table } from 'ka-table';
 import { Column } from 'ka-table/models';
+import { DispatchFunc } from 'ka-table/types';
 
 const columns: Column[] = [
   {
@@ -63,10 +64,48 @@ const dataArray = Array(30)
     )
   );
 
-const GroupedColumnsDemo: React.FC = () => {
-  const table = useTable();
+const tablePropsInit: ITableProps = {
+  columns,
+  data: dataArray,
+  rowKeyField: 'id',
+  editingMode: EditingMode.Cell,
+  groupedColumns: [
+    {
+      key: 'grouped.column1',
+      title: 'panel board schedule',
+      columnsKeys: [
+        'column1',
+        'grouped.column2',
+        'grouped.column3',
+        'grouped.column4',
+        'column9',
+      ],
+    },
+    {
+      key: 'grouped.column2',
+      title: 'CIR,BRKR',
+      columnsKeys: ['column2', 'column3'],
+    },
+    {
+      key: 'grouped.column3',
+      title: 'Outlets',
+      columnsKeys: ['column4', 'column5', 'column6'],
+    },
+    {
+      key: 'grouped.column4',
+      title: 'Load - Watts',
+      columnsKeys: ['column7', 'column8'],
+    },
+  ],
+};
 
-  console.log('1231', table);
+const GroupedColumnsDemo: React.FC = () => {
+  const [tableProps, changeTableProps] = useState(tablePropsInit);
+  const dispatch: DispatchFunc = (action) => {
+    changeTableProps((prevState: ITableProps) => kaReducer(prevState, action));
+  };
+
+  console.log(tableProps?.data);
 
   return (
     <div className="py-12">
@@ -76,39 +115,8 @@ const GroupedColumnsDemo: React.FC = () => {
         </h2>
         <div className="group-header-column-demo mt-3">
           <Table
-            table={table}
-            groupedColumns={[
-              {
-                key: 'grouped.column1',
-                title: 'panel board schedule',
-                columnsKeys: [
-                  'column1',
-                  'grouped.column2',
-                  'grouped.column3',
-                  'grouped.column4',
-                  'column9',
-                ],
-              },
-              {
-                key: 'grouped.column2',
-                title: 'CIR,BRKR',
-                columnsKeys: ['column2', 'column3'],
-              },
-              {
-                key: 'grouped.column3',
-                title: 'Outlets',
-                columnsKeys: ['column4', 'column5', 'column6'],
-              },
-              {
-                key: 'grouped.column4',
-                title: 'Load - Watts',
-                columnsKeys: ['column7', 'column8'],
-              },
-            ]}
-            columns={columns}
-            data={dataArray}
-            rowKeyField={'id'}
-            editingMode={EditingMode.Cell}
+            {...tableProps}
+            dispatch={dispatch}
             childComponents={{
               summaryCell: {
                 content: ({ column, data }) => {
