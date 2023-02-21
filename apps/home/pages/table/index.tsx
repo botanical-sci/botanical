@@ -160,7 +160,7 @@ const GroupedColumnsDemo: React.FC = () => {
         </div>
         <div className="bg-white">
           <div className="flex items-center justify-end p-3">
-            Total Load: {totalA + totalB}
+            Total Loads: {totalA + totalB}
           </div>
         </div>
       </div>
