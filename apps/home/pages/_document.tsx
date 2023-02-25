@@ -35,6 +35,11 @@ class BotanicalDocument extends Document {
             name="google-site-verification"
             content="BlU2L6JfPdfAPvzdUSsDsN1N7IxKRU_ei1bMYFOXiyM"
           />
+
+          <meta
+            name="p:domain_verify"
+            content="fc29d8e04b501b2d38118d744131ccf1"
+          />
         </Head>
         <body>
           <Main />
