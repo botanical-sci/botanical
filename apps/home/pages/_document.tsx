@@ -30,6 +30,11 @@ class BotanicalDocument extends Document {
               gtag('config', 'G-Q86DS2ZZZ0');
             `}
           </Script>
+
+          <meta
+            name="google-site-verification"
+            content="BlU2L6JfPdfAPvzdUSsDsN1N7IxKRU_ei1bMYFOXiyM"
+          />
         </Head>
         <body>
           <Main />
