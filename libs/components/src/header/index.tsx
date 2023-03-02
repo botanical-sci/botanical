@@ -177,7 +177,7 @@ const Header: FC<Props> = ({ menu }: Props) => {
                       height={40}
                       priority={true}
                       className="h-8 w-auto"
-                      src="/images/mstile-144x144.png"
+                      src="/images/yas_logo_lettermark-1.png"
                       alt="botanical skin science"
                     />
                   </a>
@@ -339,7 +339,7 @@ const Header: FC<Props> = ({ menu }: Props) => {
                         height={56}
                         priority={true}
                         className="w-auto h-14"
-                        src="/images/mstile-144x144.png"
+                        src="/images/yas_logo_lettermark-1.png"
                         alt="botanical skin science"
                       />
                     </a>

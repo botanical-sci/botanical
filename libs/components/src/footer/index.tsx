@@ -1,6 +1,13 @@
 import Image from 'next/future/image';
 import Link from 'next/link';
-import { IconBrandFacebook, IconBrandInstagram, IconBrandPinterest, IconBrandTiktok, IconBrandYoutube, IconMail } from '@tabler/icons';
+import {
+  IconBrandFacebook,
+  IconBrandInstagram,
+  IconBrandPinterest,
+  IconBrandTiktok,
+  IconBrandYoutube,
+  IconMail,
+} from '@tabler/icons';
 
 const navigation = {
   products: [
@@ -126,7 +133,6 @@ const Footer = () => {
                 ))}
               </ul>
             </div>
-            
           </div>
           <div className="mt-12 xl:mt-0 max-w-sm">
             <h3 className="text-xs font-bold text-dark tracking-wider uppercase">
@@ -168,7 +174,7 @@ const Footer = () => {
               width={184}
               height={54}
               priority={true}
-              src="/images/bosci_logo_off.svg"
+              src="/images/yas_logo_lettermark-1.png"
               alt="botanical skin science"
             />
           </div>
