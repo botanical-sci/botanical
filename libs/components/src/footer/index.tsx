@@ -174,8 +174,9 @@ const Footer = () => {
               width={184}
               height={54}
               priority={true}
-              src="/images/yas_logo_lettermark-1.png"
+              src="/images/botanical-logo-main.png"
               alt="botanical skin science"
+              className="opacity-40"
             />
           </div>
         </div>
