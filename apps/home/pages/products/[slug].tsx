@@ -76,7 +76,7 @@ const ProductDetails: FC<Props> = ({ product: drivedProduct }: Props) => {
   return (
     <div>
       <Head>
-        <title>{product.title} | Botanical Skin Science</title>
+        <title>{product.title} | Yas Natural Solutions</title>
       </Head>
       <div className="mx-auto py-16 sm:py-24 md:max-w-1432">
         <Breadcrumb
@@ -132,7 +132,7 @@ const ProductDetails: FC<Props> = ({ product: drivedProduct }: Props) => {
                   }}
                 >
                   <Image
-                  className='h-full w-full object-cover'
+                    className="h-full w-full object-cover"
                     src={image.node.url}
                     alt={image.node.altText}
                     width={100}

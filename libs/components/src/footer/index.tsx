@@ -166,7 +166,7 @@ const Footer = () => {
         <div className="flex justify-between mt-20 items-end">
           <div>
             <p className="text-[#8e8e8e] font-normal text-sm">
-              Copyright ©2022 Botanical Skin Science, Inc.
+              Copyright ©2022 Yas Natural Solutions, Inc.
             </p>
           </div>
           <div>
@@ -175,7 +175,7 @@ const Footer = () => {
               height={54}
               priority={true}
               src="/images/botanical-logo-main.png"
-              alt="botanical skin science"
+              alt="Yas Natural Solutions"
               className="opacity-40"
             />
           </div>

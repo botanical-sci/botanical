@@ -7,10 +7,10 @@ const HeaderHero = () => {
       <div>
         <div className="sm:max-w-lg">
           <h1 className="text-4xl font font-extrabold tracking-tight text-gray-900 sm:text-5xl">
-            Botanical Skin Science
+            Yas Natural Solutions
           </h1>
           <p className="mt-6 text-lg text-gray-500">
-            Botanical Skin Science is committed to formulating only those
+            Yas Natural Solutions is committed to formulating only those
             products that highlight the power of phytonutrients for our skin,
             delivered in packaging that creates zero plastic waste.
           </p>

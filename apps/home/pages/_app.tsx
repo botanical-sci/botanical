@@ -60,7 +60,7 @@ const ShopifyApp: NextPage<Props> = ({
             `}
       </Script>
       <Head>
-        <title>Botanical Skin Science</title>
+        <title>Yas Natural Solutions</title>
         <link rel="shortcut icon" href="/images/mstile-144x144.png" />
         {/* google merchant center */}
         <meta

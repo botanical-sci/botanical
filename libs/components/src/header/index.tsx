@@ -171,14 +171,14 @@ const Header: FC<Props> = ({ menu }: Props) => {
               <div className="px-4 pt-5 pb-5 mb-5 border-stone-200 border-b flex justify-between">
                 <Link href="/">
                   <a>
-                    <span className="sr-only">botanical skin science</span>
+                    <span className="sr-only">Yas Natural Solutions</span>
                     <Image
                       width={100}
                       height={40}
                       priority={true}
                       className="h-8 w-auto"
                       src="/images/botanical-logo-main.png"
-                      alt="botanical skin science"
+                      alt="Yas Natural Solutions"
                     />
                   </a>
                 </Link>
@@ -333,14 +333,14 @@ const Header: FC<Props> = ({ menu }: Props) => {
                 <div className="lg:flex lg:ml-0 hidden">
                   <Link href="/">
                     <a>
-                      <span className="sr-only">botanical skin science</span>
+                      <span className="sr-only">Yas Natural Solutions</span>
                       <Image
                         width={186}
                         height={56}
                         priority={true}
                         className="w-auto h-14"
                         src="/images/botanical-logo-main.png"
-                        alt="botanical skin science"
+                        alt="Yas Natural Solutions"
                       />
                     </a>
                   </Link>

@@ -71,7 +71,7 @@ const Index: FC<HomeBasicModel> = ({ data }) => {
                 className="rounded-xl -mt-[30%]"
                 width={640}
                 height={640}
-                alt="Botanical Skin Care"
+                alt="Yas Natural Solutions"
               />
             </div>
           </div>

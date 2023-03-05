@@ -172,7 +172,7 @@ const Collection: FC<Props> = ({
   return (
     <div>
       <Head>
-        <title>{collection.title} | Botanical Skin Science</title>
+        <title>{collection.title} | Yas Natural Solutions</title>
       </Head>
       <div className="mx-auto py-16 sm:py-24 md:max-w-1432">
         <h1 className="text-3xl">{collection.title}</h1>
