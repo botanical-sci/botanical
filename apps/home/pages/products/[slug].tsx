@@ -78,7 +78,7 @@ const ProductDetails: FC<Props> = ({ product: drivedProduct }: Props) => {
       <Head>
         <title>{product.title} | Yas Natural Solutions</title>
       </Head>
-      <div className="mx-auto py-16 sm:py-24 md:max-w-1432">
+      <div className="mx-auto py-16 sm:py-24 md:max-w-1432 md:px-10">
         <Breadcrumb
           extraClassName="mb-6"
           list={[
@@ -152,7 +152,8 @@ const ProductDetails: FC<Props> = ({ product: drivedProduct }: Props) => {
                 </h1>
 
                 <p className=" text-2xl">
-                  ${product.priceRange.maxVariantPrice.amount}
+                  $
+                  {Number(product.priceRange.maxVariantPrice.amount).toFixed(2)}
                 </p>
 
                 <h2 id="information-heading" className="sr-only">
@@ -192,10 +193,7 @@ const ProductDetails: FC<Props> = ({ product: drivedProduct }: Props) => {
             </div>
 
             <div className={styles.ContentContainer}>
-              <div
-                className="text-gray-500 mt-6 font-thin list-disc list-inside"
-                dangerouslySetInnerHTML={{ __html: product.descriptionHtml }}
-              ></div>
+              <div className="mt-6 text-gray-900">{product.description}</div>
             </div>
             <ul className="grid grid-cols-3 mt-10 gap-5">
               {renderCustomSpecifications()}

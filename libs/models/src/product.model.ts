@@ -19,6 +19,7 @@ export interface SingleProductModle {
   handle: string;
   availableForSale: true;
   descriptionHtml: string;
+  description: string;
   collections: {
     edges: { node: { title: string; handle: string } }[];
   };
