@@ -6,6 +6,12 @@ import React, { FC } from 'react';
 import Image from 'next/future/image';
 import { Breadcrumb } from '@shopify/components';
 
+const wantedCollectionsForDemo = [
+  'cbd-face-serum',
+  'cbd-body-lotion',
+  'hemp-scalp-oil',
+];
+
 interface Props {
   collections: CollectionsModel[];
 }
@@ -27,40 +33,42 @@ const Collections: FC<Props> = ({ collections }) => {
           />
 
           <div className="mt-6 space-y-12 lg:space-y-0 lg:grid lg:grid-cols-3 lg:gap-8">
-            {collections.map((c) => (
-              <div
-                key={c.handle}
-                className="relative bg-white rounded-xl shadow-card hover:shadow-cardHover  transition-all duration-300"
-              >
-                <div className="relative w-full h-80 bg-white rounded-lg rounded-b-none overflow-hidden">
-                  {c.image && (
-                    <Image
-                      src={c.image.url}
-                      alt={c.image.altText}
-                      width={300}
-                      height={300}
-                      className={'w-full h-full object-cover'}
-                    />
-                  )}
+            {collections
+              .filter((item) => wantedCollectionsForDemo.includes(item.handle))
+              .map((c) => (
+                <div
+                  key={c.handle}
+                  className="relative bg-white rounded-xl shadow-card hover:shadow-cardHover  transition-all duration-300"
+                >
+                  <div className="relative w-full h-80 bg-white rounded-lg rounded-b-none overflow-hidden">
+                    {c.image && (
+                      <Image
+                        src={c.image.url}
+                        alt={c.image.altText}
+                        width={300}
+                        height={300}
+                        className={'w-full h-full object-cover'}
+                      />
+                    )}
+                  </div>
+                  <div className="p-6 pt-0">
+                    <h3 className="mt-6 font-semibold text-gray-900 mb-2">
+                      <Link href={`/collections/${c.handle}`}>
+                        <a>
+                          <span className="absolute inset-0" />
+                          {c.title}
+                        </a>
+                      </Link>
+                    </h3>
+                    <div
+                      className="text-based text-justify text-sm text-gray-500"
+                      dangerouslySetInnerHTML={{
+                        __html: truncateString(c.descriptionHtml, 180),
+                      }}
+                    ></div>
+                  </div>
                 </div>
-                <div className="p-6 pt-0">
-                  <h3 className="mt-6 font-semibold text-gray-900 mb-2">
-                    <Link href={`/collections/${c.handle}`}>
-                      <a>
-                        <span className="absolute inset-0" />
-                        {c.title}
-                      </a>
-                    </Link>
-                  </h3>
-                  <div
-                    className="text-based text-justify text-sm text-gray-500"
-                    dangerouslySetInnerHTML={{
-                      __html: truncateString(c.descriptionHtml, 180),
-                    }}
-                  ></div>
-                </div>
-              </div>
-            ))}
+              ))}
           </div>
         </div>
       </div>
