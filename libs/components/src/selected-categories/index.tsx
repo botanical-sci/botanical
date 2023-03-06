@@ -37,13 +37,19 @@ const SelectedCategories = () => {
               <div>
                 <h3 className="font-semibold text-white">
                   <Link href="/collections/cbd-face-body-care">
-                    <a target="_blank" className="flex items-center">
+                    <a
+                      target="_blank"
+                      className="flex items-center md:text-3xl font-semibold"
+                    >
                       CBD Skincare
                       <IconChevronRight />
                     </a>
                   </Link>
                 </h3>
-                <p aria-hidden="true" className="mt-1 text-sm text-white">
+                <p
+                  aria-hidden="true"
+                  className="mt-1 text-sm text-white md:text-base"
+                >
                   Find out why topical, full-spectrum CBD Oil is a game changer
                   when it comes to healing and reviving your skin!
                 </p>
@@ -66,13 +72,19 @@ const SelectedCategories = () => {
               <div>
                 <h3 className="font-semibold text-white">
                   <Link href="/collections/hand-body-self-care">
-                    <a target="_blank" className="flex items-center">
+                    <a
+                      target="_blank"
+                      className="flex items-center md:text-2xl font-semibold"
+                    >
                       Bath & Body Care
                       <IconChevronRight />
                     </a>
                   </Link>
                 </h3>
-                <p aria-hidden="true" className="mt-1 text-sm text-white">
+                <p
+                  aria-hidden="true"
+                  className="mt-1 text-sm text-white md:text-base"
+                >
                   Keep your hands and your body clean, nourished, and feeling
                   exceptionally soft with our vegan and plant-based hand & body
                   products.
@@ -96,13 +108,19 @@ const SelectedCategories = () => {
               <div>
                 <h3 className="font-semibold text-white">
                   <Link href="/collections/hair-care">
-                    <a target="_blank" className="flex items-center">
+                    <a
+                      target="_blank"
+                      className="flex items-center md:text-2xl font-semibold"
+                    >
                       Hair Care
                       <IconChevronRight />
                     </a>
                   </Link>
                 </h3>
-                <p aria-hidden="true" className="mt-1 text-sm text-white">
+                <p
+                  aria-hidden="true"
+                  className="mt-1 text-sm md:text-base text-white"
+                >
                   we’ve worked with haircare geniuses from the world’s leading
                   labs to bring you the best sulphate-free shampoos, nourishing
                   conditioners and the ultimate boosters and repair mask for

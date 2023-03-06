@@ -120,7 +120,7 @@ const Testimonials: FC = () => {
                   className="m-auto mb-6"
                 />
                 <div className="sm:flex flex justify-between flex-col flex-1 text-center">
-                  <p className=" text-dark text-xs md:text-lg font-normal font-raleway">
+                  <p className=" text-dark text-xs md:text-2xl font-medium font-raleway">
                     {testimonial.quote}
                   </p>
                   <div className="flex justify-between flex-col">

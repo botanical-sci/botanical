@@ -13,8 +13,8 @@ const perks = [
     name: '30 day guarantee',
     Icon: (
       <Image
-        width={50}
-        height={50}
+        width={80}
+        height={80}
         src="/images/icons-gaurantee.svg"
         alt="30 Day Money Back Guarantee"
       />
@@ -26,8 +26,8 @@ const perks = [
     name: 'free delivery',
     Icon: (
       <Image
-        width={50}
-        height={50}
+        width={80}
+        height={80}
         src="/images/icons-shipping.svg"
         alt="Free Delivery"
       />
@@ -39,8 +39,8 @@ const perks = [
     name: 'all year discount',
     Icon: (
       <Image
-        width={50}
-        height={50}
+        width={80}
+        height={80}
         src="/images/icons-discount.svg"
         alt="All year discount"
       />
@@ -52,8 +52,8 @@ const perks = [
     name: 'for the planet',
     Icon: (
       <Image
-        width={50}
-        height={50}
+        width={80}
+        height={80}
         src="/images/icons-planet.svg"
         alt="For the planet"
       />
@@ -83,13 +83,13 @@ const Perks = () => {
                 className="text-center md:flex md:items-start md:text-left lg:block lg:text-center"
               >
                 <div className="md:flex-shrink-0 flex justify-center">
-                  <div className="flow-root">{perk.Icon}</div>
+                  <div className="flow-root h-20 w-20">{perk.Icon}</div>
                 </div>
                 <div className="mt-6 md:mt-0 md:ml-4 lg:mt-6 lg:ml-0">
-                  <h3 className="text-sm font-semibold tracking-wide uppercase text-gray-900">
+                  <h3 className="text-sm md:text-2xl font-semibold tracking-wide uppercase text-gray-900">
                     {perk.name}
                   </h3>
-                  <p className="mt-3 text-sm font-normal text-gray-500">
+                  <p className="mt-3 text-sm md:text-base font-normal text-gray-500">
                     {perk.description}
                   </p>
                 </div>
