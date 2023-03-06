@@ -174,7 +174,7 @@ const Collection: FC<Props> = ({
       <Head>
         <title>{collection.title} | Yas Natural Solutions</title>
       </Head>
-      <div className="mx-auto py-16 sm:py-24 md:max-w-1432">
+      <div className="mx-auto py-16 sm:py-24 md:max-w-1432 md:px-10">
         <h1 className="text-3xl">{collection.title}</h1>
         <Breadcrumb list={breadcrumbList} />
 
