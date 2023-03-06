@@ -29,6 +29,11 @@ const getCollectionByHandleQuery = (
         filters: ${JSON.stringify(gqlFilters).replace(/"/g, '')}
       ) {
         nodes {
+          variants(first:1) {
+            nodes {
+              id
+            }
+          }
           handle
           id
           title
