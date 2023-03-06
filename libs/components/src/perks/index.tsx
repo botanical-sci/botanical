@@ -68,8 +68,8 @@ const Perks = () => {
     <section aria-labelledby="perks-heading">
       <Container>
         <div className="md:flex md:items-center md:justify-between md:flex-col">
-          <h2 className="text-52 font-light text-center font-medium -tracking-2 text-neutral">
-            Why Yas Natural Solutions
+          <h2 className="text-52 text-center font-medium -tracking-2 text-neutral">
+            Why Yas Natural Solutions?
           </h2>
         </div>
       </Container>

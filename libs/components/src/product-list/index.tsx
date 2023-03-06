@@ -25,7 +25,7 @@ const ProductList: FC<Props> = ({
   return (
     <>
       <div className="flex items-center justify-between flex-col">
-        <h2 className="text-4xl md:text-52 font-light text-center mb-5 text-neutral">
+        <h2 className="text-4xl md:text-52 font-medium text-center mb-5 text-neutral">
           {title}
         </h2>
         <Link href={moreUrl}>

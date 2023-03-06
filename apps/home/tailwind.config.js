@@ -37,7 +37,7 @@ module.exports = {
       fontSize: {
         18: '18px',
         52: '52px',
-        150: '150px',
+        140: '140px',
       },
       colors: {
         dark: '#1d2349',
