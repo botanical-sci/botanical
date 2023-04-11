@@ -52,6 +52,7 @@ module.exports = {
         yasBackground: '#fefbf7',
         yasLink: '#bba18e',
         yasBackgroundDark: '#e9e9e9',
+        yasBackgroundDark2: '#4a4e6b',
       },
     },
   },
