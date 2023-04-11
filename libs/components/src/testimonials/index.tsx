@@ -113,7 +113,7 @@ const Testimonials: FC = () => {
                 )}
               >
                 <Image
-                  src="/images/icons-quote.svg"
+                  src="/images/icons-solid-quote@3x.png"
                   width={24}
                   height={24}
                   alt="icons-quote"

@@ -27,7 +27,10 @@ const Page: FC<Props> = ({ page: drivedPage }) => {
         ]}
       />
       <div
-        className={classNames('mt-10 font-normal text-center', classes['Content'])}
+        className={classNames(
+          'mt-10 font-normal text-center',
+          classes['Content']
+        )}
         dangerouslySetInnerHTML={{ __html: page.body }}
       ></div>
     </Container>

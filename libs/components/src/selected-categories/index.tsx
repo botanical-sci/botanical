@@ -11,7 +11,7 @@ const SelectedCategories = () => {
             Shop by Category
           </h2>
           <Link href="/collections">
-            <a className="hidden font-semibold text-18 text-highlight hover:text-indigo-500 md:flex items-center gap-1">
+            <a className="hidden font-semibold text-18 text-yasLink hover:opacity-70 md:flex items-center gap-1">
               Browse all categories
               <span aria-hidden="true">
                 <IconChevronRight size={20} />

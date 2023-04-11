@@ -11,22 +11,14 @@ import {
 
 const navigation = {
   products: [
-    { name: 'DBC Skincare', href: '/collections/cbd-face-body-care' },
     { name: 'Face Care', href: '/collections/face-care' },
-    { name: 'Bath and Body Care', href: '/collections/hand-body-self-care' },
+    { name: 'Bath & Body', href: '/collections/hand-body-self-care' },
+    { name: 'DBC Skincare', href: '/collections/cbd-face-body-care' },
   ],
   company: [
     { name: 'Contact Us', href: '/pages/contact' },
-    { name: 'Our Story', href: '/pages/about' },
+    { name: 'About Us', href: '/pages/about' },
     { name: 'Privacy Policy', href: '/pages/privacy-policy' },
-    { name: 'Refund policy', href: '/pages/refund-policy' },
-    { name: 'Terms And Conditions', href: '/pages/terms-and-conditions' },
-  ],
-  account: [
-    { name: 'Login', href: '/account/login' },
-    { name: 'Register', href: '/account/register' },
-    { name: 'My Account', href: '/account' },
-    { name: 'My Orders', href: '/account/orders' },
   ],
   legal: [
     { name: 'Claim', href: '#' },
@@ -70,9 +62,9 @@ const Footer = () => {
       </h2>
       <div className="max-w-1432 mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-0">
         <div className="flex flex-col xl:flex-row xl:justify-between">
-          <div className="md:grid md:grid-cols-4 md:gap-16 space-y-8 md:space-y-0">
+          <div className="grid grid-cols-2 md:grid-cols-4 md:gap-16">
             <div>
-              <h3 className="text-xs font-semibold text-dark tracking-wider uppercase">
+              <h3 className="text-xs font-semibold text-yasLink  tracking-wider uppercase">
                 Products
               </h3>
               <ul className="mt-4 space-y-4">
@@ -88,7 +80,7 @@ const Footer = () => {
               </ul>
             </div>
             <div>
-              <h3 className="text-xs font-semibold text-dark tracking-wider uppercase">
+              <h3 className="text-xs font-semibold text-yasLink tracking-wider uppercase">
                 Company
               </h3>
               <ul className="mt-4 space-y-4">
@@ -103,24 +95,8 @@ const Footer = () => {
                 ))}
               </ul>
             </div>
-            <div>
-              <h3 className="text-xs font-bold text-dark tracking-wider uppercase">
-                Account
-              </h3>
-              <ul className="mt-4 space-y-4">
-                {navigation.account.map((item) => (
-                  <li key={item.name}>
-                    <Link href={item.href}>
-                      <a className="text-base text-gray-500 hover:text-gray-900">
-                        {item.name}
-                      </a>
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div>
-              <h3 className="text-xs font-bold text-dark tracking-wider uppercase">
+            <div className=" mt-12 md:mt-0 col-span-2 flex flex-col items-center md:items-start">
+              <h3 className="text-xs font-bold text-yasLink tracking-wider uppercase">
                 Follow us
               </h3>
               <ul className="flex items-center mt-4">
@@ -134,8 +110,8 @@ const Footer = () => {
               </ul>
             </div>
           </div>
-          <div className="mt-12 xl:mt-0 max-w-sm">
-            <h3 className="text-xs font-bold text-dark tracking-wider uppercase">
+          <div className="mt-12 xl:mt-0 md:max-w-sm flex flex-col text-center items-center md:items-start md:text-left">
+            <h3 className="text-xs font-bold text-yasLink tracking-wider uppercase">
               Newsletter
             </h3>
             <p className="mt-4 text-base text-[#8e8e8e]">
@@ -155,7 +131,7 @@ const Footer = () => {
               <div className="rounded-md sm:ml-3 sm:flex-shrink-0">
                 <button
                   type="submit"
-                  className="w-full bg-highlight flex items-center justify-center border border-transparent rounded-3xl py-2 px-4 text-sm font-normal text-white hover:bg-indigo-700 focus:ring-0 focus:ring-offset-2 focus:ring-indigo-500"
+                  className="w-full bg-yasLink flex items-center justify-center border border-transparent rounded-3xl py-2 px-4 text-sm font-normal text-white hover:bg-indigo-700 focus:ring-0 focus:ring-offset-2 focus:ring-indigo-500"
                 >
                   Subscribe
                 </button>
@@ -163,7 +139,7 @@ const Footer = () => {
             </form>
           </div>
         </div>
-        <div className="flex justify-between mt-20 items-end">
+        <div className="flex flex-col-reverse gap-8 md:flex-row items-center justify-between mt-20 md:items-end">
           <div>
             <p className="text-[#8e8e8e] font-normal text-sm">
               Copyright ©2022 Yas Natural Solutions, Inc.
@@ -176,7 +152,6 @@ const Footer = () => {
               priority={true}
               src="/images/botanical-logo-main.png"
               alt="Yas Natural Solutions"
-              className="opacity-40"
             />
           </div>
         </div>

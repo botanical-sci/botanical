@@ -37,7 +37,7 @@ module.exports = {
       fontSize: {
         18: '18px',
         52: '52px',
-        140: '140px',
+        122: '122px',
       },
       colors: {
         dark: '#1d2349',
@@ -49,6 +49,9 @@ module.exports = {
         lighter: '#F6F6F6',
         lightest: '#FCFCFC',
         botanical: '#1d2349',
+        yasBackground: '#fefbf7',
+        yasLink: '#bba18e',
+        yasBackgroundDark: '#e9e9e9',
       },
     },
   },

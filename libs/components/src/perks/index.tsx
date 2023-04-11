@@ -15,7 +15,7 @@ const perks = [
       <Image
         width={80}
         height={80}
-        src="/images/icons-gaurantee.svg"
+        src="/images/icons-level-2-gaurantee@3x.png"
         alt="30 Day Money Back Guarantee"
       />
     ),
@@ -28,7 +28,7 @@ const perks = [
       <Image
         width={80}
         height={80}
-        src="/images/icons-shipping.svg"
+        src="/images/icons-level-2-shipping@3x.png"
         alt="Free Delivery"
       />
     ),
@@ -41,7 +41,7 @@ const perks = [
       <Image
         width={80}
         height={80}
-        src="/images/icons-discount.svg"
+        src="/images/icons-level-2-discount@3x.png"
         alt="All year discount"
       />
     ),
@@ -54,7 +54,7 @@ const perks = [
       <Image
         width={80}
         height={80}
-        src="/images/icons-planet.svg"
+        src="/images/icons-level-2-planet@3x.png"
         alt="For the planet"
       />
     ),

@@ -15,10 +15,17 @@ import { storefront } from '@shopify/utilities';
 const Index: FC<HomeBasicModel> = ({ data }) => {
   return (
     <>
-      <Container className="pt-28">
-        <h2 className=" -tracking-5 font-semibold text-center pr-[45px] pl-[45px] leading-tight text-52 md:text-140 text-dark">
-          Enjoy the Science behind Nature
-        </h2>
+      <Container className="pt-28 flex  lg:px-10 2xl:px-0 flex-col gap-16 lg:gap-0 lg:flex-row items-center justify-end relative">
+        <div className="flex flex-col text-center lg:text-left gap-4 z-10 leading-none lg:absolute left-0 max-w-[800px]">
+          <h2 className="text-52 lg:text-122 font-normal text-dark">
+            The lorem ipsum for dalor este
+          </h2>
+          <h3 className="text-base lg:text-2xl font-normal text-dark">
+            Quis eu at condimentum amet sed facilisi viverra. Sit fames sed
+            auctor tincidunt.
+          </h3>
+        </div>
+        <div className="bg-yasBackgroundDark w-full lg:w-[776px] h-80 lg:h-[608px] rounded-xl"></div>
       </Container>
 
       <Container className="py-24 md:px-10">
@@ -49,33 +56,6 @@ const Index: FC<HomeBasicModel> = ({ data }) => {
 
       <div className="pt-24 pb-56">
         <Testimonials />
-      </div>
-
-      <div className="bg-dark">
-        <Container>
-          <div className=" text-white grid grid-cols-1 md:grid-cols-2 h-auto md:h-[672px] gap-20 p-3 md:p-0 md:px-10">
-            <div className="flex flex-col justify-center gap-6">
-              <h5 className=" text-[#e5e8f0] text-52 font-medium">
-                Healthy Skincare
-              </h5>
-              <p className="font-normal text-lg text-[#e5e8f0]">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam
-                pretium pellentesque nibh eget venenatis. Sed volutpat, purus eu
-                pellentesque lobortis, nulla erat fermentum ligula, non dictum
-                odio nisl eget velit.
-              </p>
-            </div>
-            <div className="flex flex-col justify-center mt-20 md:mt-0">
-              <Image
-                src="/images/footer-cover.jpeg"
-                className="rounded-xl -mt-[30%]"
-                width={640}
-                height={640}
-                alt="Yas Natural Solutions"
-              />
-            </div>
-          </div>
-        </Container>
       </div>
     </>
   );

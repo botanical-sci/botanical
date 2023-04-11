@@ -29,7 +29,7 @@ const ProductList: FC<Props> = ({
           {title}
         </h2>
         <Link href={moreUrl}>
-          <a className="font-semibold text-sm md:text-18 text-highlight hover:text-indigo-500 md:flex items-center gap-1 mt-1 flex">
+          <a className="font-semibold text-sm md:text-18 text-yasLink hover:opacity-70 md:flex items-center gap-1 mt-1 flex">
             {moreText}
             <span aria-hidden="true">
               <IconChevronRight size={20} />

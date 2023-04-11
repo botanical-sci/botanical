@@ -177,7 +177,7 @@ const Header: FC<Props> = ({ menu }: Props) => {
                       height={40}
                       priority={true}
                       className="h-8 w-auto"
-                      src="/images/botanical-logo-main.png"
+                      src="/images/brand-logo@3x.png"
                       alt="Yas Natural Solutions"
                     />
                   </a>
@@ -339,7 +339,7 @@ const Header: FC<Props> = ({ menu }: Props) => {
                         height={56}
                         priority={true}
                         className="w-auto h-14"
-                        src="/images/botanical-logo-main.png"
+                        src="/images/brand-logo@3x.png"
                         alt="Yas Natural Solutions"
                       />
                     </a>
