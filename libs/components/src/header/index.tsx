@@ -137,12 +137,6 @@ const Header: FC<Props> = ({ menu }: Props) => {
 
   return (
     <div className="sticky top-0 z-40 bg-opacity-90 backdrop-filter backdrop-blur-md">
-      <PopupCart
-        isOpen={cartOpen}
-        onCartClose={() => {
-          setCartOpen(false);
-        }}
-      />
       {/* Mobile menu */}
       <Transition.Root show={open} as={Fragment}>
         <Dialog as="div" className="fixed inset-0 flex z-50 " onClose={setOpen}>
@@ -444,7 +438,13 @@ const Header: FC<Props> = ({ menu }: Props) => {
                   </div>
 
                   {/* Cart */}
-                  <div className="ml-4 flow-root">
+                  <div className="ml-4 flow-root relative">
+                    <PopupCart
+                      isOpen={cartOpen}
+                      onCartClose={() => {
+                        setCartOpen(false);
+                      }}
+                    />
                     <a
                       href="#"
                       className="group w-16 h-16 flex items-center justify-center bg-dark rounded-full relative hover:bg-cool"
