@@ -382,7 +382,7 @@ const Header: FC<Props> = ({ menu }: Props) => {
                               {category.items.map((i) => (
                                 <li
                                   key={i.resourceId}
-                                  className="hover:bg-highlight p-2 rounded-md hover:text-white transition-all duration-300"
+                                  className="hover:bg-dark p-2 rounded-md hover:text-white transition-all duration-300"
                                 >
                                   <Link
                                     href={
