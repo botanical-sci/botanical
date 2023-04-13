@@ -74,7 +74,7 @@ const ProductCard: FC<Props> = ({ product, badge }) => {
               <button
                 type="button"
                 onClick={handleAddToCart}
-                className=" focus:outline-none text-center rounded-3xl bg-highlight pt-3 pb-3 pr-4 pl-4 w-full text-white text-sm transition-all duration-300 hover:bg-midway"
+                className=" focus:outline-none text-center rounded-3xl bg-dark pt-3 pb-3 pr-4 pl-4 w-full text-white text-sm transition-all duration-300 hover:bg-midway"
               >
                 <span>Add to Bag</span>
               </button>
