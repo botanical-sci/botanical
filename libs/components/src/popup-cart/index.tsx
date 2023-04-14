@@ -43,7 +43,10 @@ const PopupCart: FC<Props> = ({ isOpen, onCartClose }) => {
 
   return (
     <Transition.Root show={open} as={Fragment}>
-      <div className="absolute sm:right-0 z-50 sm:-top-6" ref={ref as any}>
+      <div
+        className="absolute sm:right-0 overflow-y-auto z-50 sm:-top-6"
+        ref={ref as any}
+      >
         <Transition.Child
           as={Fragment}
           enter="ease-out duration-300"
@@ -53,7 +56,7 @@ const PopupCart: FC<Props> = ({ isOpen, onCartClose }) => {
           leaveFrom="opacity-100 translate-y-0 sm:scale-100"
           leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
         >
-          <div className="inline-block max-w-sm align-bottom bg-yasBackground rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:p-6">
+          <div className="inline-block max-w-sm align-bottom h-[720px] overflow-y-auto bg-yasBackground rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:p-6">
             <div className="flex justify-between items-center mb-10">
               <div className="text-midway text-4xl">Shopping Bag</div>
               <div className="ml-4 flex-shrink-0 flex">

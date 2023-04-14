@@ -196,7 +196,7 @@ const Header: FC<Props> = ({ menu }: Props) => {
                 onClick={() => setIsSearchOpen(false)}
               />
             </div>
-            <div className="mt-4 relative flex items-center w-[400px]   md:w-[800px] self-center">
+            <div className="mt-4 relative flex items-center w-[300px]   md:w-[800px] self-center">
               <div
                 className="absolute inset-y-0 left-0 flex py-2 pl-2 text-gray-400 cursor-pointer"
                 onClick={handleSearch}
