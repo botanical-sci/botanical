@@ -51,7 +51,6 @@ const Header: FC<Props> = ({ menu }: Props) => {
 
     if (searchResponse?.data?.products) {
       setProducts(searchResponse?.data?.products?.edges);
-      toast.success('searched Correctly');
     }
     setLoading(false);
   };
@@ -177,8 +176,8 @@ const Header: FC<Props> = ({ menu }: Props) => {
         leaveFrom="opacity-100 absolute  translate-y-0 "
         leaveTo="opacity-0 absolute  translate-y-0 "
       >
-        <div className="bg-opacity-90 z-50 w-full flex flex-col items-center  bg-yasBackground/90 backdrop-filter backdrop-blur-md">
-          <div className="max-w-2xl flex flex-col mx-auto md:max-w-1432 pt-16">
+        <div className="bg-opacity-90 px-6 z-50 w-full flex flex-col items-center  bg-yasBackground/90 backdrop-filter backdrop-blur-md">
+          <div className="max-w-xl flex flex-col mx-auto md:max-w-1432 pt-16">
             <div className="flex items-center justify-between">
               <Link href="/">
                 <a className="opacity-0">
@@ -197,7 +196,7 @@ const Header: FC<Props> = ({ menu }: Props) => {
                 onClick={() => setIsSearchOpen(false)}
               />
             </div>
-            <div className="mt-4 relative flex items-center w-[500px]   md:w-[800px] self-center">
+            <div className="mt-4 relative flex items-center w-[400px]   md:w-[800px] self-center">
               <div
                 className="absolute inset-y-0 left-0 flex py-2 pl-2 text-gray-400 cursor-pointer"
                 onClick={handleSearch}
@@ -410,7 +409,7 @@ const Header: FC<Props> = ({ menu }: Props) => {
             aria-label="Top"
             className={classNames(
               'relative z-20 border-b transition-all duration-300 lg:px-0 px-6',
-              onTop ? 'py-12' : 'py-2 border-transparent'
+              onTop ? 'md:py-12' : 'py-2 border-transparent'
             )}
           >
             <div className="max-w-1432 mx-auto">
@@ -506,7 +505,7 @@ const Header: FC<Props> = ({ menu }: Props) => {
                   {/* Search */}
                   <div
                     onClick={() => setIsSearchOpen(true)}
-                    className="flex mr-10 text-gray-400 hover:text-gray-500 cursor-pointer"
+                    className="flex md:mr-10 text-gray-400 hover:text-gray-500 cursor-pointer"
                   >
                     <Image
                       src="/images/icons-search.svg"
@@ -517,7 +516,7 @@ const Header: FC<Props> = ({ menu }: Props) => {
                   </div>
 
                   {/* User */}
-                  <div className="flex mr-10">
+                  <div className="hidden md:flex mr-10">
                     <div className=" text-gray-400 hover:text-gray-500 group relative cursor-pointer">
                       <Image
                         src="/images/icons-account.svg"
@@ -537,8 +536,20 @@ const Header: FC<Props> = ({ menu }: Props) => {
                     </div>
                   </div>
 
+                  <Link href="/cart">
+                    <a>
+                      <Image
+                        src="/images/icons-checkout.svg"
+                        width={40}
+                        height={40}
+                        alt="Basket Icon"
+                        className="md:hidden"
+                      />
+                    </a>
+                  </Link>
+
                   {/* Cart */}
-                  <div className="ml-4 flow-root relative">
+                  <div className="ml-4 hidden relative md:flex">
                     <PopupCart
                       isOpen={cartOpen}
                       onCartClose={() => {
