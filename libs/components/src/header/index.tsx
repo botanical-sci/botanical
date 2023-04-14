@@ -1,30 +1,25 @@
 import { FC, Fragment, useEffect, useState } from 'react';
-
 import { useRouter } from 'next/router';
 import Image from 'next/future/image';
 import Link from 'next/link';
-import {
-  IconKey,
-  IconLogin,
-  IconLogout,
-  IconMenu,
-  IconSearch,
-  IconShoppingCart,
-  IconShoppingCartPlus,
-  IconUser,
-  IconUserCircle,
-  IconX,
-} from '@tabler/icons';
-
+import { IconKey, IconLogin, IconMenu, IconX } from '@tabler/icons';
 import { Dialog, Disclosure, Transition } from '@headlessui/react';
 
-import { MenuModel } from '@shopify/models';
+import { extractHandleFromUrl, storefront } from '@shopify/utilities';
+import {
+  getSearchedproductsResponseModel,
+  MenuModel,
+  ProductsModel,
+} from '@shopify/models';
 import { useCartStore, useUserStore } from '@shopify/state';
 
 import PopupCart from '../popup-cart';
-import { extractHandleFromUrl } from '@shopify/utilities';
 import Container from '../container';
 import classNames from 'classnames';
+import { SearchIcon, XIcon } from '@heroicons/react/outline';
+import { getSearchedProducts } from '@shopify/graphql-queries';
+import toast from 'react-hot-toast';
+import { useDebounce } from '@shopify/hooks';
 
 interface Props {
   menu: MenuModel[];
@@ -38,6 +33,40 @@ const Header: FC<Props> = ({ menu }: Props) => {
   const userStore = useUserStore();
 
   const [onTop, setOnTop] = useState(false);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
+
+  const [loading, setLoading] = useState<boolean>(false);
+  const [search, setSearch] = useState<string>('');
+  const debouncedSearch = useDebounce(search, 1000);
+  const [products, setProducts] = useState<ProductsModel[]>([]);
+  console.log(products);
+  const handleSearch = async () => {
+    setLoading(true);
+    const searchResponse = await storefront<getSearchedproductsResponseModel>(
+      getSearchedProducts,
+      {
+        input: search,
+      }
+    );
+
+    if (searchResponse?.data?.products) {
+      setProducts(searchResponse?.data?.products?.edges);
+      toast.success('searched Correctly');
+    }
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    if (debouncedSearch?.length) {
+      handleSearch();
+    }
+  }, [debouncedSearch]);
+
+  const handleKeyDown = (event: any) => {
+    if (event.code === 'Enter' && !loading) {
+      handleSearch();
+    }
+  };
 
   useEffect(() => {
     const onScroll = (e: any) => {
@@ -61,9 +90,10 @@ const Header: FC<Props> = ({ menu }: Props) => {
         return isShrunk;
       });
     };
-
     document.addEventListener('scroll', onScroll);
-
+    router.events.on('routeChangeStart', (url) => {
+      setIsSearchOpen(false);
+    });
     return () => {
       document.removeEventListener('scroll', onScroll);
     };
@@ -137,6 +167,77 @@ const Header: FC<Props> = ({ menu }: Props) => {
 
   return (
     <div className="sticky top-0 z-40 bg-opacity-90 backdrop-filter backdrop-blur-md">
+      <Transition
+        as={Fragment}
+        show={isSearchOpen}
+        enter="transform transition duration-[400ms]"
+        enterFrom="opacity-0 absolute  translate-y-0 "
+        enterTo="opacity-100 absolute  translate-y-0 "
+        leave="transform duration-200 transition ease-in-out"
+        leaveFrom="opacity-100 absolute  translate-y-0 "
+        leaveTo="opacity-0 absolute  translate-y-0 "
+      >
+        <div className="bg-opacity-90 z-50 w-full flex flex-col items-center  bg-yasBackground/90 backdrop-filter backdrop-blur-md">
+          <div className="max-w-2xl flex flex-col mx-auto md:max-w-1432 pt-16">
+            <div className="flex items-center justify-between">
+              <Link href="/">
+                <a className="opacity-0">
+                  <Image
+                    width={186}
+                    height={56}
+                    priority={true}
+                    className="w-auto h-14"
+                    src="/images/brand-logo@3x.png"
+                    alt="Yas Natural Solutions"
+                  />
+                </a>
+              </Link>
+              <XIcon
+                className="h-8 w-8 cursor-pointer hover:opacity-70"
+                onClick={() => setIsSearchOpen(false)}
+              />
+            </div>
+            <div className="mt-4 relative flex items-center w-[500px]   md:w-[800px] self-center">
+              <div
+                className="absolute inset-y-0 left-0 flex py-2 pl-2 text-gray-400 cursor-pointer"
+                onClick={handleSearch}
+              >
+                <SearchIcon className="w-6 h-6" aria-hidden="true" />
+              </div>
+              <input
+                type="search"
+                name="search"
+                id="search"
+                placeholder="search"
+                value={search}
+                disabled={loading}
+                onKeyDown={handleKeyDown}
+                onChange={(event) => setSearch(event.target.value)}
+                className="appearance-none pl-10 rounded-full block w-full px-3 py-2 border border-gray-300 shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+              />
+            </div>
+            {!!products?.length && (
+              <div className="mt-8 text-yasLink">
+                {products?.length} search results
+              </div>
+            )}
+            <div className="flex flex-col gap-4 my-8">
+              {products?.map((item: any) => {
+                const product = item.node;
+                return (
+                  <div>
+                    <Link href={`/products/${product.handle}`}>
+                      <a className="text-midway font-medium text-xl">
+                        {product.title}
+                      </a>
+                    </Link>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+      </Transition>
       {/* Mobile menu */}
       <Transition.Root show={open} as={Fragment}>
         <Dialog as="div" className="fixed inset-0 flex z-50 " onClose={setOpen}>
@@ -403,17 +504,16 @@ const Header: FC<Props> = ({ menu }: Props) => {
                   </ul>
 
                   {/* Search */}
-                  <div className="flex mr-10">
-                    <Link href="/search">
-                      <a className=" text-gray-400 hover:text-gray-500">
-                        <Image
-                          src="/images/icons-search.svg"
-                          width={40}
-                          height={40}
-                          alt="Search Icon"
-                        />
-                      </a>
-                    </Link>
+                  <div
+                    onClick={() => setIsSearchOpen(true)}
+                    className="flex mr-10 text-gray-400 hover:text-gray-500 cursor-pointer"
+                  >
+                    <Image
+                      src="/images/icons-search.svg"
+                      width={40}
+                      height={40}
+                      alt="Search Icon"
+                    />
                   </div>
 
                   {/* User */}

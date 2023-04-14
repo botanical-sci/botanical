@@ -31,7 +31,7 @@ export interface ProductsModel {
 export interface getSearchedproductsResponseModel {
   data: {
     products: {
-      edges: [ProductsModel];
+      edges: ProductsModel[];
     };
   };
 }

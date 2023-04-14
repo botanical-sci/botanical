@@ -46,6 +46,7 @@ const getSearchedProducts = gql`
           handle
           availableForSale
           descriptionHtml
+          description
           ratingCount: metafield(namespace: "reviews", key: "rating_count") {
             type
             value
